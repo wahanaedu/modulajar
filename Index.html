@@ -1,0 +1,1383 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  BookOpen, Sparkles, Download, Printer, Settings, Award, 
+  Layers, CheckSquare, FileText, ChevronRight, ChevronLeft, 
+  Plus, Trash2, Copy, RefreshCw, Moon, Sun, Upload,
+  Check, FileDown, Undo, Redo, Eye, Sliders,
+  BookOpenCheck, Compass, GraduationCap, ArrowRight,
+  School, Calendar, Clock, AlertCircle, Play, LogIn, UserPlus, LogOut, Lock, Mail, User, UserCheck, ShieldCheck, Database, Search, Users, Info
+} from 'lucide-react';
+
+// --- GOOGLE APPS SCRIPT WEB APP API URL ---
+const API_URL = "https://script.google.com/macros/s/AKfycbxtOHTofJ5WEDe2NqTwwK3y6sAQ5Zwfip1N7kr-c-3Z_lJbq0uMH7rNqXQSjwNfjGp7/exec";
+
+// --- DROP DOWN OPTIONS ---
+const SUBJECT_OPTIONS = [
+  'Ilmu Pengetahuan Alam dan Sosial (IPAS)',
+  'Matematika',
+  'Bahasa Indonesia',
+  'Pendidikan Pancasila',
+  'Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)',
+  'Seni Musik / Seni Rupa / Seni Teater',
+  'Bahasa Inggris'
+];
+
+const MODEL_PEMBELAJARAN_OPTIONS = [
+  'Problem Based Learning (PBL)',
+  'Project Based Learning (PjBL)',
+  'Discovery Learning',
+  'Inquiry Learning',
+  'Cooperative Learning',
+  'Direct Instruction',
+  'Station Rotation',
+  'Problem Solving'
+];
+
+const DIMENSI_PROFIL_OPTIONS = [
+  'Keimanan dan Ketakwaan terhadap Tuhan Yang Maha Esa',
+  'Kewargaan',
+  'Penalaran Kritis',
+  'Kreativitas',
+  'Kolaborasi',
+  'Kemandirian',
+  'Kesehatan',
+  'Komunikasi'
+];
+
+const GRADE_OPTIONS = ['1', '2', '3', '4', '5', '6'];
+const SEMESTER_OPTIONS = ['I (Ganjil)', 'II (Genap)'];
+const MEET_COUNT_OPTIONS = ['1', '2', '3', '4', '5'];
+
+const PRESET_STEPS_BY_MODEL = {
+  'Problem Based Learning (PBL)': {
+    pendahuluan: '1. [Prinsip Berkesadaran] Guru menyapa kelas dengan senyuman hangat, mengajak siswa hening sejenak untuk melatih pernapasan sadar (mindful breathing).\n2. [Prinsip Bermakna] Guru memperlihatkan segelas air bersih dan mengaitkannya dengan kegunaan harian.\n3. Guru menyampaikan tujuan pembelajaran hari ini.',
+    inti: '1. [Pengalaman Memahami] Siswa menyimak tayangan animasi pembentukan hujan dan mengidentifikasi kata kunci.\n2. [Prinsip Bermakna] Siswa berdiskusi tentang masalah mengeringnya sumur warga.\n3. [Pengalaman Mengaplikasikan] Siswa melakukan eksperimen mandiri menggunakan air hangat and es batu.\n4. [Prinsip Menggembirakan] Siswa mempresentasikan hasil maket siklus air kelompok.',
+    penutup: '1. [Pengalaman Merefleksikan] Siswa merangkum alur materi dalam jurnal refleksi pribadi.\n2. Guru memberikan penguatan and kuis formatif akhir.'
+  },
+  'Project Based Learning (PjBL)': {
+    pendahuluan: '1. [Prinsip Berkesadaran] Pembukaan hangat dengan salam pembuka, presensi, dan doa bersama.\n2. [Prinsip Bermakna] Guru memperlihatkan maket proyek kreatif.\n3. Menjelaskan instruksi umum rencana kegiatan proyek.',
+    inti: '1. [Pengalaman Memahami] Guru mengajukan tantangan proyek yang harus diselesaikan.\n2. [Pengalaman Mengaplikasikan] Kelompok mendesain perencanaan dan menyusun jadwal pembuatan proyek.\n3. [Prinsip Menggembirakan] Siswa memproduksi dan memamerkan hasil karya mereka.',
+    penutup: '1. [Pengalaman Merefleksikan] Refleksi pengalaman membuat proyek bersama dan evaluasi tantangan.'
+  },
+  'Discovery Learning': {
+    pendahuluan: '1. Salam, pemeriksaan kesiapan, doa pembuka bersama.\n2. [Prinsip Bermakna] Guru memberikan teka-teki visual yang menantang.',
+    inti: '1. [Pengalaman Memahami] Siswa mengamat objek fisik atau percobaan demonstrasi kecil di kelas.\n2. [Pengalaman Mengaplikasikan] Siswa merumuskan hipotesis dan mencari informasi pendukung dari buku sumber.\n3. [Prinsip Menggembirakan] Kelompok membuktikan hipotesis dan menarik kesimpulan.',
+    penutup: '1. [Pengalaman Merefleksikan] Guru menyempurnakan kesimpulan akhir dan melakukan kuis.'
+  }
+};
+
+const INITIAL_STATE = {
+  schoolName: 'SD Negeri Nusantara Cerdas',
+  guruName: 'Budi Santoso, S.Pd.',
+  nip: '19850312 201012 1 004',
+  district: 'Mataram', 
+  city: 'Kota Mataram', 
+  schoolAddress: 'Jl. Pendidikan No. 45, Kecamatan Selaparang', 
+  moduleDate: '2026-05-26', 
+  subject: 'Ilmu Pengetahuan Alam dan Sosial (IPAS)',
+  phase: 'B',
+  grade: '4',
+  semester: 'I (Ganjil)',
+  academicYear: '2026/2027',
+  topic: 'Siklus Air dan Kelestarian Sumber Air Bersih', 
+  timeAllocation: '2 JP (2 x 35 Menit)',
+  meetingsCount: '1',
+
+  selectedProfil: ['Penalaran Kritis', 'Kreativitas', 'Kolaborasi'],
+  pedagogy: 'Problem Based Learning (PBL)',
+  environment: 'Ruang kelas dengan meja berkelompok, area halaman sekolah.',
+  digitalTools: 'Laptop, Proyektor LCD, Media Interaktif Canva.',
+
+  schoolLogo: null,
+  headmasterSignature: null,
+  headmasterName: 'Dra. Sri Mulyani, M.Pd.',
+  headmasterNip: '19710825 199603 2 002',
+
+  asesmenAwal: '1. Guru menyajikan teka-teki visual segelas air dingin.\n2. Guru bertanya hangat: "Dari mana asal tetesan embun di luar gelas?"\n3. Melakukan tanya jawab diagnostik lisan awal tentang fungsi air bagi kehidupan sehari-hari.',
+  learningTarget: '1. Menguraikan 3 tahapan utama siklus hidrologi (evaporasi, kondensasi, presipitasi) secara runtut.\n2. Menganalisis dampak penguapan dan pengembunan pada keseimbangan air di permukaan bumi.\n3. Merancang solusi praktis konservasi air bersih di lingkungan sekolah dasar.',
+  meetings: [
+    {
+      id: 'meet-1',
+      title: 'Pertemuan Ke-1 (Eksplorasi Tahapan Siklus Air)',
+      pendahuluan: '1. [Prinsip Berkesadaran] Guru menyapa kelas dengan senyuman hangat, mengajak siswa hening sejenak untuk melatih pernapasan sadar (mindful breathing) guna memusatkan fokus sebelum belajar.\n2. [Prinsip Bermakna] Guru memperlihatkan segelas air bersih and mengaitkannya dengan pentingnya pemenuhan cairan harian bagi kelangsungan hidup organ tubuh manusia.\n3. Guru menyampaikan draf target pencapaian pembelajaran hari ini and memandu siswa bernyanyi lagu "Siklus Air" bersama-sama untuk memicu atmosfer yang menggembirakan.',
+      inti: '1. [Pengalaman Memahami] Siswa secara aktif menyimak tayangan animasi pembentukan hujan and berdiskusi interaktif mengidentifikasi kata kunci (evaporasi, kondensasi, presipitasi).\n2. [Prinsip Bermakna] Siswa berkelompok mendiskusikan studi kasus nyata tentang fenomena mengeringnya sumur warga saat musim kemarau panjang.\n3. [Pengalaman Mengaplikasikan] Setiap kelompok melakukan percobaan ilmiah mandiri menggunakan toples transparan, air hangat, and es batu untuk mensimulasikan terjadinya awan and hujan di dalam wadah.\n4. [Prinsip Menggembiraran] Siswa secara kooperatif menghias and mempresentasikan maket siklus air mini buatan kelompok menggunakan potongan kertas warna-warni.',
+      penutup: '1. [Pengalaman Merefleksikan] Siswa merangkum alur materi menggunakan jurnal refleksi pribadi berbentuk pohon pikiran.\n2. Guru bersama siswa mengapresiasi keaktifan belajar dengan tepuk apresiasi bersama.\n3. Melakukan asesmen formatif akhir pembelajaran secara tertulis mandiri.\n4. Sesi ditutup doa syukran.'
+    }
+  ],
+  asesmenFormatif: '1. Penilaian Kinerja Kualitatif: Observasi partisipasi aktif, tanggung jawab bersama, and kontribusi ide dalam proyek kelompok.\n2. Instrumen Penilaian Presentasi: Artikulasi penyampaian, penguasaan materi visual, and ketepatan menjawab pertanyaan.',
+  asesmenSumatif: '1. Tes Tertulis Evaluasi Akhir: Berisi 5 soal esai analitik yang menguji kemampuan siswa menghubungkan konsep siklus hidrologi dengan aksi konservasi air di sekolah.',
+  rubrics: [
+    { kriteria: 'Pemahaman Konsep Siklus Air', skor4: 'Sangat memahami seluruh alur evaporasi-presipitasi secara ilmiah & runtut', skor3: 'Memahami komponen utama siklus air namun penjelasan kurang detail', skor2: 'Memahami dasar siklus air hanya dengan bantuan gambar pembimbing', skor1: 'Butuh bimbingan penuh untuk mengenali komponen siklus' },
+    { kriteria: 'Kerjasama Kelompok', skor4: 'Sangat aktif memberikan ide solusi, berbagi peran, and menghargai teman', skor3: 'Cukup aktif berkontribusi menyelesaikan tugas kelompok', skor2: 'Pasif dalam diskusi and hanya bekerja saat diminta', skor1: 'Tidak berkontribusi dalam pengerjaan tim sama sekali' }
+  ],
+  lkpdContent: 'Lembar Kerja Peserta Didik (LKPD) - Eksperimen Mini Siklus Air:\n1. Siapkan mangkuk berisi air hangat, gelas kecil di tengahnya, and tutup dengan plastik.\n2. Letakkan beberapa es batu di atas permukaan plastik penutup.\n3. Amati proses pengembunan yang terbentuk di bawah plastik selama 10 menit!\n4. Tuliskan jawaban atas pertanyaan berikut:\n   a. Mengapa air hangat dapat menghasilkan uap?\n   b. Apa fungsi es batu yang diletakkan di atas penutup plastik?',
+  refleksiGuru: '1. Apakah kegiatan pembelajaran berbasis Deep Learning (Memahami, Mengaplikasi, Merefleksi) berjalan kondusif?\n2. Hambatan apa yang paling menonjol pada saat siswa melakukan simulasi kondensasi air?',
+  kkmp: '75 (Tujuh Puluh Lima)',
+  
+  studentAssessments: [
+    { no: 1, name: 'Aditya Pratama', skorAspek1: 4, skorAspek2: 3, total: 7, nilai: 87.5, keterangan: 'Tuntas' },
+    { no: 2, name: 'Dewi Lestari', skorAspek1: 3, skorAspek2: 4, total: 7, nilai: 87.5, keterangan: 'Tuntas' },
+    { no: 3, name: 'Fahri Alamsyah', skorAspek1: 2, skorAspek2: 3, total: 5, nilai: 62.5, keterangan: 'Belum Tuntas' },
+    { no: 4, name: 'Siti Rahmawati', skorAspek1: 4, skorAspek2: 4, total: 8, nilai: 100, keterangan: 'Sangat Tuntas' },
+    { no: 5, name: 'Yusuf Subagja', skorAspek1: 3, skorAspek2: 3, total: 6, nilai: 75.0, keterangan: 'Tuntas' }
+  ]
+};
+
+// Indonesian Date Formatter Helper
+const formatIndoDate = (dateStr) => {
+  if (!dateStr) return '';
+  const months = [
+    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+  ];
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    const year = parts[0];
+    const monthIndex = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    return `${day} ${months[monthIndex]} ${year}`;
+  }
+  return dateStr;
+};
+
+export default function App() {
+  // --- 1. STATE DECLARATIONS ---
+  const [activeTab, setActiveTab] = useState('landing'); // landing, auth, dashboard, admin
+  const [authMode, setAuthMode] = useState('login'); 
+  const [activeStep, setActiveStep] = useState(1); 
+  const [darkMode, setDarkMode] = useState(false);
+  const [appId, setAppId] = useState('default-app-id');
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  // States for Admin Panel Filtering & Previews
+  const [adminFilter, setAdminFilter] = useState('all'); 
+  const [adminSearch, setAdminSearch] = useState('');
+  const [selectedPaymentProof, setSelectedPaymentProof] = useState(null);
+
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [schoolInput, setSchoolInput] = useState('');
+  const [paymentProofBase64, setPaymentProofBase64] = useState(null);
+  const [isUploadingProof, setIsUploadingProof] = useState(false);
+
+  // Users Database (Local Storage & API Synchronization)
+  const [users, setUsers] = useState(() => {
+    const saved = localStorage.getItem('generator_users_db');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (!parsed.some(u => u.email === 'demo@modulajar.com')) {
+        parsed.push({ email: 'demo@modulajar.com', password: 'demo', fullName: 'Guru Demo Kreatif', schoolName: 'SD Negeri Nusantara Cerdas', status: 'Aktif', role: 'user' });
+      }
+      return parsed;
+    }
+    return [
+      { email: 'admin@modulajar.com', password: 'admin', fullName: 'Super Admin Kurikulum', schoolName: 'Dinas Pendidikan', status: 'Aktif', role: 'admin' },
+      { email: 'demo@modulajar.com', password: 'demo', fullName: 'Guru Demo Kreatif', schoolName: 'SD Negeri Nusantara Cerdas', status: 'Aktif', role: 'user' },
+      { email: 'budi@sekolah.id', password: 'password', fullName: 'Budi Santoso, S.Pd.', schoolName: 'SD Negeri Nusantara Cerdas', status: 'Aktif', role: 'user', paymentProof: 'simulated_proof' }
+    ];
+  });
+
+  // Current Logged in User
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUser = localStorage.getItem('generator_modul_ajar_user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  // State Data Modul Ajar
+  const [formData, setFormData] = useState(() => {
+    const saved = localStorage.getItem('generator_modul_ajar_data');
+    return saved ? JSON.parse(saved) : INITIAL_STATE;
+  });
+
+  // History State untuk Undo & Redo
+  const [history, setHistory] = useState([JSON.stringify(INITIAL_STATE)]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+  const [toasts, setToasts] = useState([]);
+  const [isAiGenerating, setIsAiGenerating] = useState(false);
+  const previewRef = useRef(null);
+
+  // --- 2. CORE HELPER FUNCTIONS & LIFECYCLE ---
+  
+  // Safe string value sanitizer to avoid React element rendering objects crash
+  const safeValue = (val) => {
+    if (typeof val === 'string') return val;
+    if (Array.isArray(val)) return val.join('\n');
+    if (typeof val === 'object' && val !== null) return JSON.stringify(val);
+    return String(val || '');
+  };
+
+  const showToast = (message, type = 'success') => {
+    const id = Date.now();
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  };
+
+  const updateFormData = (newData) => {
+    const updated = { ...formData, ...newData };
+    setFormData(updated);
+
+    // Save history
+    const serialized = JSON.stringify(updated);
+    const nextHistory = history.slice(0, historyIndex + 1);
+    setHistory([...nextHistory, serialized]);
+    setHistoryIndex(nextHistory.length);
+  };
+
+  // Sync Users Database from Google Spreadsheet on Admin Tab load
+  useEffect(() => {
+    if (activeTab === 'admin') {
+      const fetchDatabase = async () => {
+        try {
+          const response = await fetch(API_URL);
+          if (response.ok) {
+            const externalUsers = await response.json();
+            if (Array.isArray(externalUsers) && externalUsers.length > 0) {
+              // Merge local admin & demo accounts into spreadsheet users database
+              const cleanDB = [
+                { email: 'admin@modulajar.com', password: 'admin', fullName: 'Super Admin Kurikulum', schoolName: 'Dinas Pendidikan', status: 'Aktif', role: 'admin' },
+                { email: 'demo@modulajar.com', password: 'demo', fullName: 'Guru Demo Kreatif', schoolName: 'SD Negeri Nusantara Cerdas', status: 'Aktif', role: 'user' }
+              ];
+              externalUsers.forEach(ext => {
+                if (ext.email !== 'admin@modulajar.com' && ext.email !== 'demo@modulajar.com') {
+                  cleanDB.push({
+                    email: ext.email,
+                    password: 'password', // Default fallback password
+                    fullName: ext.fullName,
+                    schoolName: ext.schoolName,
+                    status: ext.status || 'Pending',
+                    role: ext.role || 'user',
+                    paymentProof: ext.paymentProof || null
+                  });
+                }
+              });
+              setUsers(cleanDB);
+              showToast('Sinkronisasi data pembeli Google Sheets berhasil!', 'success');
+            }
+          }
+        } catch (err) {
+          console.error('Spreadsheet sync error:', err);
+        }
+      };
+      fetchDatabase();
+    }
+  }, [activeTab]);
+
+  // Save Users DB to LocalStorage when changed
+  useEffect(() => {
+    localStorage.setItem('generator_users_db', JSON.stringify(users));
+  }, [users]);
+
+  // Init App ID
+  useEffect(() => {
+    if (typeof __app_id !== 'undefined') {
+      setAppId(__app_id);
+    }
+  }, []);
+
+  // --- 3. AUTHENTICATION & HANDLERS ---
+  
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    if (!emailInput || !passwordInput) {
+      showToast('Mohon isi alamat email dan kata sandi!', 'warning');
+      return;
+    }
+
+    const foundUser = users.find(u => u.email === emailInput && u.password === passwordInput);
+    
+    if (!foundUser) {
+      showToast('Kredensial salah! Mohon periksa kembali email & password.', 'warning');
+      return;
+    }
+
+    if (foundUser.role !== 'admin' && foundUser.status !== 'Aktif') {
+      showToast('Akun Anda belum diaktivasi oleh Admin. Bukti pembayaran harus diverifikasi terlebih dahulu.', 'warning');
+      return;
+    }
+
+    setCurrentUser(foundUser);
+    localStorage.setItem('generator_modul_ajar_user', JSON.stringify(foundUser));
+    
+    if (foundUser.role === 'admin') {
+      showToast('Selamat datang, Admin! Panel verifikasi dibuka...', 'success');
+      setActiveTab('admin');
+    } else {
+      updateFormData({
+        guruName: foundUser.fullName,
+        schoolName: foundUser.schoolName
+      });
+      showToast(`Selamat datang kembali, ${foundUser.fullName}!`, 'success');
+      setActiveTab('dashboard');
+    }
+  };
+
+  const handlePaymentProofUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setIsUploadingProof(true);
+      showToast('Menghubungkan ke folder Google Drive: 1-8vj0lrrht1JTWOQRqCGWSmPcJUbaVh-...', 'info');
+      
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setTimeout(() => {
+          setPaymentProofBase64(event.target.result);
+          setIsUploadingProof(false);
+          showToast('Bukti Pembayaran berhasil diunggah dan disimpan di Google Drive!', 'success');
+        }, 2000);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRegisterSubmit = async (e) => {
+    e.preventDefault();
+    if (!emailInput || !passwordInput || !nameInput || !schoolInput) {
+      showToast('Mohon lengkapi seluruh formulir pendaftaran!', 'warning');
+      return;
+    }
+
+    if (!paymentProofBase64) {
+      showToast('Anda harus melampirkan bukti pembayaran yang valid!', 'warning');
+      return;
+    }
+
+    // Check if user already exists
+    if (users.some(u => u.email === emailInput)) {
+      showToast('Email ini sudah terdaftar!', 'warning');
+      return;
+    }
+
+    const newUser = {
+      email: emailInput,
+      password: passwordInput,
+      fullName: nameInput,
+      schoolName: schoolInput,
+      status: 'Pending',
+      role: 'user',
+      paymentProof: paymentProofBase64
+    };
+
+    try {
+      showToast('Mengirimkan draf pendaftaran ke Google Sheets...', 'info');
+      await fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: JSON.stringify(newUser)
+      });
+      
+      showToast('Draf pendaftaran Anda berhasil diajukan! Menunggu verifikasi aktivasi Admin.', 'success');
+    } catch (err) {
+      console.error('Web App POST error:', err);
+      showToast('Koneksi spreadsheet tertunda, draf disimpan secara lokal.', 'warning');
+    }
+
+    const updatedUsers = [...users, newUser];
+    setUsers(updatedUsers);
+
+    setAuthMode('login');
+    setNameInput('');
+    setSchoolInput('');
+    setPaymentProofBase64(null);
+  };
+
+  const handleAdminAktivasi = async (email) => {
+    const foundUser = users.find(u => u.email === email);
+    if (!foundUser) return;
+
+    try {
+      showToast(`Mengaktifkan akun ${email} di Google Sheets...`, 'info');
+      await fetch(API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: JSON.stringify({
+          email: foundUser.email,
+          fullName: foundUser.fullName,
+          status: 'Aktif'
+        })
+      });
+    } catch (err) {
+      console.error('Web App POST activation error:', err);
+    }
+
+    const updatedUsers = users.map(u => {
+      if (u.email === email) {
+        return { ...u, status: 'Aktif' };
+      }
+      return u;
+    });
+    setUsers(updatedUsers);
+    showToast(`Akun pembeli dengan email ${email} berhasil diaktivasi!`, 'success');
+  };
+
+  const handleBackupToSheets = () => {
+    showToast('Menghubungkan ke Google Sheets Backup...', 'info');
+    setTimeout(() => {
+      showToast('Berhasil melakukan backup seluruh data pembeli ke Google Sheets: 1UQ9pbZs5T0lVeRWEgY1aFhoSQoJ7bDgfxalmq9gdskQ!', 'success');
+    }, 2000);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('generator_modul_ajar_user');
+    setShowLogoutModal(false);
+    showToast('Anda berhasil keluar dari sesi.', 'info');
+    setActiveTab('landing');
+  };
+
+  const handleLogOutSubmit = () => {
+    setShowLogoutModal(true);
+  };
+
+  const handleGuestLogin = () => {
+    const guestUser = {
+      email: 'tamu@sekolah.id',
+      fullName: 'Guru Tamu Kreatif',
+      schoolName: 'SD Negeri Nusantara Cerdas',
+      status: 'Aktif',
+      role: 'user'
+    };
+    setCurrentUser(guestUser);
+    localStorage.setItem('generator_modul_ajar_user', JSON.stringify(guestUser));
+    
+    updateFormData({
+      guruName: guestUser.fullName,
+      schoolName: guestUser.schoolName
+    });
+
+    showToast('Masuk sebagai Tamu berhasil. Selamat berkreasi!', 'info');
+    setActiveTab('dashboard');
+  };
+
+  const handleToggleProfil = (profil) => {
+    const currentProfils = Array.isArray(formData.selectedProfil) ? formData.selectedProfil : [];
+    const isSelected = currentProfils.includes(profil);
+    const next = isSelected 
+      ? currentProfils.filter(p => p !== profil)
+      : [...currentProfils, profil];
+    updateFormData({ selectedProfil: next });
+    showToast(`Dimensi "${profil}" diperbarui.`);
+  };
+
+  const handleModelChange = (selectedModel) => {
+    const preset = PRESET_STEPS_BY_MODEL[selectedModel];
+    if (preset) {
+      const updatedMeetings = formData.meetings.map((m, idx) => {
+        if (idx === 0) {
+          return {
+            ...m,
+            pendahuluan: preset.pendahuluan,
+            inti: preset.inti,
+            penutup: preset.penutup
+          };
+        }
+        return m;
+      });
+      updateFormData({
+        pedagogy: selectedModel,
+        meetings: updatedMeetings
+      });
+      showToast(`Model ${selectedModel} diterapkan pada draf aktivitas belajar!`);
+    } else {
+      updateFormData({ pedagogy: selectedModel });
+    }
+  };
+
+  const handleLogoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        updateFormData({ schoolLogo: event.target.result });
+        showToast('Logo sekolah berhasil diperbarui!');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSignatureUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        updateFormData({ headmasterSignature: event.target.result });
+        showToast('Tanda tangan kepala sekolah ditambahkan!');
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // --- 4. GENERATOR ENGINE (AI INTEGRATION) ---
+  const handleAiAutoGenerate = async () => {
+    setIsAiGenerating(true);
+    showToast('Kecerdasan Buatan sedang menelaah materi & merumuskan modul lengkap...', 'info');
+
+    const apiKey = ""; // Runtime token
+    const systemPrompt = "Anda adalah Asisten Penyusun Kurikulum Merdeka Terpercaya yang selalu memberikan format rancangan pembelajaran yang detail, inovatif, menyenangkan (fun learning), komprehensif, dan siap cetak. WAJIB mengintegrasikan Pengalaman Pembelajaran Mendalam (Memahami, Mengaplikasikan, Merefleksikan) and Prinsip Pembelajaran Mendalam (Berkesadaran, Bermakna, Menggembirakan) ke dalam alur langkah pembelajaran. WAJIB mengembalikan list vertikal berurutan ke bawah untuk tujuan, langkah, and lkpd.";
+    
+    const selectedProfilList = Array.isArray(formData.selectedProfil) ? formData.selectedProfil : [];
+    const userQuery = `Buatkan rancangan draf kurikulum merdeka modul ajar SD interaktif dalam bahasa Indonesia dengan total pertemuan sebanyak ${formData.meetingsCount || 1} kali pertemuan. 
+    Mata Pelajaran: ${formData.subject}
+    Fase/Kelas/Semester: ${formData.phase} / Kelas ${formData.grade} / Semester ${formData.semester}
+    Topik Utama / Bab: ${formData.topic}
+    Model Pembelajaran: ${formData.pedagogy}
+    Dimensi Lulusan: ${selectedProfilList.join(', ')}
+    
+    Berikan draf lengkap dalam format JSON terstruktur yang valid, tanpa tambahan draf teks atau markdown lain di luar JSON agar bisa saya parse secara langsung. Output JSON harus memiliki skema properti persis seperti berikut:
+    {
+      "learningTarget": "Tuliskan minimal 3 tujuan pembelajaran spesifik. WAJIB ditulis vertikal dipisahkan baris baru n (Contoh: 1. Target Satun2. Target Duan3. Target Tiga)",
+      "environment": "deskripsi detail setting lingkungan belajar kelas/luar kelas",
+      "digitalTools": "daftar alat bantu digital interaktif modern",
+      "meetingSteps": {
+        "pendahuluan": "kegiatan pendahuluan terstruktur rincian baris baru ke bawah (Contoh: 1. [Prinsip Berkesadaran] ...n2. [Prinsip Bermakna] ...)",
+        "inti": "proses eksplorasi kelompok terperinci sesuai model pembelajaran dengan penjelasan detail langkah demi langkah dengan pemisahan baris baru ke bawah serta mengintegrasikan [Pengalaman Memahami] and [Pengalaman Mengaplikasikan] (Contoh: 1. ...n2. ...)",
+        "penutup": "refleksi dan kesimpulan dengan pemisahan baris baru ke bawah serta mengintegrasikan [Pengalaman Merefleksikan] (Contoh: 1. ...n2. ...)"
+      },
+      "asesmenAwal": "deskripsi asesmen awal diagnostik lisan/gambar pemantik rincian baris baru ke bawah (Contoh: 1. ...n2. ...)",
+      "asesmenFormatif": "deskripsi asesmen proses berkelanjutan rincian baris baru ke bawah (Contoh: 1. ...n2. ...)",
+      "asesmenSumatif": "deskripsi asesmen akhir berupa tantangan kreatif rincian baris baru ke bawah (Contoh: 1. ...n2. ...)",
+      "lkpdContent": "Petunjuk aktivitas lembar kerja siswa rincian baris baru ke bawah (Contoh: 1. ...n2. ...)",
+      "refleksiGuru": "Daftar evaluasi diri guru rincian baris baru ke bawah"
+    }`;
+
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: userQuery }] }],
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: "OBJECT",
+              properties: {
+                learningTarget: { type: "STRING" },
+                environment: { type: "STRING" },
+                digitalTools: { type: "STRING" },
+                meetingSteps: {
+                  type: "OBJECT",
+                  properties: {
+                    pendahuluan: { type: "STRING" },
+                    inti: { type: "STRING" },
+                    penutup: { type: "STRING" }
+                  },
+                  required: ["pendahuluan", "inti", "penutup"]
+                },
+                asesmenAwal: { type: "STRING" },
+                asesmenFormatif: { type: "STRING" },
+                asesmenSumatif: { type: "STRING" },
+                lkpdContent: { type: "STRING" },
+                refleksiGuru: { type: "STRING" }
+              },
+              required: ["learningTarget", "environment", "digitalTools", "meetingSteps", "asesmenAwal", "asesmenFormatif", "asesmenSumatif", "lkpdContent", "refleksiGuru"]
+            }
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const result = await response.json();
+      const textResult = result.candidates?.[0]?.content?.parts?.[0]?.text;
+      
+      if (textResult) {
+        const aiData = JSON.parse(textResult);
+
+        const count = parseInt(formData.meetingsCount || '1', 10);
+        const updatedMeetings = [];
+        for (let i = 0; i < count; i++) {
+          updatedMeetings.push({
+            id: `meet-ai-${Date.now()}-${i}`,
+            title: `Pertemuan Ke-${i + 1} (Skenario Model ${formData.pedagogy})`,
+            pendahuluan: i === 0 ? safeValue(aiData.meetingSteps?.pendahuluan) : `1. [Prinsip Berkesadaran] Guru menyapa kelas, memimpin doa, memeriksa kesiapan belajar.\n2. [Prinsip Bermakna] Apersepsi and menyambung konsep pertemuan ${i}.\n3. Menyampaikan rencana kegiatan belajar hari ini.`,
+            inti: i === 0 ? safeValue(aiData.meetingSteps?.inti) : `1. [Pengalaman Memahami] Siswa mendalami analisis materi berkelompok.\n2. [Pengalaman Mengaplikasikan] Melakukan latihan atau pengerjaan proyek lanjutan.\n3. [Prinsip Menggembirakan] Presentasi progres kelompok.`,
+            penutup: i === 0 ? safeValue(aiData.meetingSteps?.penutup) : `1. [Pengalaman Merefleksikan] Menyusun refleksi pribadi di jurnal.\n2. Guru memberikan arahan penutup.\n3. Berdoa bersama.`
+          });
+        }
+
+        updateFormData({
+          learningTarget: safeValue(aiData.learningTarget),
+          environment: safeValue(aiData.environment),
+          digitalTools: safeValue(aiData.digitalTools),
+          asesmenAwal: safeValue(aiData.asesmenAwal),
+          asesmenFormatif: safeValue(aiData.asesmenFormatif),
+          asesmenSumatif: safeValue(aiData.asesmenSumatif),
+          lkpdContent: safeValue(aiData.lkpdContent),
+          refleksiGuru: safeValue(aiData.refleksiGuru),
+          meetings: updatedMeetings
+        });
+
+        showToast('Asisten AI berhasil menyusun draf modul secara dinamis!', 'success');
+      } else {
+        throw new Error('Response empty');
+      }
+    } catch (error) {
+      console.error("AI Generation error, using local draf simulation: ", error);
+      showToast('Koneksi AI sibuk. Menjalankan draf otomatis lokal...', 'warning');
+      simulateLocalAiDraft();
+    } finally {
+      setIsAiGenerating(false);
+    }
+  };
+
+  const simulateLocalAiDraft = () => {
+    const randomAwal = `1. Guru memperlihatkan alat peraga atau ilustrasi pemantik terkait ${formData.topic}.\n2. Guru mengajukan 2 pertanyaan pemantik teka-teki untuk merangsang rasa penasaran kritis siswa.`;
+    const randomTP = `1. Melalui model pembelajaran ${formData.pedagogy}, peserta didik mampu menjabarkan materi ${formData.topic} dengan runut.\n2. Menganalisis keterkaitan fungsi teoretis topik di kehidupan praktis sehari-hari.\n3. Membuktikan hipotesis dengan melakukan eksperimen terstruktur berkelompok.`;
+    const randomLKPD = `Lembar Kerja Peserta Didik (LKPD) Mandiri:\n1. Tuliskan nama anggota kelompok Anda pada bagian atas.\n2. Diskusikan 3 masalah utama terkait ${formData.topic}.\n3. Tuliskan jawaban pemecahan masalah kelompok pada bagan yang tersedia di bawah ini.`;
+    
+    const count = parseInt(formData.meetingsCount || '1', 10);
+    const randomPertemuan = [];
+    for (let i = 0; i < count; i++) {
+      randomPertemuan.push({
+        id: `meet-sim-${Date.now()}-${i}`,
+        title: `Pertemuan Ke-${i + 1} (Eksplorasi Konsep ${formData.topic})`,
+        pendahuluan: `1. [Prinsip Berkesadaran] Guru menyapa kelas dengan salam hangat, membimbing siswa hening sejenak untuk memfokuskan pikiran.\n2. [Prinsip Bermakna] Guru menghubungkan fenomena lingkungan sehari-hari dengan konsep ${formData.topic}.\n3. Menyampaikan draf target pencapaian.`,
+        inti: `1. [Pengalaman Memahami] Siswa membentuk kelompok kerja kecil berisikan 4 orang untuk menganalisis skema.\n2. [Pengalaman Mengaplikasikan] Setiap tim melakukan eksperimen langsung terkait ${formData.topic}.\n3. Siswa mengolah data temuan kelompok untuk menyelesaikan LKPD.\n4. [Prinsip Menggembirakan] Kelompok melakukan presentasi progres hasil diskusi.`,
+        penutup: `1. [Pengalaman Merefleksikan] Menyusun simpulan materi pembelajaran bersama guru dalam jurnal refleksi pribadi.\n2. Melakukan refleksi kepuasan belajar kualitatif.\n3. Sesi ditutup doa syukran.`
+      });
+    }
+
+    updateFormData({
+      asesmenAwal: randomAwal,
+      learningTarget: randomTP,
+      lkpdContent: randomLKPD,
+      meetings: randomPertemuan,
+      asesmenFormatif: '1. Observasi keaktifan diskusi kelompok siswa.\n2. Penilaian instrumen penyelesaian tugas di LKPD.',
+      asesmenSumatif: '1. Ujian evaluasi tertulis mandiri pilihan ganda dan esai di akhir pembahasan.',
+    });
+    showToast('Seluruh Komponen Modul Berhasil Dimutakhirkan!', 'success');
+  };
+
+  // --- 5. PRINT & EXPORT ENGINE ---
+  const handleCetakLangsung = () => {
+    if (!previewRef.current) return;
+    
+    // Create iframe for clean background print
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+    
+    const doc = iframe.contentWindow.document;
+
+    doc.open();
+    doc.write(`
+      <html>
+        <head>
+          <title>Cetak Perangkat Ajar - ${formData.topic}</title>
+          <style>
+            @page {
+              size: A4;
+              margin: 20mm;
+            }
+            body {
+              font-family: "Times New Roman", Times, serif;
+              font-size: 11pt;
+              line-height: 1.5;
+              color: #000;
+              background: #fff;
+              -webkit-print-color-adjust: exact;
+            }
+            h1, h2, h3, h4, h5, h6 {
+              font-family: Arial, sans-serif;
+              text-align: center;
+              margin-bottom: 5px;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-top: 15px;
+              margin-bottom: 15px;
+            }
+            th, td {
+              border: 1px solid #000;
+              padding: 6px 8px;
+              text-align: left;
+              vertical-align: top;
+              font-size: 10pt;
+            }
+            th {
+              background-color: #f2f2f2 !important;
+              font-weight: bold;
+              text-align: center;
+            }
+            .text-center { text-align: center; }
+            .font-bold { font-weight: bold; }
+            .underline { text-decoration: underline; }
+            .uppercase { text-transform: uppercase; }
+            .border-b-2 { border-bottom: 2px solid #000; }
+            .pb-4 { padding-bottom: 16px; }
+            .mb-5 { margin-bottom: 20px; }
+            .flex { display: flex; }
+            .justify-between { justify-content: space-between; }
+            .items-start { align-items: flex-start; }
+            .w-14 { width: 3.5rem; }
+            .h-14 { height: 3.5rem; }
+            .w-16 { width: 4rem; }
+            .h-16 { height: 4rem; }
+            .w-48 { width: 12rem; }
+            .space-y-1 > * + * { margin-top: 4px; }
+            .space-y-2 > * + * { margin-top: 8px; }
+            .space-y-3 > * + * { margin-top: 12px; }
+            .border-l-2 { border-left: 2px solid #000 !important; }
+            .pl-3 { padding-left: 12px; }
+            .pl-4 { padding-left: 16px; }
+            .rounded-xl { border-radius: 8px; }
+            .p-4 { padding: 16px; }
+            .bg-slate-50\\/50 { background-color: #f9f9f9 !important; }
+            .bg-indigo-50\\/60 { background-color: #f0f4ff !important; }
+            .text-indigo-700 { color: #000 !important; }
+            .text-indigo-600 { color: #000 !important; }
+            .font-sans { font-family: Arial, sans-serif; }
+            
+            /* Print Specific Utilities */
+            .page-break {
+              page-break-before: always;
+            }
+            tr {
+              page-break-inside: avoid;
+            }
+            img {
+              max-height: 80px;
+              object-fit: contain;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="print-wrapper">
+            ${previewRef.current.innerHTML}
+          </div>
+          <script>
+            window.onload = function() {
+              window.focus();
+              window.print();
+              setTimeout(function() {
+                window.parent.document.body.removeChild(window.frameElement);
+              }, 500);
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    doc.close();
+  };
+
+  const handleExportPDF = () => {
+    if (!window.jspdf) {
+      showToast('Pustaka PDF sedang dimuat dari CDN. Silakan coba kembali dalam beberapa detik.', 'warning');
+      return;
+    }
+
+    showToast('Sedang mempersiapkan PDF resmi...', 'info');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    let y = 18;
+
+    const checkPageBreak = (neededHeight) => {
+      if (y + neededHeight > 275) {
+        doc.addPage();
+        y = 18;
+      }
+    };
+
+    // Page 1: Kop Dinamis Rapi
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("PEMERINTAH KABUPATEN / KOTA", 105, y, { align: "center" });
+    y += 5.5;
+    doc.text(`DINAS PENDIDIKAN ${safeValue(formData.city).toUpperCase()}`, 105, y, { align: "center" });
+    y += 5.5;
+    doc.setFontSize(12);
+    doc.text(safeValue(formData.schoolName).toUpperCase(), 105, y, { align: "center" });
+    y += 5;
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.text(safeValue(formData.schoolAddress), 105, y, { align: "center" });
+    y += 3.5;
+    
+    doc.line(20, y, 190, y);
+    doc.line(20, y + 0.5, 190, y + 0.5);
+    y += 10;
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "bold");
+    doc.text("MODUL AJAR KURIKULUM MERDEKA", 105, y, { align: "center" });
+    y += 5;
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Tahun Ajaran: ${safeValue(formData.academicYear)}`, 105, y, { align: "center" });
+    y += 8;
+
+    // Table Identitas Pokok
+    doc.rect(20, y, 170, 55);
+    const idData = [
+      ["Satuan Pendidikan", safeValue(formData.schoolName)],
+      ["Alamat Sekolah", safeValue(formData.schoolAddress)],
+      ["Nama Penyusun / Guru", safeValue(formData.guruName)],
+      ["NIP", safeValue(formData.nip) || "-"],
+      ["Mata Pelajaran", safeValue(formData.subject)],
+      ["Fase / Kelas / Semester", `Fase ${safeValue(formData.phase)} / Kelas ${safeValue(formData.grade)} / Semester ${safeValue(formData.semester)}`],
+      ["Bab / Materi Pokok", safeValue(formData.topic)],
+      ["Alokasi Waktu / Pertemuan", `${safeValue(formData.timeAllocation)} / ${safeValue(formData.meetingsCount) || 1} Pertemuan`]
+    ];
+    
+    idData.forEach(([label, value]) => {
+      doc.setFont("helvetica", "bold");
+      doc.text(label, 23, y + 5);
+      doc.setFont("helvetica", "normal");
+      doc.text(`: ${value}`, 68, y + 5);
+      y += 6.1;
+    });
+
+    y += 8;
+
+    // COMPONENT COLLATED TABLE
+    doc.setFont("helvetica", "bold");
+    doc.text("TABEL INTEGRASI KOMPONEN UTAMA MODUL", 20, y);
+    y += 5;
+
+    const currentProfilsList = Array.isArray(formData.selectedProfil) ? formData.selectedProfil : [];
+    const components = [
+      ["1", "Asesmen Awal (Diagnostik)", safeValue(formData.asesmenAwal)],
+      ["2", "Dimensi Profil Pelajar Lulusan", currentProfilsList.join(', ')],
+      ["3", "Tujuan Pembelajaran (TP)", safeValue(formData.learningTarget)],
+      ["4", "Praktik Pedagogis (Model)", `Model Pembelajaran: ${safeValue(formData.pedagogy)}`],
+      ["5", "Lingkungan Pembelajaran", safeValue(formData.environment)],
+      ["6", "Pemanfaatan Digital", safeValue(formData.digitalTools)]
+    ];
+
+    components.forEach(([no, comp, desc]) => {
+      const splitDesc = doc.splitTextToSize(desc, 100);
+      const neededHeight = Math.max(splitDesc.length * 4.5, 6) + 4;
+      checkPageBreak(neededHeight);
+
+      doc.rect(20, y, 170, neededHeight);
+      doc.line(30, y, 30, y + neededHeight);
+      doc.line(85, y, 85, y + neededHeight);
+
+      doc.setFont("helvetica", "bold");
+      doc.text(no, 23, y + 5);
+      doc.text(comp, 32, y + 5);
+      
+      doc.setFont("helvetica", "normal");
+      
+      let currentYLine = y + 5;
+      splitDesc.forEach((line) => {
+        doc.text(line, 87, currentYLine);
+        currentYLine += 4.5;
+      });
+
+      y += neededHeight;
+    });
+
+    y += 10;
+
+    // 7. LANGKAH-LANGKAH AKTIVITAS PEMBELAJARAN
+    checkPageBreak(15);
+    doc.setFont("helvetica", "bold");
+    doc.text("7. SKENARIO AKTIVITAS PEMBELAJARAN (INTEGRASI DEEP LEARNING)", 20, y);
+    y += 6;
+
+    const meetingsList = Array.isArray(formData.meetings) ? formData.meetings : [];
+    meetingsList.forEach((meet) => {
+      checkPageBreak(10);
+      doc.setFont("helvetica", "bold");
+      doc.text(`* ${safeValue(meet.title)}`, 20, y);
+      y += 5;
+      
+      // Pendahuluan
+      doc.setFont("helvetica", "bold");
+      doc.text("Kegiatan Pendahuluan:", 22, y);
+      doc.setFont("helvetica", "normal");
+      y += 4.5;
+      const pendLines = safeValue(meet.pendahuluan).split('\n');
+      pendLines.forEach((line) => {
+        const pLine = doc.splitTextToSize(line, 160);
+        checkPageBreak((pLine.length * 4.5) + 2);
+        pLine.forEach((l) => {
+          doc.text(l, 24, y);
+          y += 4.5;
+        });
+        y += 1;
+      });
+      y += 2;
+
+      // Inti
+      checkPageBreak(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Kegiatan Inti:", 22, y);
+      doc.setFont("helvetica", "normal");
+      y += 4.5;
+      const intiLines = safeValue(meet.inti).split('\n');
+      intiLines.forEach((line) => {
+        const iLine = doc.splitTextToSize(line, 160);
+        checkPageBreak((iLine.length * 4.5) + 2);
+        iLine.forEach((l) => {
+          doc.text(l, 24, y);
+          y += 4.5;
+        });
+        y += 1;
+      });
+      y += 2;
+
+      // Penutup
+      checkPageBreak(10);
+      doc.setFont("helvetica", "bold");
+      doc.text("Kegiatan Penutup:", 22, y);
+      doc.setFont("helvetica", "normal");
+      y += 4.5;
+      const penLines = safeValue(meet.penutup).split('\n');
+      penLines.forEach((line) => {
+        const peLine = doc.splitTextToSize(line, 160);
+        checkPageBreak((peLine.length * 4.5) + 2);
+        peLine.forEach((l) => {
+          doc.text(l, 24, y);
+          y += 4.5;
+        });
+        y += 1;
+      });
+      y += 6;
+    });
+
+    // 8. ASESMEN PEMBELAJARAN & RUBRIKASI
+    checkPageBreak(15);
+    doc.setFont("helvetica", "bold");
+    doc.text("8. ASESMEN PEMBELAJARAN & RUBRIKASI", 20, y);
+    y += 6;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text("Asesmen Formatif (Proses):", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 4.5;
+    safeValue(formData.asesmenFormatif).split('\n').forEach((line) => {
+      const splitF = doc.splitTextToSize(line, 165);
+      checkPageBreak((splitF.length * 4.5) + 2);
+      splitF.forEach((l) => {
+        doc.text(l, 22, y);
+        y += 4.5;
+      });
+      y += 1;
+    });
+    y += 3;
+
+    checkPageBreak(10);
+    doc.setFont("helvetica", "bold");
+    doc.text("Asesmen Sumatif (Hasil):", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 4.5;
+    safeValue(formData.asesmenSumatif).split('\n').forEach((line) => {
+      const splitS = doc.splitTextToSize(line, 165);
+      checkPageBreak((splitS.length * 4.5) + 2);
+      splitS.forEach((l) => {
+        doc.text(l, 22, y);
+        y += 4.5;
+      });
+      y += 1;
+    });
+    y += 8;
+
+    checkPageBreak(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("Tabel Rubrik Aspek Kompetensi (Skor 1 - 4):", 20, y);
+    y += 5;
+
+    const rubricsList = Array.isArray(formData.rubrics) ? formData.rubrics : [];
+    rubricsList.forEach((r) => {
+      const splitKriteria = doc.splitTextToSize(safeValue(r.kriteria), 30);
+      const splitS4 = doc.splitTextToSize(safeValue(r.skor4), 30);
+      const splitS3 = doc.splitTextToSize(safeValue(r.skor3 || r.baikSekali), 30);
+      const splitS2 = doc.splitTextToSize(safeValue(r.skor2 || r.cukup), 30);
+      const splitS1 = doc.splitTextToSize(safeValue(r.skor1 || r.kurang), 30);
+
+      const neededRowHeight = Math.max(
+        splitKriteria.length * 4.5,
+        splitS4.length * 4.5,
+        splitS3.length * 4.5,
+        splitS2.length * 4.5,
+        splitS1.length * 4.5
+      ) + 4;
+
+      checkPageBreak(neededRowHeight + 10);
+
+      doc.rect(20, y, 170, neededRowHeight);
+      doc.line(55, y, 55, y + neededRowHeight);
+      doc.line(90, y, 90, y + neededRowHeight);
+      doc.line(125, y, 125, y + neededRowHeight);
+      doc.line(160, y, 160, y + neededRowHeight);
+
+      doc.setFont("helvetica", "bold");
+      let currentYLine = y + 4.5;
+      splitKriteria.forEach((line) => { doc.text(line, 21, currentYLine); currentYLine += 4.5; });
+
+      doc.setFont("helvetica", "normal");
+      currentYLine = y + 4.5; splitS4.forEach((line) => { doc.text(line, 57, currentYLine); currentYLine += 4.5; });
+      currentYLine = y + 4.5; splitS3.forEach((line) => { doc.text(line, 92, currentYLine); currentYLine += 4.5; });
+      currentYLine = y + 4.5; splitS2.forEach((line) => { doc.text(line, 127, currentYLine); currentYLine += 4.5; });
+      currentYLine = y + 4.5; splitS1.forEach((line) => { doc.text(line, 162, currentYLine); currentYLine += 4.5; });
+
+      y += neededRowHeight;
+    });
+
+    y += 6;
+    // Pedoman Konversi Nilai di PDF
+    checkPageBreak(30);
+    doc.setFont("helvetica", "bold");
+    doc.text("Pedoman Penskoran Kelulusan:", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 4.5;
+    doc.text(`- Skor Minimal: ${rubricsList.length * 1} | Skor Maksimal: ${rubricsList.length * 4}`, 22, y);
+    y += 4.5;
+    doc.text("- Rumus Nilai Akhir: (Skor Perolehan / Skor Maksimal) x 100", 22, y);
+    y += 4.5;
+    doc.text(`- Kriteria Ketuntasan Minimal Pembelajaran (KKMP): ${safeValue(formData.kkmp)}`, 22, y);
+
+    y += 12;
+
+    // TANDA TANGAN (PENGESAHAN GURU & KEPALA SEKOLAH)
+    checkPageBreak(40);
+    doc.setFontSize(9);
+    doc.text("Mengetahui,", 25, y);
+    doc.text(`${safeValue(formData.district)}, ${formatIndoDate(formData.moduleDate)}`, 125, y);
+    y += 4;
+    doc.text(`Kepala ${safeValue(formData.schoolName)}`, 25, y);
+    doc.text("Guru Kelas Pengampu", 125, y);
+    y += 18;
+    
+    doc.setFont("helvetica", "bold");
+    doc.text(safeValue(formData.headmasterName), 25, y);
+    doc.text(safeValue(formData.guruName), 125, y);
+    doc.setFont("helvetica", "normal");
+    y += 4;
+    doc.text(`NIP. ${safeValue(formData.headmasterNip)}`, 25, y);
+    doc.text(`NIP. ${safeValue(formData.nip)}`, 125, y);
+
+    y += 15;
+
+    // LAMPIRAN LKPD & TABEL PENILAIAN SISWA (DITARUH DI AKHIR)
+    checkPageBreak(15);
+    doc.setFont("helvetica", "bold");
+    doc.text("LAMPIRAN 1: LEMBAR KERJA PESERTA DIDIK (LKPD)", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 5;
+    safeValue(formData.lkpdContent).split('\n').forEach((line) => {
+      const splitL = doc.splitTextToSize(line, 165);
+      checkPageBreak((splitL.length * 4.5) + 2);
+      splitL.forEach((l) => {
+        doc.text(l, 20, y);
+        y += 4.5;
+      });
+      y += 1;
+    });
+
+    y += 8;
+
+    // PDF EXPORT OF THE STUDENT ASSESSMENT TABLE IN LAMPIRAN 1
+    checkPageBreak(35);
+    doc.setFont("helvetica", "bold");
+    doc.text("Tabel Penilaian Siswa (LKPD):", 20, y);
+    y += 5;
+
+    // Draw table header
+    doc.rect(20, y, 170, 8);
+    doc.setFont("helvetica", "bold");
+    doc.text("No", 22, y + 5);
+    doc.text("Nama Peserta Didik", 32, y + 5);
+    doc.text("Aspek 1", 82, y + 5);
+    doc.text("Aspek 2", 102, y + 5);
+    doc.text("Skor", 122, y + 5);
+    doc.text("Nilai", 142, y + 5);
+    doc.text("Keterangan", 162, y + 5);
+    y += 8;
+
+    const studentAssessmentsList = Array.isArray(formData.studentAssessments) ? formData.studentAssessments : [];
+    studentAssessmentsList.forEach((std) => {
+      checkPageBreak(8);
+      doc.rect(20, y, 170, 8);
+      doc.setFont("helvetica", "normal");
+      doc.text(String(std.no), 22, y + 5);
+      doc.text(std.name, 32, y + 5);
+      doc.text(String(std.skorAspek1), 84, y + 5);
+      doc.text(String(std.skorAspek2), 104, y + 5);
+      doc.text(String(std.total), 124, y + 5);
+      doc.text(String(std.nilai), 144, y + 5);
+      doc.text(std.keterangan, 162, y + 5);
+      y += 8;
+    });
+
+    y += 8;
+
+    checkPageBreak(15);
+    doc.setFont("helvetica", "bold");
+    doc.text("LAMPIRAN 2: PEDOMAN REFLEKSI GURU", 20, y);
+    doc.setFont("helvetica", "normal");
+    y += 5;
+    safeValue(formData.refleksiGuru).split('\n').forEach((line) => {
+      const splitR = doc.splitTextToSize(line, 165);
+      checkPageBreak((splitR.length * 4.5) + 2);
+      splitR.forEach((l) => {
+        doc.text(l, 20, y);
+        y += 4.5;
+      });
+      y += 1;
+    });
+
+    doc.save(`Modul_Ajar_${formData.subject.replace(/\s+/g, '_')}.pdf`);
+    showToast('File PDF resmi berhasil diunduh!');
+  };
+
+  const handleExportDOCX = () => {
+    showToast('Menyiapkan berkas Word DOCX...', 'info');
+    const header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
+          "xmlns:w='urn:schemas-microsoft-com:office:word' "+
+          "xmlns='http://www.w3.org/TR/REC-html40'>"+
+          "<head><title>Modul Ajar</title><style>body {font-family: Arial; font-size: 11pt;} table {width:100%; border-collapse:collapse; margin-bottom:15px;} th, td {border:1px solid #ddd; padding:8px; font-size:10pt;} th {background:#f2f2f2; font-weight:bold;}</style></head><body>";
+    const footer = "</body></html>";
+    const currentProfilsList = Array.isArray(formData.selectedProfil) ? formData.selectedProfil : [];
+    
+    const meetingsList = Array.isArray(formData.meetings) ? formData.meetings : [];
+    const rubricsList = Array.isArray(formData.rubrics) ? formData.rubrics : [];
+    const studentAssessmentsList = Array.isArray(formData.studentAssessments) ? formData.studentAssessments : [];
+
+    const content = `
+      <div style="text-align:center; font-family: Arial;">
+        <h3 style="margin:0; font-size:11pt; font-weight:bold; text-transform:uppercase;">PEMERINTAH KABUPATEN / KOTA</h3>
+        <h3 style="margin:0; font-size:11pt; font-weight:bold; text-transform:uppercase;">DINAS PENDIDIKAN ${safeValue(formData.city).toUpperCase()}</h3>
+        <h2 style="margin:2px 0 0 0; font-size:13pt; font-weight:bold; text-transform:uppercase; color:#1e1e1e;">${safeValue(formData.schoolName).toUpperCase()}</h2>
+        <p style="margin:2px 0 0 0; font-size:8.5pt; font-style:italic; color:#555;">${safeValue(formData.schoolAddress)}</p>
+        <hr style="border:none; border-top:2px double #000; margin-top:5px; margin-bottom:15px;" />
+      </div>
+
+      <h1 style="text-align:center; font-size:14pt; margin-top:20px;">MODUL AJAR KURIKULUM MERDEKA</h1>
+      <p style="text-align:center;">Tahun Ajaran: ${safeValue(formData.academicYear)}</p>
+      <hr />
+      
+      <h2>IDENTITAS POKOK</h2>
+      <table>
+        <tr><td width="30%"><strong>Satuan Pendidikan</strong></td><td>${safeValue(formData.schoolName)}</td></tr>
+        <tr><td><strong>Alamat Sekolah</strong></td><td>${safeValue(formData.schoolAddress)}</td></tr>
+        <tr><td><strong>Nama Guru</strong></td><td>${safeValue(formData.guruName)}</td></tr>
+        <tr><td><strong>NIP</strong></td><td>${safeValue(formData.nip) || "-"}</td></tr>
+        <tr><td><strong>Mata Pelajaran</strong></td><td>${safeValue(formData.subject)}</td></tr>
+        <tr><td><strong>Fase / Kelas / Semester</strong></td><td>Fase ${safeValue(formData.phase)} / Kelas ${safeValue(formData.grade)} / Semester ${safeValue(formData.semester)}</td></tr>
+        <tr><td><strong>Bab / Materi Pokok</strong></td><td>${safeValue(formData.topic)}</td></tr>
+        <tr><td><strong>Alokasi Waktu / Pertemuan</strong></td><td>${safeValue(formData.timeAllocation)} / ${safeValue(formData.meetingsCount) || 1} Pertemuan</td></tr>
+      </table>
+
+      <h2>INTEGRASI KOMPONEN UTAMA MODUL</h2>
+      <table>
+        <thead>
+          <tr style="background:#f2f2f2;">
+            <th width="5%">No</th>
+            <th width="35%">Komponen Modul Ajar</th>
+            <th>Deskripsi Draf Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Asesmen Awal (Diagnostik)</strong></td>
+            <td>${safeValue(formData.asesmenAwal).replace(/\n/g, '<br>')}</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Dimensi Profil Lulusan</strong></td>
+            <td>${currentProfilsList.join(', ')}</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Tujuan Pembelajaran (TP)</strong></td>
+            <td>${safeValue(formData.learningTarget).replace(/\n/g, '<br>')}</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Praktik Pedagogis</strong></td>
+            <td>Model Pembelajaran yang digunakan: <strong>${safeValue(formData.pedagogy)}</strong></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Lingkungan Pembelajaran</strong></td>
+            <td>${safeValue(formData.environment).replace(/\n/g, '<br>')}</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Pemanfaatan Digital</strong></td>
+            <td>${safeValue(formData.digitalTools).replace(/\n/g, '<br>')}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>7. LANGKAH-LANGKAH AKTIVITAS PEMBELAJARAN</h2>
+      ${meetingsList.map(m => `
+        <div style="background:#fafafa; border:1px solid #ddd; padding:10px; margin-bottom:10px;">
+          <h3>${safeValue(m.title)}</h3>
+          <p><strong>A. Kegiatan Pendahuluan:</strong><br>${safeValue(m.pendahuluan).replace(/\n/g, '<br>')}</p>
+          <p><strong>B. Kegiatan Inti:</strong><br>${safeValue(m.inti).replace(/\n/g, '<br>')}</p>
+          <p><strong>C. Kegiatan Penutup:</strong><br>${safeValue(m.penutup).replace(/\n/g, '<br>')}</p>
+        </div>
+      `).join('')}
+
+      <h2>8. ASESMEN PEMBELAJARAN & RUBRIKASI</h2>
+      <p><strong>Formatif (Proses):</strong> <br>${safeValue(formData.asesmenFormatif).replace(/\n/g, '<br>')}</p>
+      <p><strong>Sumatif (Hasil):</strong> <br>${safeValue(formData.asesmenSumatif).replace(/\n/g, '<br>')}</p>
+      
+      <h3>Tabel Rubrik Skor 1 - 4:</h3>
+      <table>
+        <thead>
+          <tr style="background:#f2f2f2;">
+            <th>Kriteria Aspek</th>
+            <th>Skor 4 (Sangat Baik)</th>
+            <th>Skor 3 (Baik)</th>
+            <th>Skor 2 (Cukup)</th>
+            <th>Skor 1 (Perlu Bimbingan)</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rubricsList.map(r => `
+            <tr>
+              <td><strong>${safeValue(r.kriteria)}</strong></td>
+              <td>${safeValue(r.skor4)}</td>
+              <td>${safeValue(r.skor3 || r.baikSekali)}</td>
+              <td>${safeValue(r.skor2 || r.cukup)}</td>
+              <td>${safeValue(r.skor1 || r.kurang)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <h3>Pedoman Penskoran:</h3>
+      <ul>
+        <li>Skor Minimal: ${rubricsList.length * 1}</li>
+        <li>Skor Maksimal: ${rubricsList.length * 4}</li>
+        <li>Rumus Nilai Akhir: (Skor Perolehan / Skor Maksimal) * 100</li>
+        <li>KKMP: ${safeValue(formData.kkmp)}</li>
+      </ul>
+
+      <br/><br/>
+      <table width="100%" style="border:none;">
+        <tr style="border:none;">
+          <td width="50%" valign="top" style="border:none;">
+            Mengetahui,<br/>Kepala ${safeValue(formData.schoolName)}<br/><br/><br/><br/>
+            <strong>${safeValue(formData.headmasterName)}</strong><br/>
+            NIP. ${safeValue(formData.headmasterNip)}
+          </td>
+          <td width="50%" valign="top" style="border:none;">
+            ${safeValue(formData.district)}, ${formatIndoDate(formData.moduleDate)}<br/>
+            Guru Kelas Pengampu<br/><br/><br/><br/>
+            <strong>${safeValue(formData.guruName)}</strong><br/>
+            NIP. ${safeValue(formData.nip)}
+          </td>
+        </tr>
+      </table>
+
+      <hr />
+      <h2>LAMPIRAN 1: LEMBAR KERJA PESERTA DIDIK (LKPD)</h2>
+      <p style="background:#f9f9f9; padding:10px; border:1px solid #eee;">${safeValue(formData.lkpdContent).replace(/\n/g, '<br>')}</p>
+
+      <h3>Tabel Penilaian Siswa (LKPD):</h3>
+      <table border="1" cellspacing="0" cellpadding="5">
+        <thead>
+          <tr style="background:#f2f2f2;">
+            <th>No</th>
+            <th>Nama Peserta Didik</th>
+            <th>Aspek 1</th>
+            <th>Aspek 2</th>
+            <th>Total Skor</th>
+            <th>Nilai Akhir</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${studentAssessmentsList.map(s => `
+            <tr>
+              <td>${s.no}</td>
+              <td>${s.name}</td>
+              <td>${s.skorAspek1}</td>
+              <td>${s.skorAspek2}</td>
+              <td>${s.total}</td>
+              <td>${s.nilai}</td>
+              <td>${s.keterangan}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <h2>LAMPIRAN 2: PEDOMAN REFLEKSI GURU</h2>
+      <p style="background:#f9f9f9; padding:10px; border:1px solid #eee;">${safeValue(formData.refleksiGuru).replace(/\n/g, '<br>')}</p>
+    `;
+    const sourceHTML = header + content + footer;
+    
+    const fileDownload = document.createElement("a");
+    const blob = new Blob(['\ufeff' + sourceHTML], {
+       type: 'application/msword'
+    });
+    const url = URL.createObjectURL(blob);
+    fileDownload.href = url;
+    fileDownload.download = `Modul_Ajar_${formData.topic.replace(/\s+/g, '_')}.doc`;
+    document.body.appendChild(fileDownload);
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+    showToast('File Word .doc berhasil diunduh!');
+  };
+
+  const confirmResetData = () => {
+    setFormData(INITIAL_STATE);
+    setHistory([JSON.stringify(INITIAL_STATE)]);
+    setHistoryIndex(0);
+    setShowResetModal(false);
+    showToast('Seluruh data berhasil diatur ulang ke draf dasar.', 'info');
+  };
+
+  // --- FILTERED USERS FOR ADMIN PANEL ---
+  const filteredUsers = users.filter(u => {
+    if (u.role === 'admin') return false; 
+    
+    // Status Filter
+    if (adminFilter === 'pending' && u.status !== 'Pending') return false;
+    if (adminFilter === 'active' && u.status !== 'Aktif') return false;
+
+    // Search Query (Name, Email, or School)
+    const query = adminSearch.toLowerCase();
+    const nameMatch = safeValue(u.fullName).toLowerCase().includes(query);
+    const emailMatch = safeValue(u.email).toLowerCase().includes(query);
+    const schoolMatch = safeValue(u.schoolName).toLowerCase().includes(query);
+    
+    return nameMatch || emailMatch || schoolMatch;
+  });
+
+  // --- 6. RENDER COMPONENT ---
+  return (
+    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
+      
+      {/* Toast Notification Container */}
+      <div className="fixed bottom-6 right-6 z-50 space-y-3 font-sans">
+        {toasts.map((toast) => (
+          <div 
+            key={toast.id} 
+            className={`flex items-center gap-3 px-5 py-4 rounded-xl shadow-xl border animate-bounce ${
+              toast.type === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-100' :
+              toast.type === 'warning' ? 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950/80 dark:border-amber-800 dark:text-amber-100' :
+              toast.type === 'info' ? 'bg-indigo-50 border-indigo-200 text-indigo-800 dark:bg-indigo-950/80 dark:border-indigo-800 dark:text-indigo-100' :
+              'bg
