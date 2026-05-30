@@ -154,6 +154,23 @@
           ]
         };
 
+        // Indonesian Date Formatter Helper
+        const formatIndoDate = (dateStr) => {
+          if (!dateStr) return '';
+          const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+          ];
+          const parts = dateStr.split('-');
+          if (parts.length === 3) {
+            const year = parts[0];
+            const monthIndex = parseInt(parts[1], 10) - 1;
+            const day = parseInt(parts[2], 10);
+            return `${day} ${months[monthIndex]} ${year}`;
+          }
+          return dateStr;
+        };
+
         // --- CUSTOM SVG ICON HELPER ---
         const Icon = ({ name, className = "w-5 h-5" }) => {
           const icons = {
@@ -190,9 +207,11 @@
             GraduationCap: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />,<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />,<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 13v6a2 2 0 01-2 2H8a2 2 0 01-2-2v-6" />
           };
 
+          // FIXED: Melakukan konversi toLowerCase agar selalu mencocokkan kunci dengan benar
+          const lowerName = name ? name.toLowerCase() : "";
           return (
             <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              {icons[name] || <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />}
+              {icons[lowerName] || icons["Info"]}
             </svg>
           );
         };
@@ -207,7 +226,7 @@
           const [showResetModal, setShowResetModal] = useState(false);
           const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-          // States for Admin Panel Filtering & Previews
+          // States Panel Admin & Pencarian
           const [adminFilter, setAdminFilter] = useState('all'); 
           const [adminSearch, setAdminSearch] = useState('');
           const [selectedPaymentProof, setSelectedPaymentProof] = useState(null);
@@ -682,6 +701,34 @@
             } finally {
               setIsAiGenerating(false);
             }
+          };
+
+          const simulateLocalAiDraft = () => {
+            const randomAwal = `1. Guru memperlihatkan alat peraga atau ilustrasi pemantik terkait ${formData.topic}.\n2. Guru mengajukan 2 pertanyaan pemantik teka-teki untuk merangsang rasa penasaran kritis siswa.`;
+            const randomTP = `1. Melalui model pembelajaran ${formData.pedagogy}, peserta didik mampu menjabarkan materi ${formData.topic} dengan runut.\n2. Menganalisis keterkaitan fungsi teoretis topik di kehidupan praktis sehari-hari.\n3. Membuktikan hipotesis dengan melakukan eksperimen terstruktur berkelompok.`;
+            const randomLKPD = `Lembar Kerja Peserta Didik (LKPD) Mandiri:\n1. Tuliskan nama anggota kelompok Anda pada bagian atas.\n2. Diskusikan 3 masalah utama terkait ${formData.topic}.\n3. Tuliskan jawaban pemecahan masalah kelompok pada bagan yang tersedia di bawah ini.`;
+            
+            const count = parseInt(formData.meetingsCount || '1', 10);
+            const randomPertemuan = [];
+            for (let i = 0; i < count; i++) {
+              randomPertemuan.push({
+                id: `meet-sim-${Date.now()}-${i}`,
+                title: `Pertemuan Ke-${i + 1} (Eksplorasi Konsep ${formData.topic})`,
+                pendahuluan: `1. [Prinsip Berkesadaran] Guru menyapa kelas dengan salam hangat, membimbing siswa hening sejenak untuk memfokuskan pikiran.\n2. [Prinsip Bermakna] Guru menghubungkan fenomena lingkungan sehari-hari dengan konsep ${formData.topic}.\n3. Menyampaikan draf target pencapaian.`,
+                inti: `1. [Pengalaman Memahami] Siswa membentuk kelompok kerja kecil berisikan 4 orang untuk menganalisis skema.\n2. [Pengalaman Mengaplikasikan] Setiap tim melakukan eksperimen langsung terkait ${formData.topic}.\n3. Siswa mengolah data temuan kelompok untuk menyelesaikan LKPD.\n4. [Prinsip Menggembirakan] Kelompok melakukan presentasi progres hasil diskusi.`,
+                penutup: `1. [Pengalaman Merefleksikan] Menyusun simpulan materi pembelajaran bersama guru dalam jurnal refleksi pribadi.\n2. Melakukan refleksi kepuasan belajar kualitatif.\n3. Sesi ditutup doa syukran.`
+              });
+            }
+
+            updateFormData({
+              asesmenAwal: randomAwal,
+              learningTarget: randomTP,
+              lkpdContent: randomLKPD,
+              meetings: randomPertemuan,
+              asesmenFormatif: '1. Observasi keaktifan diskusi kelompok siswa.\n2. Penilaian instrumen penyelesaian tugas di LKPD.',
+              asesmenSumatif: '1. Ujian evaluasi tertulis mandiri pilihan ganda dan esai di akhir pembahasan.',
+            });
+            showToast('Seluruh Komponen Modul Berhasil Dimutakhirkan!', 'success');
           };
 
           // --- SINKRONISASI EKSPOR ---
@@ -1344,7 +1391,7 @@
             return nameMatch || emailMatch || schoolMatch;
           });
 
-          // --- 6. RENDER DOKUMEN ---
+          // --- 6. RENDER COMPONENT ---
           return (
             <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`}>
               
@@ -1366,91 +1413,195 @@
                 ))}
               </div>
 
-              {/* DEMO BYPASS PANEL CONTROLLER FOR VISUAL QC */}
-              <div className="fixed bottom-6 left-6 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-4 rounded-3xl shadow-2xl flex flex-col gap-2 max-w-[280px]">
-                <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-wide">
-                  <Icon name="Sliders" className="w-4 h-4 animate-spin" /> Panel Demo Kontrol Visual
+              {/* CUSTOM RESET MODAL */}
+              {showResetModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+                    <div className="flex items-center gap-3 text-amber-600 dark:text-amber-400">
+                      <Icon name="AlertCircle" className="w-6 h-6" />
+                      <h3 className="font-extrabold text-lg">Konfirmasi Atur Ulang</h3>
+                    </div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 font-sans">
+                      Apakah Anda yakin ingin mengatur ulang semua isian perangkat ajar? Seluruh draf penulisan aktif Anda akan dikembalikan ke draf dasar Kurikulum Merdeka.
+                    </p>
+                    <div className="flex justify-end gap-3 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowResetModal(false)}
+                        className="px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-sm font-semibold text-slate-500 focus:outline-none"
+                      >
+                        Batalkan
+                      </button>
+                      <button
+                        type="button"
+                        onClick={confirmResetData}
+                        className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl transition text-sm font-semibold shadow-md focus:outline-none"
+                      >
+                        Ya, Reset Draf
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-[10px] text-slate-400">Gunakan tombol berikut untuk berpindah halaman visual secara instan untuk kebutuhan review (Bypass Auth):</p>
-                <div className="grid grid-cols-2 gap-1.5">
-                  <button onClick={() => setActiveTab('landing')} className="text-[10px] py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-500 hover:text-white rounded-lg font-bold transition">Landing</button>
-                  <button onClick={() => { setActiveTab('auth'); setAuthMode('login'); }} className="text-[10px] py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-500 hover:text-white rounded-lg font-bold transition">Login Form</button>
-                  <button onClick={() => { setActiveTab('auth'); setAuthMode('register'); }} className="text-[10px] py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-500 hover:text-white rounded-lg font-bold transition">Register / QRIS</button>
-                  <button onClick={() => { 
-                    setCurrentUser({ email: 'admin@modulajar.com', role: 'admin', fullName: 'Super Admin Kurikulum' });
-                    setActiveTab('admin'); 
-                  }} className="text-[10px] py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-500 hover:text-white rounded-lg font-bold transition">Admin Panel</button>
-                  <button onClick={() => {
-                    setCurrentUser({ email: 'budi@sekolah.id', role: 'user', fullName: 'Budi Santoso, S.Pd.' });
-                    setActiveTab('dashboard');
-                  }} className="col-span-2 text-[10px] py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg font-bold transition shadow-sm">Buka Dashboard Generator</button>
+              )}
+
+              {/* CUSTOM LOGOUT MODAL */}
+              {showLogoutModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+                    <div className="flex items-center gap-3 text-rose-600 dark:text-rose-400">
+                      <Icon name="LogOut" className="w-6 h-6" />
+                      <h3 className="font-extrabold text-lg">Konfirmasi Keluar Sesi</h3>
+                    </div>
+                    <p className="text-sm text-slate-500 dark:text-slate-400 font-sans font-sans">
+                      Apakah Anda ingin keluar dari dashboard penyusun modul saat ini? Draf Anda telah disimpan secara otomatis di peramban lokal Anda.
+                    </p>
+                    <div className="flex justify-end gap-3 pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowLogoutModal(false)}
+                        className="px-4 py-2 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-sm font-semibold text-slate-500 focus:outline-none font-sans"
+                      >
+                        Batal
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl transition text-sm font-semibold shadow-md focus:outline-none"
+                      >
+                        Keluar
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
+
+              {/* POPUP PREVIEW BUKTI TRANSFER PEMBELI */}
+              {selectedPaymentProof && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn font-sans">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 font-sans text-center">
+                    <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+                      <h3 className="font-extrabold text-sm uppercase text-slate-400 font-sans">Bukti Pembayaran Rekening</h3>
+                      <button 
+                        onClick={() => setSelectedPaymentProof(null)}
+                        className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 transition"
+                      >
+                        × Close
+                      </button>
+                    </div>
+                    <div className="p-2 bg-slate-100 dark:bg-slate-950 rounded-2xl overflow-hidden max-h-[400px] flex items-center justify-center border">
+                      {selectedPaymentProof === 'simulated_proof' ? (
+                        <div className="py-20 text-xs text-slate-400 italic">
+                          [Simulasi Gambar Bukti Pembayaran Digital Sah di Google Drive]
+                        </div>
+                      ) : (
+                        <img src={selectedPaymentProof} alt="Bukti Pembayaran" className="max-w-full max-h-[380px] object-contain rounded-lg animate-fadeIn" />
+                      )}
+                    </div>
+                    <div className="flex justify-center pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPaymentProof(null)}
+                        className="px-6 py-2.5 bg-slate-900 hover:bg-slate-850 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-extrabold text-xs rounded-xl shadow-md transition"
+                      >
+                        Selesai Meninjau
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* HEADER UTAMA */}
               <header className="sticky top-0 z-40 w-full bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                   <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('landing')}>
-                    <div className="bg-gradient-to-tr from-blue-600 to-indigo-600 p-2.5 rounded-xl text-white shadow-md">
+                    <div className="bg-gradient-to-tr from-blue-600 to-indigo-600 p-2.5 rounded-xl text-white shadow-md shadow-indigo-200 dark:shadow-none">
                       <Icon name="BookOpen" className="w-6 h-6" />
                     </div>
                     <div>
-                      <span className="font-extrabold text-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                      <span className="font-extrabold text-xl bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-sans">
                         ModulAjar
                       </span>
-                      <span className="text-xs font-semibold block text-slate-400">Kurikulum Merdeka</span>
+                      <span className="text-xs font-semibold block text-slate-400 font-sans">Kurikulum Merdeka</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 font-sans">
+                  <div className="flex items-center gap-4 font-sans font-sans">
+                    {/* Dark Mode Toggle */}
                     <button 
                       onClick={() => setDarkMode(!darkMode)}
                       className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                      title="Ganti Tema Visual"
                     >
-                      {darkMode ? <Icon name="Sun" className="w-5 h-5" /> : <Icon name="Moon" className="w-5 h-5" />}
+                      {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                     </button>
 
                     {activeTab === 'dashboard' && (
-                      <div className="flex items-center gap-2">
-                        <button onClick={handleUndo} className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">
-                          <Icon name="Undo" className="w-4 h-4" />
+                      <div className="flex items-center gap-2 font-sans">
+                        <button
+                          onClick={handleUndo}
+                          className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500"
+                          title="Undo Perubahan"
+                        >
+                          <Undo className="w-4 h-4" />
                         </button>
-                        <button onClick={handleRedo} className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">
-                          <Icon name="Redo" className="w-4 h-4" />
+                        <button
+                          onClick={handleRedo}
+                          className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500"
+                          title="Redo Perubahan"
+                        >
+                          <Redo className="w-4 h-4" />
                         </button>
-                        <button onClick={() => setShowResetModal(true)} className="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition">
+                        <button
+                          onClick={() => setShowResetModal(true)}
+                          className="text-xs font-semibold text-rose-600 hover:text-rose-700 px-3 py-2 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/30 transition font-sans"
+                        >
                           Reset Draf
                         </button>
                       </div>
                     )}
 
                     {activeTab === 'landing' ? (
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 font-sans">
                         {currentUser ? (
-                          <button onClick={() => {
-                            if (currentUser.role === 'admin') setActiveTab('admin');
-                            else setActiveTab('dashboard');
-                          }} className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition flex items-center gap-2">
-                            Buka Dashboard <Icon name="ChevronRight" className="w-4 h-4" />
+                          <button 
+                            onClick={() => {
+                              if (currentUser.role === 'admin') setActiveTab('admin');
+                              else setActiveTab('dashboard');
+                            }}
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition flex items-center gap-2 font-sans"
+                          >
+                            Buka Dashboard <ChevronRight className="w-4 h-4 font-sans" />
                           </button>
                         ) : (
                           <>
-                            <button onClick={() => { setAuthMode('login'); setActiveTab('auth'); }} className="text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none">
+                            <button 
+                              onClick={() => { setAuthMode('login'); setActiveTab('auth'); }}
+                              className="text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2.5 rounded-xl text-sm font-semibold transition focus:outline-none font-sans"
+                            >
                               Masuk
                             </button>
-                            <button onClick={() => { setAuthMode('register'); setActiveTab('auth'); }} className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition focus:outline-none">
+                            <button 
+                              onClick={() => { setAuthMode('register'); setActiveTab('auth'); }}
+                              className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition focus:outline-none font-sans"
+                            >
                               Daftar Akun
                             </button>
                           </>
                         )}
                       </div>
                     ) : activeTab === 'auth' ? (
-                      <button onClick={() => setActiveTab('landing')} className="text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2.5 rounded-xl text-sm font-semibold transition">
-                        Kembali
+                      <button 
+                        onClick={() => setActiveTab('landing')}
+                        className="text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 px-4 py-2.5 rounded-xl text-sm font-semibold transition font-sans"
+                      >
+                        Kembali ke Landing
                       </button>
                     ) : (
-                      <button onClick={handleLogOutSubmit} className="text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 px-4 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-1.5 focus:outline-none">
-                        <Icon name="LogOut" className="w-4 h-4" /> Keluar
+                      <button 
+                        onClick={handleLogOutSubmit}
+                        className="text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 px-4 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-1.5 focus:outline-none font-sans"
+                      >
+                        <LogOut className="w-4 h-4" /> Keluar
                       </button>
                     )}
                   </div>
@@ -1462,16 +1613,18 @@
               {/* ========================================================= */}
               {activeTab === 'landing' && (
                 <main className="relative overflow-hidden font-sans">
+                  
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none opacity-40 dark:opacity-20 z-0">
                     <div className="absolute top-10 left-10 w-96 h-96 bg-blue-400 rounded-full filter blur-[100px]" />
                     <div className="absolute top-20 right-20 w-96 h-96 bg-purple-400 rounded-full filter blur-[100px]" />
                   </div>
 
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 relative z-10 animate-fadeIn">
-                    <div className="grid lg:grid-cols-12 gap-12 items-center">
+                    <div className="grid lg:grid-cols-12 gap-12 items-center font-sans">
+                      
                       <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider">
-                          <Icon name="Sparkles" className="w-4 h-4 animate-spin text-indigo-500" /> Kurikulum Merdeka Terintegrasi AI
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-100 dark:indigo border-indigo-900 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider">
+                          <Sparkles className="w-4 h-4 animate-spin text-indigo-500" /> Kurikulum Merdeka Terintegrasi AI
                         </div>
 
                         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none">
@@ -1481,7 +1634,7 @@
                           </span>
                         </h1>
 
-                        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0">
+                        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 font-sans">
                           Rancang draf perangkat pembelajaran kelas premium sekolah dasar secara instan. Menyesuaikan metode ajar inovatif, asesmen modern, rubrik penilaian, hingga lembar kerja siswa dengan draf panduan otomatis.
                         </p>
 
@@ -1498,9 +1651,12 @@
                             }}
                             className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-lg px-8 py-4 rounded-2xl shadow-xl shadow-indigo-100 dark:shadow-none hover:translate-y-[-2px] transition flex items-center justify-center gap-3 focus:outline-none"
                           >
-                            Mulai Membuat Modul <Icon name="Play" className="w-5 h-5 fill-current animate-pulse" />
+                            Mulai Membuat Modul <Play className="w-5 h-5 fill-current animate-pulse" />
                           </button>
-                          <a href="#fitur" className="border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-lg px-8 py-4 rounded-2xl transition flex items-center justify-center gap-2">
+                          <a 
+                            href="#fitur"
+                            className="border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-lg px-8 py-4 rounded-2xl transition flex items-center justify-center gap-2"
+                          >
                             Pelajari Fitur
                           </a>
                         </div>
@@ -1508,19 +1664,19 @@
                         <div className="pt-8 border-t border-slate-200/60 dark:border-slate-800/60 grid grid-cols-2 sm:grid-cols-4 gap-6">
                           <div>
                             <div className="font-extrabold text-2xl text-blue-600">Ekspor</div>
-                            <div className="text-xs font-semibold text-slate-400 uppercase">PDF & DOCX</div>
+                            <div className="text-xs font-semibold text-slate-400 uppercase font-sans">PDF & DOCX</div>
                           </div>
                           <div>
-                            <div className="font-extrabold text-2xl text-indigo-600 font-bold">Terpadu</div>
-                            <div className="text-xs font-semibold text-slate-400 uppercase">LKPD & Asesmen</div>
+                            <div className="font-extrabold text-2xl text-indigo-600 font-sans font-bold">Terpadu</div>
+                            <div className="text-xs font-semibold text-slate-400 uppercase font-sans font-sans font-sans">LKPD & Asesmen</div>
                           </div>
                           <div>
                             <div className="font-extrabold text-2xl text-purple-600">Kurikulum</div>
-                            <div className="text-xs font-semibold text-slate-400 uppercase">Fase A-C SD</div>
+                            <div className="text-xs font-semibold text-slate-400 uppercase font-sans font-sans">Fase A-C SD</div>
                           </div>
                           <div>
                             <div className="font-extrabold text-2xl text-emerald-600">Model AI</div>
-                            <div className="text-xs font-semibold text-slate-400 uppercase">Satu-Klik Draft</div>
+                            <div className="text-xs font-semibold text-slate-400 uppercase font-sans font-sans">Satu-Klik Draft</div>
                           </div>
                         </div>
                       </div>
@@ -1533,7 +1689,7 @@
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-950 flex items-center justify-center p-2">
-                                  <Icon name="GraduationCap" className="w-6 h-6 text-blue-600" />
+                                  <GraduationCap className="w-6 h-6 text-blue-600" />
                                 </div>
                                 <div>
                                   <h4 className="font-bold text-sm">SDN Nusantara Cerdas</h4>
@@ -1543,8 +1699,8 @@
                               <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-indigo-50 text-indigo-600 dark:bg-indigo-950/80">Premium</span>
                             </div>
 
-                            <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl space-y-3">
-                              <div className="flex justify-between items-center text-xs text-slate-400">
+                            <div className="p-4 bg-slate-50 dark:bg-slate-800/40 rounded-xl space-y-3 font-sans">
+                              <div className="flex justify-between items-center text-xs text-slate-400 font-sans">
                                 <span>Pilihan Model</span>
                                 <span className="font-semibold text-indigo-600 font-sans font-bold">Problem Based Learning</span>
                               </div>
@@ -1555,13 +1711,13 @@
 
                             <div className="space-y-2 text-xs">
                               <div className="flex items-center gap-2 font-semibold text-emerald-600">
-                                <Icon name="Check" className="w-4 h-4" /> Integrasi 8 Profil Pancasila Lulusan
+                                <Check className="w-4 h-4" /> Integrasi 8 Profil Pancasila Lulusan
                               </div>
-                              <div className="flex items-center gap-2 font-semibold text-emerald-600">
-                                <Icon name="Check" className="w-4 h-4" /> Alur Langkah Ajar Berurutan
+                              <div className="flex items-center gap-2 font-semibold text-emerald-600 font-sans">
+                                <Check className="w-4 h-4" /> Alur Langkah Ajar Berurutan
                               </div>
-                              <div className="flex items-center gap-2 font-semibold text-emerald-600">
-                                <Icon name="Check" className="w-4 h-4" /> Asesmen Awal & Rubrik Lengkap
+                              <div className="flex items-center gap-2 font-semibold text-emerald-600 font-sans">
+                                <Check className="w-4 h-4" /> Asesmen Awal & Rubrik Lengkap
                               </div>
                             </div>
 
@@ -1577,13 +1733,50 @@
                               }}
                               className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm font-bold shadow-md hover:brightness-110 transition flex items-center justify-center gap-2 focus:outline-none"
                             >
-                              Buka Dashboard <Icon name="ChevronRight" className="w-4 h-4" />
+                              Buka Dashboard <ChevronRight className="w-4 h-4" />
                             </button>
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
+
+                  <section id="fitur" className="py-20 bg-slate-100/50 dark:bg-slate-900/30 border-y border-slate-200/50 dark:border-slate-800/50">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                        <h2 className="text-3xl font-extrabold font-sans">Format Rinci Sesuai Standar Kurikulum</h2>
+                        <p className="text-slate-500 font-sans font-sans">Struktur draf pembelajaran didesain runtut dan mudah dipahami, mulai dari draf data identitas, asesmen awal, hingga rubrik pengesahan.</p>
+                      </div>
+
+                      <div className="grid md:grid-cols-3 gap-8 font-sans animate-scaleIn">
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-4 animate-scaleIn">
+                          <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center text-blue-600 animate-fadeIn">
+                            <Sliders className="w-6 h-6" />
+                          </div>
+                          <h3 className="font-bold text-lg font-sans font-sans">Input Dropdown Adaptif</h3>
+                          <p className="text-sm text-slate-500 leading-relaxed">Pilih Mata Pelajaran, Model Pedagogis, dan 8 Dimensi Profil Lulusan secara instan melalui dropdown terstruktur agar tidak memicu kerancuan pengisian.</p>
+                        </div>
+
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-4">
+                          <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 animate-fadeIn font-sans">
+                            <Sparkles className="w-6 h-6" />
+                          </div>
+                          <h3 className="font-bold text-lg font-sans">Urutan Sintaks Sesuai Prosedur</h3>
+                          <p className="text-sm text-slate-500 leading-relaxed font-sans font-sans">Menampilkan draf runtut materi dimulai dari Asesmen Diagnostik Awal, Profil Lulusan, TP, Model Pembelajaran terpilih, hingga ke urutan pengesahan TTD.</p>
+                        </div>
+
+                        <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-800 space-y-4 font-sans">
+                          <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 animate-fadeIn">
+                            <FileDown className="w-6 h-6" />
+                          </div>
+                          <h3 className="font-bold text-lg font-sans font-sans font-sans font-sans">Cetak & Simpan PDF Presisi</h3>
+                          <p className="text-sm text-slate-500 leading-relaxed font-sans">Ekspor dokumen Anda dalam format file Microsoft Word (.doc) atau file PDF siap cetak berukuran A4 standar nasional.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
                 </main>
               )}
 
@@ -1604,7 +1797,7 @@
                           type="button"
                           onClick={() => setAuthMode('login')}
                           className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all duration-300 focus:outline-none ${
-                            authMode === 'login' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-slate-100 shadow-md' : 'text-slate-500 hover:text-slate-700'
+                            authMode === 'login' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-slate-100 shadow-md font-sans' : 'text-slate-500 hover:text-slate-700'
                           }`}
                         >
                           <Icon name="LogIn" className="w-4 h-4 inline-block mr-1.5" /> Masuk Sesi
@@ -1613,7 +1806,7 @@
                           type="button"
                           onClick={() => setAuthMode('register')}
                           className={`flex-1 py-2 text-xs sm:text-sm font-bold rounded-xl transition-all duration-300 focus:outline-none ${
-                            authMode === 'register' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-slate-100 shadow-md' : 'text-slate-500 hover:text-slate-700'
+                            authMode === 'register' ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-slate-100 shadow-md font-sans' : 'text-slate-500 hover:text-slate-700'
                           }`}
                         >
                           <Icon name="UserPlus" className="w-4 h-4 inline-block mr-1.5" /> Daftar Baru
@@ -1623,7 +1816,7 @@
                       <h2 className="text-2xl font-extrabold tracking-tight pt-3 text-slate-900 dark:text-white">
                         {authMode === 'login' ? 'Selamat Datang Kembali!' : 'Daftar Akun Guru Premium'}
                       </h2>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-400 font-sans font-sans">
                         {authMode === 'login' ? 'Silakan masuk dengan email terdaftar Anda untuk melanjutkan penyusunan perangkat ajar.' : 'Lengkapi formulir pendaftaran serta sertakan bukti pembayaran untuk aktivasi.'}
                       </p>
                     </div>
@@ -1632,7 +1825,7 @@
                     {authMode === 'login' && (
                       <div className="space-y-4 animate-fadeIn">
                         <form onSubmit={handleLoginSubmit} className="space-y-4">
-                          <div className="space-y-1.5">
+                          <div className="space-y-1.5 font-sans">
                             <label className="text-xs font-bold text-slate-400 uppercase">Surel / Email</label>
                             <div className="relative">
                               <span className="absolute left-3 top-3.5 text-slate-400"><Icon name="Mail" className="w-4 h-4" /></span>
@@ -1642,14 +1835,14 @@
                                 value={emailInput}
                                 onChange={(e) => setEmailInput(e.target.value)}
                                 placeholder="guru@sekolah.id"
-                                className="w-full pl-10 pr-4 py-3 bg-transparent border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100"
+                                className="w-full pl-10 pr-4 py-3 bg-transparent border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-slate-100 font-sans"
                               />
                             </div>
                           </div>
 
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-slate-400 uppercase">Kata Sandi / Password</label>
-                            <div className="relative">
+                          <div className="space-y-1.5 font-sans">
+                            <label className="text-xs font-bold text-slate-400 uppercase font-sans">Kata Sandi / Password</label>
+                            <div className="relative font-sans">
                               <span className="absolute left-3 top-3.5 text-slate-400"><Icon name="Lock" className="w-4 h-4" /></span>
                               <input
                                 type="password"
@@ -1672,18 +1865,18 @@
 
                         <div className="p-3.5 bg-indigo-50/30 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100/50 dark:border-indigo-900/50 text-center space-y-1">
                           <span className="text-[10px] font-black uppercase text-indigo-700 dark:text-indigo-300">Pemberitahuan Lisensi</span>
-                          <p className="text-[9px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                          <p className="text-[9px] text-slate-500 dark:text-slate-400 leading-relaxed font-sans">
                             Sistem ini terproteksi penuh. Hanya pembeli sah dengan akun yang telah diverifikasi dan diaktivasi oleh Admin yang dapat menggunakan Generator Modul Ajar AI.
                           </p>
                         </div>
                       </div>
                     )}
 
-                    {/* FORM REGISTRASI DENGAN UPLOAD TRANSAKSI GOOGLE DRIVE */}
+                    {/* FORM REGISTRASI TANPA GAMBAR QRIS */}
                     {authMode === 'register' && (
                       <form onSubmit={handleRegisterSubmit} className="space-y-4">
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold text-slate-400 uppercase">Nama Lengkap Guru & Gelar</label>
+                        <div className="space-y-1.5 font-sans">
+                          <label className="text-xs font-bold text-slate-400 uppercase font-sans">Nama Lengkap Guru & Gelar</label>
                           <div className="relative">
                             <span className="absolute left-3 top-3.5 text-slate-400"><Icon name="User" className="w-4 h-4" /></span>
                             <input
@@ -1697,8 +1890,8 @@
                           </div>
                         </div>
 
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold text-slate-400 uppercase">Nama Sekolah / Instansi</label>
+                        <div className="space-y-1.5 font-sans">
+                          <label className="text-xs font-bold text-slate-400 uppercase font-sans">Nama Sekolah / Instansi</label>
                           <div className="relative">
                             <span className="absolute left-3 top-3.5 text-slate-400"><Icon name="School" className="w-4 h-4" /></span>
                             <input
@@ -1707,14 +1900,14 @@
                               value={schoolInput}
                               onChange={(e) => setSchoolInput(e.target.value)}
                               placeholder="SD Negeri Nusantara Cerdas"
-                              className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-555 dark:text-slate-100"
+                              className="w-full pl-10 pr-4 py-2.5 bg-transparent border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-555 dark:text-slate-100 animate-fadeIn"
                             />
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-2 gap-3 font-sans font-sans">
                           <div className="space-y-1.5">
-                            <label className="text-xs font-bold text-slate-400 uppercase">Surel / Email</label>
+                            <label className="text-xs font-bold text-slate-400 uppercase font-sans">Surel / Email</label>
                             <input
                               type="email"
                               required
@@ -1737,27 +1930,13 @@
                           </div>
                         </div>
 
-                        {/* PENYEMATAN JUMLAH PEMBAYARAN DAN QRIS */}
-                        <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-750 space-y-3">
+                        {/* PENYEMATAN JUMLAH PEMBAYARAN TANPA GAMBAR QRIS GITHUB */}
+                        <div className="p-4 bg-slate-50 dark:bg-slate-850/65 rounded-2xl border border-slate-200 dark:border-slate-750 space-y-3 font-sans">
                           <div className="flex justify-between items-center">
-                            <span className="text-xs font-bold text-slate-400 uppercase">Jumlah Pembayaran</span>
+                            <span className="text-xs font-bold text-slate-400 uppercase font-sans">Jumlah Pembayaran</span>
                             <div className="text-right">
                               <span className="text-xs text-slate-400 line-through mr-2">Rp 100.000</span>
                               <span className="text-sm font-black text-emerald-600 dark:text-emerald-400">Rp 59.000</span>
-                            </div>
-                          </div>
-                          
-                          <div className="space-y-2 pt-1 border-t border-slate-200/60 dark:border-slate-700">
-                            <span className="block text-[10px] font-black uppercase text-slate-400">Silakan Scan Kode QRIS Pembayaran Di Bawah Ini:</span>
-                            <div className="bg-white p-3 rounded-xl border border-slate-200 flex justify-center shadow-sm">
-                              <img 
-                                src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/WhatsApp%20Image%202026-05-05%20at%2009.02.21.jpeg?raw=true" 
-                                alt="QRIS Pembayaran Generator Modul Ajar" 
-                                className="max-w-[180px] h-auto object-contain rounded-md"
-                                onError={(e) => {
-                                  e.target.src = "https://placehold.co/180x180?text=Scan+QRIS+Pembayaran";
-                                }}
-                              />
                             </div>
                           </div>
                         </div>
@@ -1809,7 +1988,7 @@
                   <div className="bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-950 p-6 rounded-3xl text-white flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-xl border border-indigo-900/30">
                     <div className="space-y-1">
                       <span className="text-[10px] font-black uppercase bg-indigo-600/30 text-indigo-300 px-3 py-1 rounded-full border border-indigo-700/50">Administrator Panel</span>
-                      <h2 className="text-2xl font-extrabold tracking-tight">Kelola Aktivasi Akun Perangkat Ajar</h2>
+                      <h2 className="text-2xl font-extrabold tracking-tight font-sans">Kelola Aktivasi Akun Perangkat Ajar</h2>
                       <p className="text-xs text-indigo-200 leading-normal">
                         Daftar pembeli terdaftar yang siap diaktivasi dan bukti transfer tersimpan di Google Drive.
                       </p>
@@ -1823,7 +2002,7 @@
                       </button>
                       <button
                         onClick={handleLogout}
-                        className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-3 rounded-xl transition shadow-md focus:outline-none"
+                        className="bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs px-4 py-3 rounded-xl transition shadow-md focus:outline-none font-sans"
                       >
                         Keluar Admin
                       </button>
@@ -1831,7 +2010,7 @@
                   </div>
 
                   {/* KARTU STATISTIK RINGKAS ADMIN */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
                     <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800/80 flex items-center gap-4 shadow-sm">
                       <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
                         <Icon name="Users" className="w-6 h-6" />
@@ -1847,7 +2026,7 @@
                         <Icon name="AlertCircle" className="w-6 h-6" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase block">Menunggu Aktivasi (Pending)</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase block font-sans">Menunggu Aktivasi (Pending)</span>
                         <span className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">{users.filter(u => u.status === 'Pending').length} Akun</span>
                       </div>
                     </div>
@@ -1887,7 +2066,7 @@
 
                       {/* BAR PENCARIAN PINTAR */}
                       <div className="relative w-full md:w-64">
-                        <span className="absolute left-3 top-2.5 text-slate-400"><Icon name="Search" className="w-4 h-4" /></span>
+                        <span className="absolute left-3 top-2.5 text-slate-400"><Icon name="Search" className="w-4 h-4 animate-pulse" /></span>
                         <input 
                           type="text"
                           value={adminSearch}
@@ -1900,7 +2079,7 @@
                     
                     {/* TABEL PEMBELI */}
                     <div className="overflow-x-auto rounded-2xl border border-slate-100 dark:border-slate-800">
-                      <table className="w-full text-left text-xs">
+                      <table className="w-full text-left text-xs font-sans">
                         <thead className="bg-slate-50 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300">
                           <tr>
                             <th className="p-3">Nama Pembeli</th>
@@ -1955,7 +2134,7 @@
                             ))
                           ) : (
                             <tr>
-                              <td colSpan="6" className="p-8 text-center text-slate-400 italic">
+                              <td colSpan="6" className="p-8 text-center text-slate-400 italic font-sans">
                                 Tidak ada data pembeli terdaftar yang sesuai dengan kriteria filter saat ini.
                               </td>
                             </tr>
@@ -2052,7 +2231,7 @@
                               />
                             </div>
                             <div>
-                              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">NIP Guru</label>
+                              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5 font-sans">NIP Guru</label>
                               <input 
                                 type="text" 
                                 value={formData.nip}
@@ -2249,7 +2428,7 @@
                               <select 
                                 value={formData.pedagogy}
                                 onChange={(e) => handleModelChange(e.target.value)}
-                                className="w-full px-2.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs focus:outline-none text-slate-855 dark:text-slate-100"
+                                className="w-full px-2.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs focus:outline-none text-slate-855 dark:text-slate-100 font-sans"
                               >
                                 {MODEL_PEMBELAJARAN_OPTIONS.map(opt => (
                                   <option key={opt} value={opt}>{opt}</option>
@@ -2258,7 +2437,7 @@
                             </div>
 
                             <div>
-                              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">Lingkungan Kelas</label>
+                              <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5 font-sans">Lingkungan Kelas</label>
                               <input 
                                 type="text" 
                                 value={formData.environment}
@@ -2270,7 +2449,7 @@
                           </div>
 
                           <div>
-                            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">Pemanfaatan Tools Digital</label>
+                            <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5 font-sans">Pemanfaatan Tools Digital</label>
                             <input 
                               type="text" 
                               value={formData.digitalTools}
@@ -2284,7 +2463,7 @@
 
                       {/* SUB FORM 3: LOGO & PENGESAHAN */}
                       {activeStep === 3 && (
-                        <div className="space-y-4 animate-fadeIn">
+                        <div className="space-y-4 animate-fadeIn font-sans">
                           <div className="grid grid-cols-2 gap-3">
                             <div>
                               <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">Nama Kepala Sekolah</label>
@@ -2308,7 +2487,7 @@
 
                           <div className="grid grid-cols-2 gap-4">
                             <div className="p-3 border border-dashed border-slate-200 rounded-xl text-center">
-                              <div className="text-[9px] font-bold uppercase text-slate-400 mb-1.5">Logo Resmi Sekolah</div>
+                              <div className="text-[9px] font-bold uppercase text-slate-400 mb-1.5 font-sans">Logo Resmi Sekolah</div>
                               {formData.schoolLogo && (
                                 <img src={formData.schoolLogo} alt="Logo" className="mx-auto w-12 h-12 object-contain mb-1.5 animate-fadeIn" />
                               )}
@@ -2369,7 +2548,7 @@
                           <span className="text-[10px] font-extrabold text-indigo-700 dark:text-indigo-300 uppercase tracking-widest">Penyusunan Otomatis AI</span>
                         </div>
                         <p className="text-[10px] text-slate-455 dark:text-slate-400 leading-normal">
-                          Sistem otomatis memformulasikan tujuan pembelajaran (vertikal), asesmen awal, langkah ajar detail (Deep Learning), dan draf lampiran evaluasi siap pakai.
+                          Sistem otomatis memformulasikan tujuan pembelajaran (vertikal), asesmen awal, langkah ajar detail (Deep Learning), dan draf draf lampiran evaluasi siap pakai.
                         </p>
                         <button
                           type="button"
@@ -2393,7 +2572,7 @@
 
                   {/* PANEL KANAN: REALTIME LIVE PREVIEW (A4 SHEET STYLE) */}
                   <section className="flex-1 bg-slate-100 dark:bg-slate-900/60 p-6 flex flex-col space-y-4 rounded-3xl border border-slate-200/60 dark:border-slate-800/60">
-                    <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm">
+                    <div className="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm font-sans">
                       <div className="flex items-center gap-2">
                         <Icon name="Eye" className="w-5 h-5 text-indigo-500 animate-pulse" />
                         <span className="font-extrabold text-xs uppercase tracking-wide">Pratinjau Hasil Cetak</span>
@@ -2437,13 +2616,13 @@
                             </div>
                           )}
                           <div className="text-center flex-1 mx-4 animate-fadeIn">
-                            <h1 className="font-extrabold text-xs uppercase tracking-wide leading-tight">
+                            <h1 className="font-extrabold text-xs uppercase tracking-wide leading-tight font-sans">
                               PEMERINTAH KABUPATEN / KOTA
                             </h1>
                             <h2 className="font-bold text-[10px] uppercase tracking-normal font-sans font-bold">
                               DINAS PENDIDIKAN {safeValue(formData.city).toUpperCase()}
                             </h2>
-                            <h3 className="font-bold text-[11px] uppercase text-indigo-700 dark:text-indigo-400">
+                            <h3 className="font-bold text-[11px] uppercase text-indigo-700 dark:text-indigo-400 font-sans">
                               {formData.schoolName}
                             </h3>
                             <p className="text-[8px] font-sans text-slate-500 italic mt-0.5">{formData.schoolAddress}</p>
@@ -2557,13 +2736,13 @@
                               </tr>
 
                               <tr>
-                                <td className="p-2 text-center font-bold border-r border-slate-200 bg-slate-50/50 dark:bg-slate-800/20">5</td>
-                                <td className="p-2 font-bold border-r border-slate-200">Lingkungan Pembelajaran</td>
+                                <td className="p-2 text-center font-bold border-r border-slate-200 bg-slate-50/50 dark:bg-slate-800/20 font-sans">5</td>
+                                <td className="p-2 font-bold border-r border-slate-200 font-sans font-sans">Lingkungan Pembelajaran</td>
                                 <td className="p-2 text-slate-700 dark:text-slate-300">{formData.environment}</td>
                               </tr>
 
                               <tr>
-                                <td className="p-2 text-center font-bold border-r border-slate-200 bg-slate-50/50 dark:bg-slate-800/20">6</td>
+                                <td className="p-2 text-center font-bold border-r border-slate-200 bg-slate-50/50 dark:bg-slate-800/20 text-sans">6</td>
                                 <td className="p-2 font-bold border-r border-slate-200">Pemanfaatan Digital</td>
                                 <td className="p-2 text-slate-700 dark:text-slate-300">{formData.digitalTools}</td>
                               </tr>
@@ -2680,28 +2859,28 @@
 
                             <div className="overflow-x-auto border border-slate-200 rounded-lg">
                               <table className="w-full text-center text-[9px] text-slate-850 dark:text-slate-100 border-collapse">
-                                <thead className="bg-slate-100 font-bold border-b">
+                                <thead className="bg-slate-100 font-bold border-b text-slate-850">
                                   <tr>
-                                    <th className="p-1.5 border-r">Rentang Nilai</th>
-                                    <th className="p-1.5 border-r">Predikat</th>
+                                    <th className="p-1.5 border-r font-sans">Rentang Nilai</th>
+                                    <th className="p-1.5 border-r font-sans">Predikat</th>
                                     <th className="p-1.5">Keterangan Capaian Kompetensi</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr className="border-b">
+                                  <tr className="border-b text-sans">
                                     <td className="p-1 border-r">91 - 100</td>
                                     <td className="p-1 border-r font-bold text-emerald-600">A</td>
                                     <td className="p-1">Sangat Baik (Sangat matang menguasai kompetensi pokok)</td>
                                   </tr>
-                                  <tr className="border-b">
-                                    <td className="p-1 border-r font-sans">81 - 90</td>
-                                    <td className="p-1 border-r font-bold text-blue-600 font-sans font-sans">B</td>
+                                  <tr className="border-b text-sans">
+                                    <td className="p-1 border-r">81 - 90</td>
+                                    <td className="p-1 border-r font-bold text-blue-600 font-sans">B</td>
                                     <td className="p-1">Baik (Menguasai kompetensi esensial secara utuh)</td>
                                   </tr>
-                                  <tr className="border-b">
+                                  <tr className="border-b text-sans">
                                     <td className="p-1 border-r">71 - 80</td>
                                     <td className="p-1 border-r font-bold text-amber-600">C</td>
-                                    <td className="p-1">Cukup (Mencapai batas ketuntasan kualitatif kelulusan)</td>
+                                    <td className="p-1 font-sans">Cukup (Mencapai batas ketuntasan kualitatif kelulusan)</td>
                                   </tr>
                                   <tr>
                                     <td className="p-1 border-r">0 - 70</td>
@@ -2717,13 +2896,13 @@
 
                         {/* TANDA TANGAN */}
                         <section className="pt-6 pb-6 border-t border-b border-slate-200/50 mb-6 font-sans">
-                          <div className="flex items-start justify-between text-[10px] text-slate-600 dark:text-slate-400 px-4 leading-relaxed font-sans font-sans">
+                          <div className="flex items-start justify-between text-[10px] text-slate-600 dark:text-slate-400 px-4 leading-relaxed font-sans">
                             <div className="text-center w-48 space-y-12">
                               <div>Mengetahui,<br /><span className="font-bold text-slate-800 dark:text-slate-100">Kepala Sekolah</span></div>
                               {formData.headmasterSignature ? (
                                 <img src={formData.headmasterSignature} alt="Paraf Kepala Sekolah" className="mx-auto h-10 object-contain bg-white animate-fadeIn" />
                               ) : (
-                                <div className="h-10 flex items-center justify-center text-[9px] text-slate-300 italic">Belum Ditandatangani</div>
+                                <div className="h-10 flex items-center justify-center text-[9px] text-slate-300 italic font-sans">Belum Ditandatangani</div>
                               )}
                               <div>
                                 <span className="font-bold text-slate-800 underline dark:text-slate-100">{formData.headmasterName}</span><br />
@@ -2747,7 +2926,7 @@
 
                         {/* LAMPIRAN LKPD */}
                         <section className="mb-6 font-sans">
-                          <h5 className="font-extrabold text-[10px] text-indigo-700 dark:text-indigo-400 uppercase mb-2 border-b pb-1">
+                          <h5 className="font-extrabold text-[10px] text-indigo-700 dark:text-indigo-400 uppercase mb-2 border-b pb-1 font-sans">
                             Lampiran 1: Lembar Kerja Peserta Didik (LKPD) & Tabel Penilaian Siswa
                           </h5>
                           
@@ -2770,7 +2949,7 @@
                                   <th className="p-1.5 border-r text-left">Nama Peserta Didik</th>
                                   <th className="p-1.5 border-r">Aspek 1<br/>(Skor 1-4)</th>
                                   <th className="p-1.5 border-r">Aspek 2<br/>(Skor 1-4)</th>
-                                  <th className="p-1.5 border-r">Total Skor</th>
+                                  <th className="p-1.5 border-r font-sans">Total Skor</th>
                                   <th className="p-1.5 border-r font-sans">Nilai Akhir</th>
                                   <th className="p-1.5">Keterangan</th>
                                 </tr>
