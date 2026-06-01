@@ -187,7 +187,7 @@
             <div class="flex items-center gap-2.5"><i data-lucide="check" class="text-blue-500 w-4 h-4 shrink-0"></i><span class="text-slate-600 dark:text-slate-300 font-medium">Hasilkan LKPD, Asesmen & Rubrik Detail 4 Tingkat</span></div>
           </div>
 
-          <button onclick="navigateToAuth('register')" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-colors">
+          <button onclick="navigateToAuth('register')" class="w-full py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/20 transition-all">
             Daftar & Aktivasi Sekarang
           </button>
         </div>
@@ -261,7 +261,7 @@
         <!-- Info QRIS -->
         <div class="p-3.5 bg-blue-500/10 border border-blue-500/20 rounded-2xl text-[11px] leading-relaxed text-blue-600 dark:text-blue-400 text-center">
           <p class="font-extrabold text-xs">💳 Langkah Aktivasi Premium</p>
-          <p class="font-bold text-xs text-blue-500 dark:text-blue-300 mb-2">(Lisensi Promo Rp 79.000)</p>
+          <p class="font-bold text-xs text-blue-500 dark:text-blue-300 mb-2">Promo Rp 79.000 <span class="text-[10px] line-through text-slate-400 font-normal">Rp 149.000</span></p>
           <p class="mb-3 text-[10px] text-slate-500 dark:text-slate-400">Pindai kode QRIS resmi di bawah ini menggunakan aplikasi e-wallet atau m-banking:</p>
           
           <!-- REVISI: Menggunakan Gambar untuk Bagian QRIS yang dapat Diklik (Pop-Up) -->
@@ -269,7 +269,7 @@
             <div class="flex flex-col items-center gap-1.5">
               <div class="bg-[#003566] text-white font-black text-[9px] px-3 py-0.5 rounded tracking-widest uppercase">QRIS</div>
               <!-- Gambar QR Code untuk Pembayaran QRIS -->
-              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true" alt="QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true'">
+              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true" alt="QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
               <div class="text-[6.5px] font-bold text-slate-700 uppercase tracking-wider">MODUL AJAR AI INDONESIA</div>
             </div>
           </div>
@@ -810,9 +810,9 @@
     </div>
     <div class="text-center text-white mb-4">
       <h3 class="font-bold text-base">Pindai QRIS Resmi Pembayaran</h3>
-      <p class="text-xs text-slate-400">Silakan selesaikan pembayaran promo senilai Rp 79.000</p>
+      <p class="text-xs text-slate-400">Silakan selesaikan pembayaran promo senilai Rp 79.000 (Diskon dari Rp 149.000)</p>
     </div>
-    <!-- REVISI: Menggunakan gambar dalam QRIS zoom modal -->
+    <!-- REVISI: Menggunakan gambar dalam QRIS zoom modal yang sama persis dengan form registrasi -->
     <div class="bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 flex flex-col items-center justify-center max-w-sm w-full gap-3">
       <div class="bg-[#003566] text-white font-black text-xs px-6 py-1 rounded-md tracking-widest uppercase text-center w-full">QRIS</div>
       <!-- Gambar QR Code untuk Pembayaran QRIS Pop-up Diperbesar -->
@@ -1345,7 +1345,7 @@
 
         // 3. Pedagogis, Lingkungan, Digital
         const aiPedagogis = `1. Menggunakan siklus belajar Deep Learning yang berfokus pada pendalaman konsep esensial.\n2. Guru berperan aktif memfasilitasi dialog bermakna (Deep Talk) serta penyelidikan terbimbing.\n3. Menerapkan penguatan konseptual secara adaptif menyesuaikan kecepatan belajar kelompok anak.`;
-        const aiLingkungan = `1. Meja siswa dikelompokkan melingkar (Collaborative Desk) untuk mempermudah komunikasi tim.\n2. Bahan praktikum dan petunjuk LKPD diletakkan pada wadah yang mudah diraih anak.\n3. Area kelas bersih dan kondusif untuk mendukung konsentrasi tinggi.`;
+        const aiLingkungan = `1. Meja siswa dikelompokkan melingkar (Collaborative Desk) untuk mempermudah komunikasi tim.\n2. Bahan praktikum and petunjuk LKPD diletakkan pada wadah yang mudah diraih anak.\n3. Area kelas bersih dan kondusif untuk mendukung konsentrasi tinggi.`;
         const aiDigital = `1. Menggunakan video visualisasi interaktif 3D terkait proses kerja ${materi}.\n2. Pengisian lembar refleksif interaktif digital sederhana setelah praktikum selesai.\n3. Proyektor kelas difungsikan sebagai alat penguatan konsep.`;
 
         // Skenario Pertemuan Detail (Memahami, Mengaplikasikan, Merefleksikan; Mindful, Meaningful, Joyful)
