@@ -148,7 +148,7 @@
             <h3 class="text-lg font-bold mb-2">Kerangka Deep Learning SD & SMP</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Konten berorientasi penuh pada pendalaman konsep esensial, memicu nalar kritis siswa secara kolaboratif.</p>
           </div>
-          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
+          <div class="p-6 rounded-2xl bg-white bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
             <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400"><i data-lucide="download"></i></div>
             <h3 class="text-lg font-bold mb-2">Ekspor PDF & Word Instan</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Unduh file siap cetak berukuran A4 presisi menggunakan jsPDF dengan pembagian halaman otomatis, serta format dokumen Word.</p>
@@ -264,31 +264,14 @@
           <p class="font-bold text-xs text-blue-500 dark:text-blue-300 mb-2">(Lisensi Promo Rp 79.000)</p>
           <p class="mb-3 text-[10px] text-slate-500 dark:text-slate-400">Pindai kode QRIS resmi di bawah ini menggunakan aplikasi e-wallet atau m-banking:</p>
           
-          <!-- Klik QRIS untuk Pop-up -->
-          <div onclick="openQrisModal()" class="bg-white p-3 rounded-2xl inline-block shadow-md border border-slate-100 cursor-pointer hover:scale-105 transition-all duration-200">
-            <svg width="120" height="150" viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="mx-auto">
-              <rect width="120" height="150" rx="10" fill="white" />
-              <rect x="8" y="8" width="104" height="20" rx="4" fill="#003566"/>
-              <text x="60" y="22" fill="white" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">QRIS</text>
-              <g transform="translate(18, 38)">
-                <rect x="0" y="0" width="18" height="18" fill="black" />
-                <rect x="3" y="3" width="12" height="12" fill="white" />
-                <rect x="5" y="5" width="8" height="8" fill="black" />
-                <rect x="66" y="0" width="18" height="18" fill="black" />
-                <rect x="69" y="3" width="12" height="12" fill="white" />
-                <rect x="71" y="5" width="8" height="8" fill="black" />
-                <rect x="0" y="66" width="18" height="18" fill="black" />
-                <rect x="3" y="69" width="12" height="12" fill="white" />
-                <rect x="5" y="71" width="8" height="8" fill="black" />
-                <path d="M22 0h5v5h-5zm10 0h12v5H32zm18 0h10v5h-10zM22 10h10v5H22zm15 12h5v5h-5zm12-5h5v15h-5zm-27 10h5v5h-5zm10 10h5v10h-5zm15 0h10v5H42zm18 5h10v10H60zM22 35h5v10H22zm18 5h15v5H40zm-18 10h10v5H22zm20 15h15v5H42z" fill="black" />
-                <rect x="42" y="42" width="12" height="12" fill="black" />
-                <rect x="15" y="15" width="12" height="12" fill="black" />
-                <rect x="30" y="52" width="14" height="14" fill="black" />
-                <rect x="52" y="30" width="10" height="10" fill="black" />
-              </g>
-              <rect x="8" y="132" width="104" height="12" rx="2" fill="#E2E8F0"/>
-              <text x="60" y="141" fill="#1E293B" fontSize="6.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">MODUL AJAR AI INDONESIA</text>
-            </svg>
+          <!-- REVISI: Menggunakan Gambar untuk Bagian QRIS yang dapat Diklik (Pop-Up) -->
+          <div onclick="openQrisModal()" class="bg-white p-3 rounded-2xl inline-block shadow-md border border-slate-100 cursor-pointer hover:scale-105 transition-all duration-200" title="Klik untuk memperbesar QRIS">
+            <div class="flex flex-col items-center gap-1.5">
+              <div class="bg-[#003566] text-white font-black text-[9px] px-3 py-0.5 rounded tracking-widest uppercase">QRIS</div>
+              <!-- Gambar QR Code untuk Pembayaran QRIS -->
+              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true" alt="QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=200&auto=format&fit=crop'">
+              <div class="text-[6.5px] font-bold text-slate-700 uppercase tracking-wider">MODUL AJAR AI INDONESIA</div>
+            </div>
           </div>
           <p class="mt-2.5 font-bold text-[11px] text-blue-600 dark:text-blue-300">Lampirkan foto resi bukti transfer di bawah ini.</p>
         </div>
@@ -496,7 +479,7 @@
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Semester</label>
-              <select id="form-semester" class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
+              <select id="form-semester" class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-805 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
                 <option value="Ganjil (I)">Ganjil (I)</option>
                 <option value="Genap (II)">Genap (II)</option>
               </select>
@@ -829,31 +812,12 @@
       <h3 class="font-bold text-base">Pindai QRIS Resmi Pembayaran</h3>
       <p class="text-xs text-slate-400">Silakan selesaikan pembayaran promo senilai Rp 79.000</p>
     </div>
-    <div class="bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 flex items-center justify-center max-w-sm w-full aspect-square">
-      <!-- QRIS SVG di dalam pop-up -->
-      <svg width="240" height="300" viewBox="0 0 120 150" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="120" height="150" rx="10" fill="white" />
-        <rect x="8" y="8" width="104" height="20" rx="4" fill="#003566"/>
-        <text x="60" y="22" fill="white" fontSize="9" fontWeight="900" textAnchor="middle" fontFamily="sans-serif">QRIS</text>
-        <g transform="translate(18, 38)">
-          <rect x="0" y="0" width="18" height="18" fill="black" />
-          <rect x="3" y="3" width="12" height="12" fill="white" />
-          <rect x="5" y="5" width="8" height="8" fill="black" />
-          <rect x="66" y="0" width="18" height="18" fill="black" />
-          <rect x="69" y="3" width="12" height="12" fill="white" />
-          <rect x="71" y="5" width="8" height="8" fill="black" />
-          <rect x="0" y="66" width="18" height="18" fill="black" />
-          <rect x="3" y="69" width="12" height="12" fill="white" />
-          <rect x="5" y="71" width="8" height="8" fill="black" />
-          <path d="M22 0h5v5h-5zm10 0h12v5H32zm18 0h10v5h-10zM22 10h10v5H22zm15 12h5v5h-5zm12-5h5v15h-5zm-27 10h5v5h-5zm10 10h5v10h-5zm15 0h10v5H42zm18 5h10v10H60zM22 35h5v10H22zm18 5h15v5H40zm-18 10h10v5H22zm20 15h15v5H42z" fill="black" />
-          <rect x="42" y="42" width="12" height="12" fill="black" />
-          <rect x="15" y="15" width="12" height="12" fill="black" />
-          <rect x="30" y="52" width="14" height="14" fill="black" />
-          <rect x="52" y="30" width="10" height="10" fill="black" />
-        </g>
-        <rect x="8" y="132" width="104" height="12" rx="2" fill="#E2E8F0"/>
-        <text x="60" y="141" fill="#1E293B" fontSize="6.5" fontWeight="bold" textAnchor="middle" fontFamily="sans-serif">MODUL AJAR AI INDONESIA</text>
-      </svg>
+    <!-- REVISI: Menggunakan gambar dalam QRIS zoom modal -->
+    <div class="bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 flex flex-col items-center justify-center max-w-sm w-full gap-3">
+      <div class="bg-[#003566] text-white font-black text-xs px-6 py-1 rounded-md tracking-widest uppercase text-center w-full">QRIS</div>
+      <!-- Gambar QR Code untuk Pembayaran QRIS Pop-up Diperbesar -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=qris-modul-ajar-79000" alt="QRIS Code Besar" class="w-56 h-56 rounded-xl border-2 p-2 shadow-inner" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
+      <div class="text-[9px] font-bold text-slate-800 uppercase tracking-wider text-center">GPN • MODUL AJAR AI INDONESIA</div>
     </div>
     <p class="text-[11px] text-slate-300 mt-4 text-center max-w-xs leading-relaxed">
       Pindai menggunakan Gopay, OVO, Dana, LinkAja, atau aplikasi m-Banking Anda.
@@ -1078,6 +1042,7 @@
       }
     }
 
+    // --- AUTH NAVIGATION ---
     function navigateToAuth(mode) {
       appState.authMode = mode;
       navigateTo('auth');
@@ -1871,7 +1836,7 @@ Kunci Jawaban & Panduan Penskoran:
       doc.setFont('Helvetica', 'bold');
       doc.setTextColor(...colorSecondary);
       doc.text("C. TUJUAN PEMBELAJARAN (TP) - AUTO AI", marginKiri, currentY);
-      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
+      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, 210 - marginKanan);
       currentY += 6;
 
       doc.setFont('Helvetica', 'normal');
