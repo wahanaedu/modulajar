@@ -215,14 +215,14 @@
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Surel / Email</label>
           <div class="relative">
             <i data-lucide="user" class="absolute left-3 top-3 text-slate-400 w-4 h-4"></i>
-            <input type="email" id="login-email" required placeholder="contoh@sdnusantara.sch.id" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:border-blue-500 text-xs focus:outline-none dark:text-white">
+            <input type="email" id="login-email" required placeholder="contoh@sdnusantara.sch.id" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:border-blue-500 text-xs focus:outline-none">
           </div>
         </div>
         <div>
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Kata Sandi</label>
           <div class="relative">
             <i data-lucide="shield" class="absolute left-3 top-3 text-slate-400 w-4 h-4"></i>
-            <input type="password" id="login-password" required placeholder="••••••••" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:border-blue-500 text-xs focus:outline-none dark:text-white">
+            <input type="password" id="login-password" required placeholder="••••••••" class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:border-blue-500 text-xs focus:outline-none">
           </div>
         </div>
         <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-500/20 text-xs transition-colors">
@@ -237,24 +237,24 @@
       <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4 hidden">
         <div>
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap & Gelar</label>
-          <input type="text" id="reg-name" required placeholder="Budi Santoso, S.Pd." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none dark:text-white">
+          <input type="text" id="reg-name" required placeholder="Budi Santoso, S.Pd." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none">
         </div>
         <div>
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Asal Sekolah</label>
-          <input type="text" id="reg-school" required placeholder="SD Negeri 1 Mataram" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none dark:text-white">
+          <input type="text" id="reg-school" required placeholder="SD Negeri 1 Mataram" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none">
         </div>
         <div>
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Alamat Email</label>
-          <input type="email" id="reg-email" required placeholder="budi@sdnusantara.sch.id" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none dark:text-white">
+          <input type="email" id="reg-email" required placeholder="budi@sdnusantara.sch.id" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Password</label>
-            <input type="password" id="reg-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none dark:text-white">
+            <input type="password" id="reg-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none">
           </div>
           <div>
             <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Konfirmasi</label>
-            <input type="password" id="reg-confirm" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none dark:text-white">
+            <input type="password" id="reg-confirm" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:border-blue-500 focus:outline-none">
           </div>
         </div>
 
@@ -524,9 +524,15 @@
               <option value="Discovery Learning">Discovery Learning</option>
               <option value="Inquiry Learning">Inquiry Learning</option>
               <option value="Cooperative Learning">Cooperative Learning</option>
+              <option value="Problem Solving">Problem Solving</option>
+              <option value="STEM Learning">STEM Learning</option>
+              <option value="Blended Learning">Blended Learning</option>
+              <option value="Demonstration Method">Demonstration Method</option>
+              <option value="Contextual Teaching and Learning (CTL)">Contextual Teaching and Learning (CTL)</option>
             </select>
           </div>
           <div>
+            <!-- REVISI: Mengubah label SD menjadi SD & SMP -->
             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">Profil Lulusan SD & SMP (Multi-Select)</label>
             <div id="profil-lulusan-container" class="flex flex-wrap gap-1.5">
               <!-- Rendered via JS -->
@@ -576,36 +582,36 @@
           </div>
 
           <!-- Kertas A4 -->
-          <div id="a4-print-element" class="w-full aspect-[1/1.41] bg-white text-slate-900 border border-slate-300 shadow-2xl p-8 overflow-y-auto leading-normal relative select-none font-serif text-[12pt] text-justify" style="font-family: 'Times New Roman', Times, serif; font-size: 12pt;">
-            <!-- Header Kop Surat Dinamis -->
-            <div class="text-center border-b-2 border-slate-900 pb-2 mb-3">
-              <p class="font-bold text-[11pt] uppercase tracking-wide leading-tight" id="preview-kop-prov">PEMERINTAH PROVINSI NUSA TENGGARA BARAT</p>
-              <p class="font-bold text-[10pt] uppercase tracking-wide leading-tight text-slate-500 mb-1">DINAS PENDIDIKAN DAN KEBUDAYAAN</p>
-              <p class="font-bold text-[13pt] uppercase leading-tight text-slate-900" id="preview-kop-sekolah">SD NEGERI 2 AMPENAN</p>
-              <p class="text-[9pt] text-slate-500" id="preview-kop-alamat">Jl. Pendidikan No. 45, Ampenan</p>
+          <!-- REVISI: Seluruh elemen di dalam A4 Preview memakai Times New Roman 12pt Justify Hitam Pekat -->
+          <div id="a4-print-element" class="w-full aspect-[1/1.41] bg-white text-black border border-black shadow-2xl p-8 overflow-y-auto leading-normal relative select-none font-serif text-[12pt] text-justify" style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; color: #000000; border-color: #000000;">
+            <!-- Header Kop Surat Dinamis (Hapus DINAS PENDIDIKAN...) -->
+            <div class="text-center border-b-2 border-black pb-2 mb-3">
+              <p class="font-bold text-[11pt] uppercase tracking-wide leading-tight text-black" id="preview-kop-prov">PEMERINTAH PROVINSI NUSA TENGGARA BARAT</p>
+              <p class="font-bold text-[13pt] uppercase leading-tight text-black" id="preview-kop-sekolah">SD NEGERI 2 AMPENAN</p>
+              <p class="text-[9pt] text-black" id="preview-kop-alamat">Jl. Pendidikan No. 45, Ampenan</p>
             </div>
 
-            <p class="text-center text-[13pt] font-extrabold text-blue-600 mt-2 uppercase tracking-wide">MODUL AJAR DEEP LEARNING <span id="preview-tingkat">SD</span></p>
-            <p class="text-center text-[12pt] font-bold text-slate-800 mb-4" id="preview-materi-title">-</p>
+            <p class="text-center text-[13pt] font-extrabold text-black mt-2 uppercase tracking-wide">MODUL AJAR DEEP LEARNING <span id="preview-tingkat">SD</span></p>
+            <p class="text-center text-[12pt] font-bold text-black mb-4" id="preview-materi-title">-</p>
 
             <!-- Tabel Identitas -->
-            <table class="w-full border-collapse border border-slate-300 text-[12pt] mb-4 bg-slate-50">
+            <table class="w-full border-collapse border border-black text-[12pt] mb-4 bg-white">
               <tbody>
                 <tr>
-                  <td class="border border-slate-300 p-2 font-bold w-1/3 text-black">Nama Pendidik</td>
-                  <td class="border border-slate-300 p-2 text-black" id="preview-identitas-guru">-</td>
+                  <td class="border border-black p-2 font-bold w-1/3 text-black">Nama Pendidik</td>
+                  <td class="border border-black p-2 text-black" id="preview-identitas-guru">-</td>
                 </tr>
                 <tr>
-                  <td class="border border-slate-300 p-2 font-bold text-black">Fase / Kelas / Sem.</td>
-                  <td class="border border-slate-300 p-2 text-black" id="preview-identitas-fase">-</td>
+                  <td class="border border-black p-2 font-bold text-black">Fase / Kelas / Sem.</td>
+                  <td class="border border-black p-2 text-black" id="preview-identitas-fase">-</td>
                 </tr>
                 <tr>
-                  <td class="border border-slate-300 p-2 font-bold text-black">Alokasi Waktu</td>
-                  <td class="border border-slate-300 p-2 text-black" id="preview-identitas-alokasi">-</td>
+                  <td class="border border-black p-2 font-bold text-black">Alokasi Waktu</td>
+                  <td class="border border-black p-2 text-black" id="preview-identitas-alokasi">-</td>
                 </tr>
                 <tr>
-                  <td class="border border-slate-300 p-2 font-bold text-black">Model Pembelajaran</td>
-                  <td class="border border-slate-300 p-2 text-black" id="preview-identitas-model">-</td>
+                  <td class="border border-black p-2 font-bold text-black">Model Pembelajaran</td>
+                  <td class="border border-black p-2 text-black" id="preview-identitas-model">-</td>
                 </tr>
               </tbody>
             </table>
@@ -613,19 +619,19 @@
             <!-- Konten Dinamis Akademik -->
             <div class="space-y-4">
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">A. Asesmen Diagnostik Awal</p>
-                <p class="text-black leading-relaxed pl-1.5 border-l border-slate-300 whitespace-pre-line" id="preview-content-asesmen-awal">-</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">A. Asesmen Diagnostik Awal</p>
+                <p class="text-black leading-relaxed pl-1.5 border-l border-black whitespace-pre-line" id="preview-content-asesmen-awal">-</p>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">B. Dimensi Profil Lulusan Pancasila</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">B. Dimensi Profil Lulusan Pancasila</p>
                 <p class="text-black pl-1.5" id="preview-content-profil">-</p>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">C. Tujuan Pembelajaran (TP)</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">C. Tujuan Pembelajaran (TP)</p>
                 <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed font-bold animate-fade-in" id="preview-content-tujuan">-</p>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">D. Kerangka Pedagogis Deep Learning</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">D. Kerangka Pedagogis Deep Learning</p>
                 <p class="text-black pl-1.5 leading-relaxed font-normal">
                   <b>Praktik Pedagogis:</b> <span id="preview-content-pedagogis">-</span><br>
                   <b>Lingkungan Belajar:</b> <span id="preview-content-lingkungan">-</span><br>
@@ -633,58 +639,58 @@
                 </p>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">E. Skenario Skenario Pembelajaran Detail</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">E. Skenario Skenario Pembelajaran Detail</p>
                 <div id="preview-content-langkah" class="space-y-2 font-normal text-black text-justify">
                   <!-- Skenario pertemuan -->
                 </div>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-blue-600 uppercase">F. Asesmen Pembelajaran</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">F. Asesmen Pembelajaran</p>
                 <p class="text-black pl-1.5 leading-relaxed font-normal" id="preview-content-formatif-sumatif">-</p>
               </div>
 
               <!-- Pengesahan -->
-              <div class="pt-4 flex justify-between text-[11pt] border-t border-dashed border-slate-300">
+              <div class="pt-4 flex justify-between text-[11pt] border-t border-dashed border-black">
                 <div>
                   <p class="text-black">Mengetahui,</p>
                   <p class="font-bold text-black">Kepala Sekolah</p>
                   <div class="h-12"></div>
                   <p class="font-bold text-black" id="preview-kepsek">-</p>
-                  <p class="text-slate-400 font-normal" id="preview-nip-kepsek">-</p>
+                  <p class="text-black font-normal" id="preview-nip-kepsek">-</p>
                 </div>
                 <div class="text-right">
                   <p><span id="preview-tanggal-tempat">-</span></p>
                   <p class="font-bold text-black" id="preview-jenis-guru">Guru Kelas</p>
                   <div class="h-12"></div>
                   <p class="font-bold text-black" id="preview-guru">-</p>
-                  <p class="text-slate-400 font-normal" id="preview-nip-guru">-</p>
+                  <p class="text-black font-normal" id="preview-nip-guru">-</p>
                 </div>
               </div>
 
               <!-- Lampiran -->
-              <div class="pt-4 border-t-2 border-slate-300 space-y-3 font-normal text-black text-[12pt]">
-                <p class="font-extrabold text-[12pt] text-indigo-600 uppercase">G. Lampiran Dokumen Ajar</p>
+              <div class="pt-4 border-t-2 border-black space-y-3 font-normal text-black text-[12pt]">
+                <p class="font-extrabold text-[12pt] text-black uppercase">G. Lampiran Dokumen Ajar</p>
                 <div class="page-break"></div>
                 <div>
-                  <p class="font-bold text-[12pt] text-slate-700">Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-slate-50 p-2 rounded" id="preview-lampiran-lkpd">-</p>
+                  <p class="font-bold text-[12pt] text-black">Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-stone-50 p-2 rounded border border-black" id="preview-lampiran-lkpd">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div id="preview-lampiran-kuis-container">
-                  <p class="font-bold text-[12pt] text-slate-700">Lampiran 2: Instrumen Soal Kuis Sumatif</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-slate-50 p-2 rounded" id="preview-lampiran-kuis">-</p>
+                  <p class="font-bold text-[12pt] text-black">Lampiran 2: Instrumen Soal Kuis Sumatif</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-stone-50 p-2 rounded border border-black" id="preview-lampiran-kuis">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div>
-                  <p class="font-bold text-[12pt] text-slate-700">Lampiran 3: Rubrik Penilaian Ketercapaian (4 Tingkat Kriteria)</p>
-                  <table class="w-full border-collapse border border-slate-300 text-[11pt] bg-white mt-1 text-slate-700">
+                  <p class="font-bold text-[12pt] text-black">Lampiran 3: Rubrik Penilaian Ketercapaian (4 Tingkat Kriteria)</p>
+                  <table class="w-full border-collapse border border-black text-[11pt] bg-white mt-1 text-black">
                     <thead>
-                      <tr class="bg-slate-100 font-bold text-slate-900">
-                        <th class="border border-slate-300 p-2">Kriteria</th>
-                        <th class="border border-slate-300 p-2">Sangat Baik</th>
-                        <th class="border border-slate-300 p-2">Baik</th>
-                        <th class="border border-slate-300 p-2">Cukup</th>
-                        <th class="border border-slate-300 p-2">Perlu Bimbingan</th>
+                      <tr class="bg-stone-100 font-bold text-black">
+                        <th class="border border-black p-2">Kriteria</th>
+                        <th class="border border-black p-2">Sangat Baik</th>
+                        <th class="border border-black p-2">Baik</th>
+                        <th class="border border-black p-2">Cukup</th>
+                        <th class="border border-black p-2">Perlu Bimbingan</th>
                       </tr>
                     </thead>
                     <tbody id="preview-table-rubrik-body">
@@ -694,34 +700,34 @@
                 </div>
                 <div class="page-break"></div>
                 <div>
-                  <p class="font-bold text-[12pt] text-slate-700">Lampiran 4: Format Rekapitulasi Pengisian Nilai</p>
-                  <table class="w-full border-collapse border border-slate-300 text-[11pt] bg-white mt-1 text-center text-slate-700">
+                  <p class="font-bold text-[12pt] text-black">Lampiran 4: Format Rekapitulasi Pengisian Nilai</p>
+                  <table class="w-full border-collapse border border-black text-[11pt] bg-white mt-1 text-center text-black">
                     <thead>
-                      <tr class="bg-slate-100 font-bold text-slate-900">
-                        <th class="border border-slate-300 p-1 w-8">No</th>
-                        <th class="border border-slate-300 p-1 text-left pl-2">Nama Siswa</th>
-                        <th class="border border-slate-300 p-1 font-semibold">Nilai Memahami</th>
-                        <th class="border border-slate-300 p-1 font-semibold">Nilai Mengaplikasi</th>
-                        <th class="border border-slate-300 p-1 font-semibold">Nilai Merefleksi</th>
-                        <th class="border border-slate-300 p-1 font-semibold">Nilai Akhir</th>
+                      <tr class="bg-stone-100 font-bold text-black">
+                        <th class="border border-black p-1 w-8">No</th>
+                        <th class="border border-black p-1 text-left pl-2">Nama Siswa</th>
+                        <th class="border border-black p-1 font-semibold">Nilai Memahami</th>
+                        <th class="border border-black p-1 font-semibold">Nilai Mengaplikasi</th>
+                        <th class="border border-black p-1 font-semibold">Nilai Merefleksi</th>
+                        <th class="border border-black p-1 font-semibold">Nilai Akhir</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td class="border border-slate-300 p-1">1</td>
-                        <td class="border border-slate-300 p-1 text-left pl-2">........................................</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">............</td>
+                        <td class="border border-black p-1">1</td>
+                        <td class="border border-black p-1 text-left pl-2">........................................</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">............</td>
                       </tr>
                       <tr>
-                        <td class="border border-slate-300 p-1">2</td>
-                        <td class="border border-slate-300 p-1 text-left pl-2">........................................</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">/ 100</td>
-                        <td class="border border-slate-300 p-1">............</td>
+                        <td class="border border-black p-1">2</td>
+                        <td class="border border-black p-1 text-left pl-2">........................................</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">/ 100</td>
+                        <td class="border border-black p-1">............</td>
                       </tr>
                     </tbody>
                   </table>
@@ -889,6 +895,36 @@
     const PILIHAN_PROFIL_LULUSAN = [
       "Keimanan dan Ketakwaan", "Kewargaan", "Penalaran Kritis", 
       "Kreativitas", "Kolaborasi", "Kemandirian", "Kesehatan", "Komunikasi"
+    ];
+
+    const PILIHAN_MODEL_PEMBELAJARAN = [
+      "Problem Based Learning (PBL)", 
+      "Project Based Learning (PjBL)", 
+      "Discovery Learning", 
+      "Inquiry Learning", 
+      "Cooperative Learning",
+      "Problem Solving",
+      "STEM Learning",
+      "Blended Learning",
+      "Demonstration Method",
+      "Contextual Teaching and Learning (CTL)"
+    ];
+
+    const PILIHAN_MAPEL = [
+      "Bahasa Indonesia",
+      "Bahasa Inggris",
+      "Ilmu Pengetahuan Alam (IPA)",
+      "Ilmu Pengetahuan Sosial (IPS)",
+      "IPAS",
+      "Informatika",
+      "Kimia",
+      "Matematika",
+      "Pendidikan Pancasila",
+      "Seni Rupa",
+      "PJOK (Pendidikan Jasmani, Olahraga, dan Kesehatan)",
+      "Seni Musik",
+      "Seni Tari",
+      "Seni Teater/Drama"
     ];
 
     const PROFIL_MATERI_DEFAULT = {
@@ -1059,13 +1095,13 @@
       const subtitle = document.getElementById('auth-subtitle');
 
       if (mode === 'login') {
-        fLogin.classList.remove('hidden');
-        fRegister.classList.add('hidden');
+        fLogin.className = "space-y-4";
+        fRegister.className = "space-y-4 hidden";
         title.innerText = 'Masuk Akun';
         subtitle.innerText = 'Masukkan kredensial Anda untuk mengakses generator otomatis';
       } else {
-        fLogin.classList.add('hidden');
-        fRegister.classList.remove('hidden');
+        fLogin.className = "space-y-4 hidden";
+        fRegister.className = "space-y-4";
         title.innerText = 'Registrasi Akun Baru';
         subtitle.innerText = 'Satu langkah lagi untuk merancang modul ajar deep learning';
       }
@@ -1268,7 +1304,6 @@
       const tingkat = document.getElementById('form-tingkat').value;
       const mapelSelect = document.getElementById('form-mapel');
       
-      // Pilih mata pelajaran default yang sesuai tingkat sekolahnya
       if (tingkat === "SD") {
         mapelSelect.value = "IPAS";
       } else {
@@ -1286,7 +1321,6 @@
           </button>
         `;
       });
-      // Set default selected profil lulusan
       formData.profilLulusan = formData.profilLulusan || ["Penalaran Kritis", "Kreativitas", "Kolaborasi"];
       formData.profilLulusan.forEach(p => {
         const btn = document.getElementById(`btn-profil-${p.replace(/\s+/g, '-')}`);
@@ -1360,10 +1394,9 @@
       const jlhPertemuan = parseInt(document.getElementById('form-pertemuan').value) || 2;
       const profil = formData.profilLulusan.join(", ");
 
-      // Membuat prompt instruksi terarah agar konten yang dihasilkan 100% selaras dengan kriteria pengguna
       const systemPrompt = "Anda adalah sistem pakar otomatisasi administrasi guru Kurikulum Merdeka berstandar nasional di Indonesia. Tugas Anda adalah menghasilkan Modul Ajar Deep Learning yang komprehensif, logis, rapi, dan sepenuhnya disesuaikan dengan parameter masukan pengguna. Jangan gunakan kata 'AI' dalam seluruh teks Anda. Gunakan istilah 'Sistem Pintar' atau 'Sistem Otomatis'. Pastikan seluruh isi teks, langkah, evaluasi, dan lampiran relevan secara mendalam dengan materi pokok dan mata pelajaran yang ditentukan (tidak boleh menggunakan template statis/berulang). Semua daftar poin harus menggunakan penomoran urut ke bawah secara vertikal, bukan paragraf panjang.";
 
-      // REVISI: Memodifikasi prompt instruksi agar menghasilkan 5 butir soal sumatif secara konsisten
+      // REVISI: Memodifikasi prompt instruksi agar menghasilkan langkah [BERKESADARAN], [BERMAKNA], [MENYENANGKAN] dan LKPD per pertemuan, serta 5 soal sumatif secara konsisten
       const userQuery = `Hasilkan modul ajar terpadu dengan kriteria berikut:
       - Tingkat Sekolah: ${tingkat} (Fase ${fase})
       - Kelas: ${kelas} (Semester ${semester})
@@ -1371,13 +1404,13 @@
       - Materi Pokok: ${materi}
       - Alokasi Waktu: ${jlhPertemuan} Pertemuan
       - Model Pembelajaran Utama: ${model}
-      - Profil Lulusan Pancasila: ${profil}
+      - Profil Lulusan Pancasila: ${fase}
 
       Pastikan:
       1. Tujuan Pembelajaran (TP) dirancang sangat jelas dan terperinci mengikuti taksonomi kognitif Kurikulum Merdeka yang relevan untuk materi "${materi}" pada Fase ini. Jangan gunakan kata '- HASIL OTOMATIS' di judul.
-      2. Skenario pembelajaran per pertemuan (pendahuluan, inti, penutup) terstruktur urut ke bawah secara vertikal dengan nomor.
-      3. Kegiatan Inti wajib meleburkan sintaksis model pembelajaran "${model}" dengan 3 pilar Deep Learning secara mendalam: Memahami (Deconstruct), Mengaplikasikan (Apply), dan Merefleksikan (Reflect) secara terstruktur.
-      4. LKPD, Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum).`;
+      2. Skenario pembelajaran per pertemuan (pendahuluan, inti, penutup) terstruktur urut ke bawah secara vertikal dengan nomor. Di dalam skenario di setiap pertemuan, tunjukkan dan tandai secara eksplisit mana langkah yang merupakan unsur [BERKESADARAN] (Mindful), [BERMAKNA] (Meaningful), dan [MENYENANGKAN] (Joyful).
+      3. LKPD harus dibuat terpisah-pisah per pertemuan secara terperinci menyesuaikan materi untuk tiap-tiap pertemuan (jumlah LKPD dibuat sebanyak ${jlhPertemuan} bagian pertemuan).
+      4. Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum).`;
 
       const apiKey = ""; // Runtime menyediakan kunci otomatis
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -1401,14 +1434,14 @@
                   "type": "OBJECT",
                   "properties": {
                     "pertemuan": { "type": "INTEGER" },
-                    "pendahuluan": { "type": "STRING", "description": "Kegiatan pendahuluan terperinci, harus terstruktur menggunakan penomoran urut ke bawah" },
-                    "inti": { "type": "STRING", "description": "Kegiatan inti yang secara eksplisit meleburkan sintaksis model pembelajaran terpilih dengan 3 tahap Deep Learning (Memahami/Deconstruct, Mengaplikasikan/Apply, Merefleksikan/Reflect), harus terstruktur menggunakan penomoran urut ke bawah" },
-                    "penutup": { "type": "STRING", "description": "Kegiatan penutup terperinci, harus terstruktur menggunakan penomoran urut ke bawah" }
+                    "pendahuluan": { "type": "STRING", "description": "Kegiatan pendahuluan terperinci, harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
+                    "inti": { "type": "STRING", "description": "Kegiatan inti yang secara eksplisit meleburkan sintaksis model pembelajaran terpilih dengan 3 tahap Deep Learning (Deconstruct, Apply, Reflect), harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
+                    "penutup": { "type": "STRING", "description": "Kegiatan penutup terperinci, harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" }
                   },
                   "required": ["pertemuan", "pendahuluan", "inti", "penutup"]
                 }
               },
-              lkpd: { "type": "STRING", "description": "Lembar Kerja Peserta Didik (LKPD) lengkap, terstruktur rapi dengan penomoran urut ke bawah" },
+              lkpd: { "type": "STRING", "description": "Lembar Kerja Peserta Didik (LKPD) lengkap, terstruktur rapi per pertemuan dengan penomoran urut ke bawah" },
               kuisSumatif: { "type": "STRING", "description": "Kuis evaluasi sumatif berupa 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, kolom alasan, kunci jawaban, dan panduan penskoran yang sangat selaras dengan materi pokok" },
               rubrikPenilaian: {
                 "type": "ARRAY",
@@ -1473,7 +1506,7 @@
         setIsGenerating(false);
         appState.hasGenerated = true;
         document.getElementById('export-actions').classList.remove('hidden');
-        document.getElementById('a4-placeholder').classList.remove('hidden');
+        document.getElementById('a4-placeholder').classList.add('hidden');
         document.getElementById('a4-workspace-preview').classList.remove('hidden');
         
         addToast("Berhasil menghasilkan Modul Ajar Deep Learning Akademik Terpadu!", "success");
@@ -1509,7 +1542,7 @@
       const tanggal = document.getElementById('form-tanggal').value;
       const model = document.getElementById('form-model').value;
 
-      // Update KOP & Identitas
+      // Update KOP & Identitas (REVISI: Menghapus DINAS PENDIDIKAN... dan mengubah seluruh visual teks A4 preview menjadi hitam pekat)
       document.getElementById('preview-kop-prov').innerText = `PEMERINTAH PROVINSI ${provinsi.toUpperCase()}`;
       document.getElementById('preview-kop-sekolah').innerText = sekolah.toUpperCase();
       document.getElementById('preview-kop-alamat').innerText = alamat;
@@ -1534,11 +1567,11 @@
       langkahContainer.innerHTML = '';
       generatedModulData.pertemuanData.forEach(pt => {
         langkahContainer.innerHTML += `
-          <div class="border-l-2 border-slate-300 pl-2 py-1 space-y-1 text-black font-normal">
-            <p class="font-extrabold text-[8px] text-slate-700">Pertemuan ${pt.pertemuan}</p>
-            <p class="whitespace-pre-line leading-relaxed"><b>Kegiatan Pendahuluan:</b>\n${pt.pendahuluan}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1"><b>Kegiatan Inti (Sintaks & Deep Learning):</b>\n${pt.inti}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
+          <div class="border-l-2 border-black pl-2 py-1 space-y-1 text-black font-normal" style="color: #000000;">
+            <p class="font-extrabold text-[12pt] text-black">Pertemuan ${pt.pertemuan}</p>
+            <p class="whitespace-pre-line leading-relaxed text-black" style="color: #000000;"><b>Kegiatan Pendahuluan:</b>\n${pt.pendahuluan}</p>
+            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000;"><b>Kegiatan Inti (Sintaks & Deep Learning):</b>\n${pt.inti}</p>
+            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000;"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
           </div>
         `;
       });
@@ -1573,12 +1606,12 @@
       rubrikBody.innerHTML = '';
       generatedModulData.rubrikPenilaian.forEach(r => {
         rubrikBody.innerHTML += `
-          <tr class="text-black font-normal">
-            <td class="border border-slate-300 p-1 font-bold">${r.kriteria}</td>
-            <td class="border border-slate-300 p-1">${r.sangatBaik}</td>
-            <td class="border border-slate-300 p-1">${r.baik}</td>
-            <td class="border border-slate-300 p-1">${r.cukup}</td>
-            <td class="border border-slate-300 p-1">${r.perluBimbingan}</td>
+          <tr class="text-black font-normal" style="color: #000000;">
+            <td class="border border-black p-2 font-bold">${r.kriteria}</td>
+            <td class="border border-black p-2">${r.sangatBaik}</td>
+            <td class="border border-black p-2">${r.baik}</td>
+            <td class="border border-black p-2">${r.cukup}</td>
+            <td class="border border-black p-2">${r.perluBimbingan}</td>
           </tr>
         `;
       });
@@ -1755,8 +1788,7 @@
       });
 
       const colorPrimary = [0, 0, 0]; 
-      const colorSecondary = [59, 130, 246]; 
-      const colorGray = [100, 116, 139]; 
+      const colorSecondary = [0, 0, 0]; // REVISI: Mengubah judul sub bab PDF agar berwarna hitam pekat murni
 
       const marginKiri = 30;
       const marginKanan = 30;
@@ -1781,43 +1813,42 @@
       };
 
       const drawPageBorder = (pdfDoc) => {
-        pdfDoc.setDrawColor(226, 232, 240);
+        pdfDoc.setDrawColor(0, 0, 0); // REVISI: Mengubah warna bingkai halaman menjadi hitam pekat
         pdfDoc.setLineWidth(0.3);
         pdfDoc.rect(15, 15, 180, 267);
         
         pdfDoc.setFont('times', 'normal');
         pdfDoc.setFontSize(12); // REVISI: Mengubah teks catatan kaki/bingkai agar konsisten berukuran 12pt
-        pdfDoc.setTextColor(148, 163, 184);
+        pdfDoc.setTextColor(0, 0, 0); // REVISI: Menjadi hitam pekat
         pdfDoc.text("Halaman " + pdfDoc.internal.getNumberOfPages(), 190, 277, { align: 'right' });
       };
 
       drawPageBorder(doc);
 
-      // KOP SURAT
+      // KOP SURAT (Hapus DINAS PENDIDIKAN DAN KEBUDAYAAN)
       doc.setFont('times', 'bold');
       doc.setFontSize(12); // REVISI: Mengubah ukuran huruf KOP agar seragam di 12pt
       doc.setTextColor(...colorPrimary);
       doc.text(`PEMERINTAH PROVINSI ${document.getElementById('form-provinsi').value.toUpperCase()}`, 105, currentY, { align: 'center' });
-      doc.text("DINAS PENDIDIKAN DAN KEBUDAYAAN", 105, currentY + 5, { align: 'center' });
       
       doc.setFontSize(12);
-      doc.text(document.getElementById('form-sekolah').value.toUpperCase(), 105, currentY + 10, { align: 'center' });
+      doc.text(document.getElementById('form-sekolah').value.toUpperCase(), 105, currentY + 6, { align: 'center' });
       
       doc.setFont('times', 'normal');
       doc.setFontSize(12); // REVISI: Mengubah ukuran huruf KOP agar seragam di 12pt
       doc.setTextColor(...colorPrimary);
-      doc.text(document.getElementById('form-alamat').value + `, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}`, 105, currentY + 15, { align: 'center' });
+      doc.text(document.getElementById('form-alamat').value + `, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}`, 105, currentY + 11, { align: 'center' });
       
       doc.setDrawColor(...colorPrimary);
       doc.setLineWidth(0.8);
-      doc.line(marginKiri, currentY + 19, 210 - marginKanan, currentY + 19);
+      doc.line(marginKiri, currentY + 15, 210 - marginKanan, currentY + 15);
       doc.setLineWidth(0.2);
-      doc.line(marginKiri, currentY + 20.5, 210 - marginKanan, currentY + 20.5);
+      doc.line(marginKiri, currentY + 16.5, 210 - marginKanan, currentY + 16.5);
 
-      currentY += 28;
+      currentY += 24;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Mempertahankan ukuran 12pt dengan warna biru sekunder khusus judul utama
+      doc.setFontSize(12); // REVISI: Mempertahankan ukuran 12pt dengan warna hitam pekat murni
       doc.setTextColor(...colorSecondary); 
       doc.text(`MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}`, 105, currentY, { align: 'center' });
       
@@ -1828,8 +1859,8 @@
 
       // TABLE IDENTITAS
       doc.setFontSize(12); // REVISI: Selaras 12pt
-      doc.setDrawColor(203, 213, 225);
-      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(0, 0, 0); // REVISI: Border hitam pekat
+      doc.setFillColor(255, 255, 255);
       doc.rect(marginKiri, currentY, contentWidth, 38, 'FD');
 
       doc.setFont('times', 'bold');
@@ -1913,10 +1944,10 @@
       const printSectionHeader = (title) => {
         checkPageBreak(15);
         doc.setFont('times', 'bold');
-        doc.setFontSize(12); // REVISI: Mengubah judul sub bab agar konsisten di 12pt berwarna biru
+        doc.setFontSize(12); // REVISI: Mengubah judul sub bab agar konsisten di 12pt berwarna hitam pekat murni
         doc.setTextColor(...colorSecondary); 
         doc.text(title, marginKiri, currentY);
-        doc.setDrawColor(...colorSecondary);
+        doc.setDrawColor(0, 0, 0);
         doc.setLineWidth(0.3);
         doc.line(marginKiri, currentY + 1.5, pageWidth - marginKanan, currentY + 1.5);
         currentY += 7.5;
@@ -2077,7 +2108,7 @@
           doc.setFillColor(255, 255, 255);
         }
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'F');
-        doc.setDrawColor(203, 213, 225);
+        doc.setDrawColor(0, 0, 0); // REVISI: Tabel border hitam pekat
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'D');
 
         let currentX = marginKiri;
@@ -2194,7 +2225,7 @@
         let resultHtml = "<ol style='margin-top:0px; margin-bottom:10px;'>";
         lines.forEach(line => {
           const cleanLine = line.replace(/^\d+[\.\)\-]\s*/, '').trim();
-          resultHtml += `<li style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-bottom: 6px;'>${cleanLine}</li>`;
+          resultHtml += `<li style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-bottom: 6px; color: #000000;'>${cleanLine}</li>`;
         });
         resultHtml += "</ol>";
         return resultHtml;
@@ -2222,6 +2253,7 @@
               text-align: justify; 
               margin-top: 0px; 
               margin-bottom: 12px; 
+              color: #000000;
             }
             .kop-prov { 
               text-align: center; 
@@ -2229,6 +2261,7 @@
               font-weight: bold; 
               text-transform: uppercase; 
               margin-bottom: 0px; 
+              color: #000000;
           }
             .kop-title { 
               text-align: center; 
@@ -2236,11 +2269,12 @@
               font-weight: bold; 
               text-transform: uppercase; 
               margin-bottom: 2px; 
+              color: #000000;
             }
             .kop-sub { 
               text-align: center; 
               font-size: 10pt; 
-              color: #555555; 
+              color: #000000; 
               margin-bottom: 5px; 
             }
             hr.kop-line { 
@@ -2250,11 +2284,11 @@
               margin: 10px 0; 
             }
             h1 { 
-              color: #1d4ed8; 
+              color: #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 13pt; 
               font-weight: bold;
-              border-bottom: 2px solid #1d4ed8; 
+              border-bottom: 2px solid #000000; 
               padding-bottom: 3px; 
               margin-top: 24px; 
               margin-bottom: 12px;
@@ -2269,21 +2303,21 @@
             }
             .identitas-table { 
               width: 100%; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               border-collapse: collapse; 
-              background-color: #f8fafc; 
+              background-color: #ffffff; 
               margin: 15px 0; 
             }
             .identitas-table td { 
               padding: 8px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
               color: #000000;
             }
             .rubrik-table { 
               width: 100%; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
@@ -2291,7 +2325,7 @@
               background-color: #f1f5f9; 
               font-weight: bold; 
               padding: 8px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               text-align: left; 
@@ -2299,7 +2333,7 @@
             }
             .rubrik-table td { 
               padding: 8px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               vertical-align: top; 
@@ -2308,14 +2342,14 @@
             }
             .nilai-table { 
               width: 100%; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
             .nilai-table th { 
               background-color: #f1f5f9; 
               padding: 6px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               text-align: left; 
@@ -2323,7 +2357,7 @@
             }
             .nilai-table td { 
               padding: 6px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               color: #000000;
@@ -2333,6 +2367,7 @@
               margin-top: 40px; 
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
+              color: #000000;
             }
             .signature-table td { 
               width: 50%; 
@@ -2343,6 +2378,7 @@
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
               text-align: justify;
+              color: #000000;
             }
             .page-break { 
               page-break-before: always; 
@@ -2350,15 +2386,14 @@
           </style>
         </head>
         <body>
-          <!-- BAGIAN KOP SURAT -->
+          <!-- BAGIAN KOP SURAT (DINAS PENDIDIKAN DAN KEBUDAYAAN dihapus) -->
           <div class="kop-prov">PEMERINTAH PROVINSI ${document.getElementById('form-provinsi').value.toUpperCase()}</div>
-          <div class="kop-prov" style="font-size: 10.5pt; margin-bottom: 5px;">DINAS PENDIDIKAN DAN KEBUDAYAAN</div>
           <div class="kop-title">${document.getElementById('form-sekolah').value}</div>
           <div class="kop-sub">${document.getElementById('form-alamat').value}, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}</div>
           <hr class="kop-line">
 
-          <h2 style="text-align: center; font-size: 13pt; color: #1d4ed8; font-weight: bold; margin-top: 20px;">MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}</h2>
-          <h3 style="text-align: center; font-size: 11pt; margin-top: 0; font-weight: bold;">MATA PELAJARAN: ${document.getElementById('form-mapel').value} - ${document.getElementById('form-materi').value}</h3>
+          <h2 style="text-align: center; font-size: 13pt; color: #000000; font-weight: bold; margin-top: 20px;">MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}</h2>
+          <h3 style="text-align: center; font-size: 11pt; margin-top: 0; font-weight: bold; color: #000000;">MATA PELAJARAN: ${document.getElementById('form-mapel').value} - ${document.getElementById('form-materi').value}</h3>
 
           <table class="identitas-table">
             <tr>
@@ -2383,7 +2418,7 @@
           <div>${formatNumberedText(generatedModulData.asesmenAwal)}</div>
 
           <h1>B. DIMENSI PROFIL LULUSAN</h1>
-          <p style="text-align: justify;">Profil Lulusan yang diselaraskan dalam modul pembelajaran ini meliputi: ${formData.profilLulusan.join(", ")}.</p>
+          <p style="text-align: justify; color: #000000;">Profil Lulusan yang diselaraskan dalam modul pembelajaran ini meliputi: ${formData.profilLulusan.join(", ")}.</p>
 
           <h1>C. TUJUAN PEMBELAJARAN (TP)</h1>
           <div>${formatNumberedText(generatedModulData.tujuanPembelajaran)}</div>
@@ -2392,18 +2427,18 @@
           <h2>1. Praktik Pedagogis</h2>
           <div>${formatNumberedText(generatedModulData.praktikPedagogis)}</div>
           <h2>2. Lingkungan Belajar & Pemanfaatan Media Digital</h2>
-          <p style="text-align: justify;">Siswa melakukan kolaborasi aktif di ${generatedModulData.lingkunganPembelajaran.replace(/^\d+[\.\)\-]\s*/, '')}. Di samping itu, pembelajaran didukung dengan optimalisasi perangkat digital berupa ${generatedModulData.pemanfaatanDigital.replace(/^\d+[\.\)\-]\s*/, '')}.</p>
+          <p style="text-align: justify; color: #000000;">Siswa melakukan kolaborasi aktif di ${generatedModulData.lingkunganPembelajaran.replace(/^\d+[\.\)\-]\s*/, '')}. Di samping itu, pembelajaran didukung dengan optimalisasi perangkat digital berupa ${generatedModulData.pemanfaatanDigital.replace(/^\d+[\.\)\-]\s*/, '')}.</p>
 
           <h1>E. LANGKAH-LANGKAH PEMBELAJARAN DETAIL (DEEP LEARNING)</h1>
           ${generatedModulData.pertemuanData.map(pt => `
-            <h2 style="color: #1f2937; border-left: 4px solid #1d4ed8; padding-left: 8px; margin-top: 20px;">PERTEMUAN KE-${pt.pertemuan}</h2>
-            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">A. KEGIATAN PENDAHULUAN (Mindful, Meaningful, Joyful)</h3>
+            <h2 style="color: #000000; border-left: 4px solid #000000; padding-left: 8px; margin-top: 20px;">PERTEMUAN KE-${pt.pertemuan}</h2>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">A. KEGIATAN PENDAHULUAN (Mindful, Meaningful, Joyful)</h3>
             <div>${formatNumberedText(pt.pendahuluan)}</div>
             
-            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">B. KEGIATAN INTI (Proses Deep Learning - Memahami, Mengaplikasi, Merefleksi)</h3>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">B. KEGIATAN INTI (Proses Deep Learning - Memahami, Mengaplikasi, Merefleksi)</h3>
             <div>${formatNumberedText(pt.inti)}</div>
             
-            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">C. KEGIATAN PENUTUP & REFLEKSI</h3>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">C. KEGIATAN PENUTUP & REFLEKSI</h3>
             <div>${formatNumberedText(pt.penutup)}</div>
           `).join('')}
 
@@ -2411,14 +2446,14 @@
           <h2>1. Diagnostik Awal</h2>
           <div>${formatNumberedText(generatedModulData.asesmenAwal)}</div>
           <h2>2. Asesmen Formatif</h2>
-          <p style="text-align: justify;">${generatedModulData.asesmenFormatif}</p>
+          <p style="text-align: justify; color: #000000;">${generatedModulData.asesmenFormatif}</p>
           <h2>3. Asesmen Sumatif</h2>
-          <p style="text-align: justify;">${generatedModulData.asesmenSumatif}</p>
+          <p style="text-align: justify; color: #000000;">${generatedModulData.asesmenSumatif}</p>
 
           <table class="signature-table">
             <tr>
               <td></td>
-              <td style="text-align: right;">${datePlace}</td>
+              <td style="text-align: right; color: #000000;">${datePlace}</td>
             </tr>
             <tr style="height: 20px;"><td></td><td></td></tr>
             <tr>
@@ -2436,34 +2471,34 @@
 
           <h1>G. LAMPIRAN - LAMPIRAN</h1>
           <h2>Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</h2>
-          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${generatedModulData.lkpd}</div>
+          <div style="border: 1px solid #000000; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${generatedModulData.lkpd}</div>
 
           ${generatedModulData.kuisSumatif ? `
           <div class="page-break"></div>
           <h2>Lampiran 2: Instrumen Soal Kuis Sumatif</h2>
-          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${generatedModulData.kuisSumatif}</div>
+          <div style="border: 1px solid #000000; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${generatedModulData.kuisSumatif}</div>
           ` : ''}
 
           <div class="page-break"></div>
           <h2>Lampiran 3: Pedoman & Rubrik Penilaian Kinerja (4 Tingkat)</h2>
           <table class="rubrik-table">
             <thead>
-              <tr>
-                <th style="width: 20%;">Aspek Kriteria</th>
-                <th style="width: 20%;">Sangat Baik</th>
-                <th style="width: 20%;">Baik</th>
-                <th style="width: 20%;">Cukup Memadai</th>
-                <th style="width: 20%;">Perlu Bimbingan</th>
+              <tr style="color: #000000;">
+                <th style="width: 20%; border: 1px solid #000000;">Aspek Kriteria</th>
+                <th style="width: 20%; border: 1px solid #000000;">Sangat Baik</th>
+                <th style="width: 20%; border: 1px solid #000000;">Baik</th>
+                <th style="width: 20%; border: 1px solid #000000;">Cukup Memadai</th>
+                <th style="width: 20%; border: 1px solid #000000;">Perlu Bimbingan</th>
               </tr>
             </thead>
             <tbody>
               ${generatedModulData.rubrikPenilaian.map(rubrik => `
-                <tr>
-                  <td style="font-weight: bold;">${rubrik.kriteria}</td>
-                  <td>${rubrik.sangatBaik}</td>
-                  <td>${rubrik.baik || "-"}</td>
-                  <td>${rubrik.cukup}</td>
-                  <td>${rubrik.perluBimbingan}</td>
+                <tr style="color: #000000;">
+                  <td style="font-weight: bold; border: 1px solid #000000;">${rubrik.kriteria}</td>
+                  <td style="border: 1px solid #000000;">${rubrik.sangatBaik}</td>
+                  <td style="border: 1px solid #000000;">${rubrik.baik || "-"}</td>
+                  <td style="border: 1px solid #000000;">${rubrik.cukup}</td>
+                  <td style="border: 1px solid #000000;">${rubrik.perluBimbingan}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -2473,24 +2508,24 @@
           <h2>Lampiran 4: Format Rekapitulasi Pengisian Nilai</h2>
           <table class="nilai-table">
             <thead>
-              <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 35%;">Nama Peserta Didik</th>
-                <th style="width: 15%;">Nilai Memahami</th>
-                <th style="width: 15%;">Nilai Mengaplikasi</th>
-                <th style="width: 15%;">Nilai Merefleksi</th>
-                <th style="width: 15%;">Nilai Akhir</th>
+              <tr style="color: #000000;">
+                <th style="width: 5%; border: 1px solid #000000;">No</th>
+                <th style="width: 35%; border: 1px solid #000000;">Nama Peserta Didik</th>
+                <th style="width: 15%; border: 1px solid #000000;">Nilai Memahami</th>
+                <th style="width: 15%; border: 1px solid #000000;">Nilai Mengaplikasi</th>
+                <th style="width: 15%; border: 1px solid #000000;">Nilai Merefleksi</th>
+                <th style="width: 15%; border: 1px solid #000000;">Nilai Akhir</th>
               </tr>
             </thead>
             <tbody>
               ${[1, 2, 3, 4, 5].map(n => `
-                <tr>
-                  <td>${n}</td>
-                  <td>................................................</td>
-                  <td>/ 100</td>
-                  <td>/ 100</td>
-                  <td>/ 100</td>
-                  <td>...........</td>
+                <tr style="color: #000000;">
+                  <td style="border: 1px solid #000000;">${n}</td>
+                  <td style="border: 1px solid #000000;">................................................</td>
+                  <td style="border: 1px solid #000000;">/ 100</td>
+                  <td style="border: 1px solid #000000;">/ 100</td>
+                  <td style="border: 1px solid #000000;">/ 100</td>
+                  <td style="border: 1px solid #000000;">...........</td>
                 </tr>
               `).join('')}
             </tbody>
