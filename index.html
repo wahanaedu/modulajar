@@ -469,6 +469,7 @@
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kelas</label>
+              <!-- REVISI: Dropdown Kelas menampilkan pilihan Kelas 1 s.d. Kelas 9 terpadu -->
               <select id="form-kelas" class="w-full px-2 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
                 <option value="Kelas 1">Kelas 1</option>
                 <option value="Kelas 2">Kelas 2</option>
@@ -765,7 +766,7 @@
       <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
         <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-emerald-500 to-teal-600"></div>
         <p class="text-[10px] sm:text-xs font-semibold text-slate-400">Anggota Aktif</p>
-        <p id="stat-total" class="text-2xl sm:text-3xl font-black mt-1">0</p>
+        <p id="stat-active" class="text-2xl sm:text-3xl font-black mt-1">0</p>
         <p class="text-[10px] text-slate-500 mt-1">Akses penuh premium</p>
       </div>
       <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
@@ -1061,7 +1062,7 @@
         fLogin.classList.remove('hidden');
         fRegister.classList.add('hidden');
         title.innerText = 'Masuk Akun';
-        subtitle.innerText = 'Masukkan kredensial Anda untuk mengakses generator modul otomatis';
+        subtitle.innerText = 'Masukkan kredensial Anda untuk mengakses generator otomatis';
       } else {
         fLogin.classList.add('hidden');
         fRegister.classList.remove('hidden');
@@ -1472,7 +1473,7 @@
         setIsGenerating(false);
         appState.hasGenerated = true;
         document.getElementById('export-actions').classList.remove('hidden');
-        document.getElementById('a4-placeholder').classList.add('hidden');
+        document.getElementById('a4-placeholder').classList.remove('hidden');
         document.getElementById('a4-workspace-preview').classList.remove('hidden');
         
         addToast("Berhasil menghasilkan Modul Ajar Deep Learning Akademik Terpadu!", "success");
@@ -1726,6 +1727,11 @@
       appState.zoomLevel = 1.0;
       img.style.transform = `scale(${appState.zoomLevel})`;
       modal.classList.remove('hidden');
+    }
+
+    function adjustZoom(amount) {
+      appState.zoomLevel = Math.max(0.5, Math.min(2.5, appState.zoomLevel + amount));
+      document.getElementById('resi-zoom-image').style.transform = `scale(${appState.zoomLevel})`;
     }
 
     function closeResiModal() {
