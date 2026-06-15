@@ -21,7 +21,7 @@
   </script>
 
   <!-- Google Fonts & Lucide Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- jsPDF CDN -->
@@ -86,13 +86,16 @@
       }
     }
   </style>
+  <!-- Chosen Palette: Warm Nusantara Neutrals (Stone-50 background, Stone-800 text, Amber-700 and Teal-600 accents) -->
+  <!-- Application Structure Plan: Single-page scrollable dashboard with sticky top navigation. Content is divided into 4 thematic sections: Executive Summary, Efficiency Analysis, Pedagogical Trends, and Cognitive Impact. A global interaction element allows users to switch contexts between Primary (SD) and Junior High (SMP) data, updating all visualizations simultaneously. -->
+  <!-- Visualization & Content Choices: Summary Data -> Inform -> Statistic Cards -> JS DOM Update -> Clear, immediate impact of top-level metrics. Efficiency -> Compare -> Bar Chart (Chart.js) -> Toggle Data -> Visually stark contrast between manual and automated time. Pedagogical Trends -> Proportions -> Doughnut Chart (Chart.js) -> Hover Tooltips -> Easy comparison of model popularity. Cognitive Impact -> Trends -> Line Chart (Chart.js) -> Point Hover -> Shows growth over time cleanly. NO SVG/Mermaid used; relying strictly on Canvas and HTML/CSS structure. -->
+  <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
 
   <!-- === TOAST FLOATING NOTIFICATION === -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
 
-  <!-- === STREAMING_CHUNK:Structuring navigation bar and branding logo... === -->
   <!-- GLOBAL HEADER / NAVIGATION -->
   <nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -121,7 +124,6 @@
     </div>
   </nav>
 
-  <!-- === STREAMING_CHUNK:Structuring landing page hero and pricing plans... === -->
   <!-- VIEW 1: LANDING PAGE -->
   <div id="view-landing" class="view-panel animate-fade-in">
     <!-- Hero Section -->
@@ -176,7 +178,7 @@
             <h3 class="text-lg font-bold mb-2">Kerangka Deep Learning SD & SMP</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Konten berorientasi penuh pada pendalaman konsep esensial, memicu nalar kritis siswa secara kolaboratif.</p>
           </div>
-          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
+          <div class="p-6 rounded-2xl bg-white bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
             <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400"><i data-lucide="download"></i></div>
             <h3 class="text-lg font-bold mb-2">Ekspor PDF & Word Instan</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Unduh file siap cetak berukuran A4 presisi menggunakan jsPDF dengan pembagian halaman otomatis, serta format dokumen Word.</p>
@@ -223,7 +225,6 @@
     </section>
   </div>
 
-  <!-- === STREAMING_CHUNK:Structuring auth login and registration forms with QRIS... === -->
   <!-- VIEW 2: AUTHENTICATION PANEL -->
   <div id="view-auth" class="view-panel hidden animate-fade-in max-w-md mx-auto py-16 px-4">
     <button onclick="navigateTo('landing')" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-500 mb-6 font-semibold">
@@ -339,7 +340,6 @@
     </div>
   </div>
 
-  <!-- === STREAMING_CHUNK:Structuring pending activation state panel... === -->
   <!-- VIEW 3: PENDING ACTIVATION -->
   <div id="view-pending" class="view-panel hidden animate-fade-in max-w-xl mx-auto py-16 px-4 text-center">
     <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto text-amber-500 mb-6">
@@ -365,7 +365,6 @@
     </div>
   </div>
 
-  <!-- === STREAMING_CHUNK:Structuring workspace layout with 3 column panel... === -->
   <!-- VIEW 4: USER WORKSPACE (3 COLUMN) -->
   <div id="view-workspace" class="view-panel hidden animate-fade-in max-w-full mx-auto px-4 py-6">
     <!-- Workspace Header -->
@@ -395,7 +394,6 @@
         </div>
       </aside>
 
-      <!-- === STREAMING_CHUNK:Structuring workspace form inputs... === -->
       <!-- Kolom 2: Formulir Pengisian (5 Cols) -->
       <main class="lg:col-span-5 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800 shadow-sm space-y-6">
         <div class="space-y-4">
@@ -499,6 +497,7 @@
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kelas</label>
+              <!-- Dropdown Kelas menampilkan pilihan Kelas 1 s.d. Kelas 9 terpadu -->
               <select id="form-kelas" class="w-full px-2 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
                 <option value="Kelas 1">Kelas 1</option>
                 <option value="Kelas 2">Kelas 2</option>
@@ -515,11 +514,11 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Materi Pokok</label>
-              <input type="text" id="form-materi" value="Pengaruh Gaya Magnet Terhadap Benda" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none focus:border-blue-500 dark:text-white font-semibold">
+              <input type="text" id="form-materi" value="Pengaruh Gaya Magnet Terhadap Benda" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white font-semibold">
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Semester</label>
-              <select id="form-semester" class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-850 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
+              <select id="form-semester" class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-855 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
                 <option value="Ganjil (I)">Ganjil (I)</option>
                 <option value="Genap (II)">Genap (II)</option>
               </select>
@@ -528,7 +527,7 @@
           <div class="grid grid-cols-3 gap-2">
             <div class="col-span-2">
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Alokasi Waktu</label>
-              <input type="text" id="form-alokasi" value="2 JP (2 x 35 Menit)" class="w-full px-2.5 py-2 rounded-lg border border-slate-200/50 dark:border-slate-805 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white">
+              <input type="text" id="form-alokasi" value="2 JP (2 x 35 Menit)" class="w-full px-2.5 py-2 rounded-lg border border-slate-200/50 dark:border-slate-855 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white">
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Pertemuan</label>
@@ -570,7 +569,7 @@
           <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1">
             <i data-lucide="key" class="w-3.5 h-3.5 text-blue-500"></i> Gemini API Key (Opsional - Server Proxy Aktif)
           </label>
-          <input type="password" id="form-api-key" placeholder="Kosongkan untuk menggunakan Server API Key bawaan..." class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white focus:outline-none focus:border-blue-500 font-mono">
+          <input type="password" id="form-api-key" placeholder="Kosongkan untuk menggunakan Server API Key bawaan..." class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white focus:outline-none focus:border-blue-500 font-mono font-bold">
           <p class="text-[9px] text-slate-400 mt-1">Jika dikosongkan, sistem akan menggunakan koneksi aman via Google Apps Script Proxy Anda.</p>
         </div>
 
@@ -593,7 +592,6 @@
         </div>
       </main>
 
-      <!-- === STREAMING_CHUNK:Structuring Live Preview A4 document viewer... === -->
       <!-- Kolom 3: Live Preview Kertas A4 (4 Cols) -->
       <section class="lg:col-span-4 bg-slate-100 dark:bg-slate-950 p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800 shadow-inner flex flex-col items-center">
         <!-- Placeholder belum digenerate -->
@@ -770,7 +768,6 @@
     </div>
   </div>
 
-  <!-- === STREAMING_CHUNK:Structuring Admin CRM portal dashboard... === -->
   <!-- VIEW 5: ADMIN CRM PORTAL -->
   <div id="view-admin" class="view-panel hidden animate-fade-in max-w-7xl mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
@@ -845,7 +842,6 @@
     </div>
   </div>
 
-  <!-- === STREAMING_CHUNK:Structuring QRIS and Bukti transfer zoom modals... === -->
   <!-- QRIS Zoom Modal -->
   <div id="qris-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden">
     <div class="absolute top-4 right-4">
@@ -882,7 +878,6 @@
     </div>
   </div>
 
-  <!-- === STREAMING_CHUNK:Initializing JavaScript state and constants... === -->
   <!-- === LOGIC JAVASCRIPT === -->
   <script>
     const MOCK_USERS_INITIAL = [
@@ -921,6 +916,36 @@
     const PILIHAN_PROFIL_LULUSAN = [
       "Keimanan dan Ketakwaan", "Kewargaan", "Penalaran Kritis", 
       "Kreativitas", "Kolaborasi", "Kemandirian", "Kesehatan", "Komunikasi"
+    ];
+
+    const PILIHAN_MODEL_PEMBELAJARAN = [
+      "Problem Based Learning (PBL)", 
+      "Project Based Learning (PjBL)", 
+      "Discovery Learning", 
+      "Inquiry Learning", 
+      "Cooperative Learning",
+      "Problem Solving",
+      "STEM Learning",
+      "Blended Learning",
+      "Demonstration Method",
+      "Contextual Teaching and Learning (CTL)"
+    ];
+
+    const PILIHAN_MAPEL = [
+      "Bahasa Indonesia",
+      "Bahasa Inggris",
+      "Ilmu Pengetahuan Alam (IPA)",
+      "Ilmu Pengetahuan Sosial (IPS)",
+      "IPAS",
+      "Informatika",
+      "Kimia",
+      "Matematika",
+      "Pendidikan Pancasila",
+      "Seni Rupa",
+      "PJOK (Pendidikan Jasmani, Olahraga, dan Kesehatan)",
+      "Seni Musik",
+      "Seni Tari",
+      "Seni Teater/Drama"
     ];
 
     const PROFIL_MATERI_DEFAULT = {
@@ -983,7 +1008,6 @@
 
     let generatedModulData = null;
 
-    // === STREAMING_CHUNK:Defining global system utility and Toast feedback functions... ===
     function openQrisModal() {
       const qrisModal = document.getElementById('qris-zoom-modal');
       if (qrisModal) qrisModal.classList.remove('hidden');
@@ -1083,7 +1107,6 @@
       }, 4000);
     }
 
-    // === STREAMING_CHUNK:Defining routing and view navigation handlers... ===
     function navigateTo(pageId) {
       appState.currentPage = pageId;
       document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
@@ -1156,7 +1179,6 @@
       lucide.createIcons();
     }
 
-    // === STREAMING_CHUNK:Defining authentication login and register handlers... ===
     function handleLogin(event) {
       event.preventDefault();
       const email = document.getElementById('login-email').value.trim().toLowerCase();
@@ -1323,6 +1345,7 @@
 
     function renderProfilLulusanOptions() {
       const container = document.getElementById('profil-lulusan-container');
+      if (!container) return;
       container.innerHTML = '';
       PILIHAN_PROFIL_LULUSAN.forEach(p => {
         container.innerHTML += `
@@ -1363,7 +1386,6 @@
       }
     }
 
-    // === STREAMING_CHUNK:Defining CRM admin dashboard control logic... ===
     function renderAdminCRMStats() {
       const total = appState.dbUsers.length;
       const pending = appState.dbUsers.filter(u => u.status === 'PENDING AKTIVASI').length;
@@ -1399,6 +1421,7 @@
 
     function renderAdminCRMTable() {
       const tbody = document.getElementById('admin-table-body');
+      if (!tbody) return;
       tbody.innerHTML = '';
 
       const filtered = appState.dbUsers.filter(u => {
@@ -1444,7 +1467,7 @@
 
     function activateUser(id) {
       appState.dbUsers = appState.dbUsers.map(u => u.id === id ? {...u, status: 'AKTIF'} : u);
-      localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+      localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
       addToast("Akun Pengguna Berhasil Diaktifkan!", "success");
       renderAdminCRMTable();
       renderAdminCRMStats();
@@ -1452,7 +1475,7 @@
 
     function deactivateUser(id) {
       appState.dbUsers = appState.dbUsers.map(u => u.id === id ? {...u, status: 'PENDING AKTIVASI'} : u);
-      localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+      localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
       addToast("Akun Pengguna Dinonaktifkan!", "info");
       renderAdminCRMTable();
       renderAdminCRMStats();
@@ -1461,7 +1484,7 @@
     function deleteUser(id) {
       if (confirm("Apakah Anda yakin ingin menghapus pengguna ini?")) {
         appState.dbUsers = appState.dbUsers.filter(u => u.id !== id);
-        localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+        localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
         addToast("Akun berhasil dihapus permanent.", "success");
         renderAdminCRMTable();
         renderAdminCRMStats();
@@ -1487,7 +1510,17 @@
       }
     }
 
-    // === STREAMING_CHUNK:Defining automatic deep learning module generator... ===
+    // === SINKRONISASI TOTAL GENERATOR REAL-TIME MENGGUNAKAN SISTEM GENERATIF PINTAR ===
+    function cleanAndParseJSON(text) {
+      if (typeof text === 'object') return text;
+      let cleaned = text.trim();
+      // Menggunakan RegExp dinamis untuk membersihkan kode JSON agar aman dari konflik code blocks
+      const regexStart = new RegExp('^`{3}(?:json)?\\s*', 'i');
+      const regexEnd = new RegExp('\\s*`{3}$');
+      cleaned = cleaned.replace(regexStart, "").replace(regexEnd, "");
+      return JSON.parse(cleaned.trim());
+    }
+
     async function handleGenerateOtomatis() {
       const btn = document.getElementById('btn-generate-module');
       btn.disabled = true;
@@ -1523,7 +1556,6 @@
       3. LKPD harus dibuat terpisah-pisah per pertemuan secara terperinci menyesuaikan materi untuk tiap-tiap pertemuan (jumlah LKPD dibuat sebanyak ${jlhPertemuan} bagian pertemuan).
       4. Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban analisis, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum). Semua teks harus berwarna hitam.`;
 
-      // Skema Validasi Output JSON dari Gemini API
       const responseSchema = {
         type: "OBJECT",
         properties: {
@@ -1588,10 +1620,10 @@
           });
 
           const result = await response.json();
-          if (result.status === "ERROR") {
-            throw new Error(result.message);
+          if (result.status === "ERROR" || !result.data) {
+            throw new Error(result.message || "Respon dari server tidak valid.");
           }
-          data = result.data;
+          data = typeof result.data === 'string' ? cleanAndParseJSON(result.data) : result.data;
         } else {
           addToast("Menghubungkan langsung ke Google AI Studio...", "info");
           const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -1612,12 +1644,11 @@
           });
 
           const result = await response.json();
-          let jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-          
-          if (jsonText.startsWith("```json")) jsonText = jsonText.substring(7);
-          if (jsonText.endsWith("```")) jsonText = jsonText.substring(0, jsonText.length - 3);
-
-          data = JSON.parse(jsonText.trim());
+          if (!result.candidates?.[0]?.content?.parts?.[0]?.text) {
+            throw new Error("Respon kosong dari Gemini API.");
+          }
+          let jsonText = result.candidates[0].content.parts[0].text;
+          data = cleanAndParseJSON(jsonText);
         }
 
         generatedModulData = {
@@ -1634,7 +1665,7 @@
           asesmenSumatif: data.asesmenSumatif
         };
 
-        // Update formData based on input values
+        // Update local form state
         formData.provinsi = document.getElementById('form-provinsi').value;
         formData.namaSekolah = document.getElementById('form-sekolah').value;
         formData.alamatSekolah = document.getElementById('form-alamat').value;
@@ -1655,7 +1686,6 @@
         formData.jumlahPertemuan = jlhPertemuan;
         formData.tanggalPembuatan = document.getElementById('form-tanggal').value;
 
-        // Map generative results to formData
         Object.assign(formData, generatedModulData);
 
         renderA4LivePreview();
@@ -1682,7 +1712,6 @@
       }
     }
 
-    // === STREAMING_CHUNK:Defining Live Preview A4 document renderer... ===
     function renderA4LivePreview() {
       if (!formData) return;
 
@@ -1710,15 +1739,15 @@
         const div = document.createElement('div');
         div.className = "mb-3 pl-1.5 border-l-2 border-black";
         div.innerHTML = `
-          <p class="font-bold">Pertemuan Ke-${pt.pertemuan}</p>
-          <p class="mt-1"><b>Pendahuluan (Mindful):</b>\n${pt.pendahuluan}</p>
-          <p class="mt-1"><b>Kegiatan Inti (Memahami/Deconstruct):</b>\n${pt.inti}</p>
-          <p class="mt-1"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
+          <p class="font-bold text-[12pt] text-black">Pertemuan Ke-${pt.pertemuan}</p>
+          <p class="mt-1 text-black text-[12pt]" style="color: #000000;"><b>Pendahuluan (Mindful):</b>\n${pt.pendahuluan}</p>
+          <p class="mt-1 text-black text-[12pt]" style="color: #000000;"><b>Kegiatan Inti (Memahami/Deconstruct):</b>\n${pt.inti}</p>
+          <p class="mt-1 text-black text-[12pt]" style="color: #000000;"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
         `;
         langkahContainer.appendChild(div);
       });
 
-      document.getElementById('preview-content-formatif-sumatif').innerText = `Asesmen Formatif: ${formData.asesmenFormatif}\nAsesmen Sumatif: ${formData.asesmenSumatif}`;
+      document.getElementById('preview-content-formatif-sumatif').innerText = `Asesmen Formatif: ${formData.asesmenFormatif}\n\nAsesmen Sumatif: ${formData.asesmenSumatif}`;
       
       document.getElementById('preview-kepsek').innerText = formData.namaKepsek;
       document.getElementById('preview-nip-kepsek').innerText = formData.nipKepsek ? `NIP. ${formData.nipKepsek}` : 'NIP. -';
@@ -1755,21 +1784,20 @@
       });
     }
 
-    // === STREAMING_CHUNK:Defining Word (DOCX) export processor... ===
     function exportWord() {
       addToast("Mengekspor berkas Microsoft Word (.docx)...", "info");
       const dateFormatted = `${formData.kecamatan}, ${new Date(formData.tanggalPembuatan).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
       
       const formatNumberedText = (text) => {
         if (!text) return "";
-        const lines = text.split('\n').filter(line => line.trim() !== "");
-        let resultHtml = "<ol style='margin-top:0px; margin-bottom:10px;'>";
-        lines.forEach(line => {
-          const cleanLine = line.replace(/^\d+[\.\)\-]\s*/, '').trim();
-          resultHtml += `<li style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-bottom: 6px;'>${cleanLine}</li>`;
-        });
-        resultHtml += "</ol>";
-        return resultHtml;
+        const lines = text.split('\n');
+        return lines.map(line => {
+          const trimmed = line.trim();
+          if (!trimmed) return "<p style='margin-bottom:6px;'></p>";
+          const isListItem = /^\d+[\.\)\-]\s*/.test(trimmed) || /^[A-Ea-e][\.\)\-]\s*/.test(trimmed) || trimmed.startsWith('-') || trimmed.startsWith('•');
+          const indentStyle = isListItem ? "margin-left: 20px; text-indent: -20px;" : "";
+          return `<p style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-top: 0px; margin-bottom: 6px; color: #000000; ${indentStyle}'>${line}</p>`;
+        }).join("");
       };
 
       const docHtml = `
@@ -1855,7 +1883,7 @@
             }
             .rubrik-table { 
               width: 100%; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
@@ -1863,7 +1891,7 @@
               background-color: #f1f5f9; 
               font-weight: bold; 
               padding: 8px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               text-align: left; 
@@ -1871,7 +1899,7 @@
             }
             .rubrik-table td { 
               padding: 8px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               vertical-align: top; 
@@ -1880,14 +1908,14 @@
             }
             .nilai-table { 
               width: 100%; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
             .nilai-table th { 
               background-color: #f1f5f9; 
               padding: 6px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               text-align: left; 
@@ -1895,7 +1923,7 @@
             }
             .nilai-table td { 
               padding: 6px; 
-              border: 1px solid #cbd5e1; 
+              border: 1px solid #000000; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               color: #000000;
@@ -1922,9 +1950,7 @@
           </style>
         </head>
         <body>
-          <!-- BAGIAN KOP SURAT -->
           <div class="kop-prov">PEMERINTAH PROVINSI ${formData.provinsi.toUpperCase()}</div>
-          <div class="kop-prov" style="font-size: 10.5pt; margin-bottom: 5px;">DINAS PENDIDIKAN DAN KEBUDAYAAN</div>
           <div class="kop-title">${formData.namaSekolah}</div>
           <div class="kop-sub">${formData.alamatSekolah}, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}</div>
           <hr class="kop-line">
@@ -1932,7 +1958,6 @@
           <h2 style="text-align: center; font-size: 13pt; color: #1d4ed8; font-weight: bold; margin-top: 20px;">MODUL AJAR DEEP LEARNING ${formData.tingkatSekolah}</h2>
           <h3 style="text-align: center; font-size: 11pt; margin-top: 0; font-weight: bold;">MATA PELAJARAN: ${formData.mapel} - ${formData.materiPokok}</h3>
 
-          <!-- TABEL DATA IDENTITAS -->
           <table class="identitas-table">
             <tr>
               <td style="font-weight: bold; width: 30%;">Nama Guru Kelas / Mapel</td>
@@ -1988,7 +2013,6 @@
           <h2>3. Asesmen Sumatif</h2>
           <p style="text-align: justify;">${formData.asesmenSumatif}</p>
 
-          <!-- SIGNATURE AREA -->
           <table class="signature-table">
             <tr>
               <td></td>
@@ -2010,12 +2034,12 @@
 
           <h1>G. LAMPIRAN - LAMPIRAN</h1>
           <h2>Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</h2>
-          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${formData.lkpd}</div>
+          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${formData.lkpd}</div>
 
           ${formData.kuisSumatif ? `
           <div class="page-break"></div>
           <h2>Lampiran 2: Instrumen Soal Kuis Sumatif</h2>
-          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${formData.kuisSumatif}</div>
+          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${formData.kuisSumatif}</div>
           ` : ''}
 
           <div class="page-break"></div>
@@ -2033,7 +2057,7 @@
             <tbody>
               ${formData.rubrikPenilaian.map(rubrik => `
                 <tr>
-                  <td style="font-weight: bold;">${rubrik.kriteria}</td>
+                  <td style="font-weight: bold; border: 1px solid #000000;">${rubrik.kriteria}</td>
                   <td>${rubrik.sangatBaik}</td>
                   <td>${rubrik.baik || "-"}</td>
                   <td>${rubrik.cukup}</td>
@@ -2088,7 +2112,6 @@
       addToast("Modul Ajar berhasil diekspor ke Microsoft Word!", "success");
     }
 
-    // === STREAMING_CHUNK:Defining jsPDF print and download handler... ===
     async function exportPDF() {
       addToast("Menyiapkan berkas cetak PDF (A4)...", "info");
       
@@ -2100,7 +2123,7 @@
       });
 
       const colorPrimary = [0, 0, 0]; 
-      const colorSecondary = [59, 130, 246];
+      const colorSecondary = [0, 0, 0];
 
       const marginKiri = 30;
       const marginKanan = 30;
@@ -2125,13 +2148,13 @@
       };
 
       const drawPageBorder = (pdfDoc) => {
-        pdfDoc.setDrawColor(226, 232, 240);
+        pdfDoc.setDrawColor(0, 0, 0);
         pdfDoc.setLineWidth(0.3);
         pdfDoc.rect(15, 15, 180, 267);
         
         pdfDoc.setFont('times', 'normal');
-        pdfDoc.setFontSize(8);
-        pdfDoc.setTextColor(148, 163, 184);
+        pdfDoc.setFontSize(12);
+        pdfDoc.setTextColor(0, 0, 0);
         pdfDoc.text("Halaman " + pdfDoc.internal.getNumberOfPages(), 190, 277, { align: 'right' });
       };
 
@@ -2139,24 +2162,23 @@
 
       // KOP SURAT
       doc.setFont('times', 'bold');
-      doc.setFontSize(11);
+      doc.setFontSize(12);
       doc.setTextColor(...colorPrimary);
       doc.text(`PEMERINTAH PROVINSI ${formData.provinsi.toUpperCase()}`, 105, currentY, { align: 'center' });
-      doc.text("DINAS PENDIDIKAN DAN KEBUDAYAAN", 105, currentY + 4, { align: 'center' });
       
       doc.setFontSize(12);
-      doc.text(formData.namaSekolah.toUpperCase(), 105, currentY + 9, { align: 'center' });
+      doc.text(formData.namaSekolah.toUpperCase(), 105, currentY + 6, { align: 'center' });
       
       doc.setFont('times', 'normal');
-      doc.setFontSize(9);
-      doc.setTextColor(100, 116, 139);
-      doc.text(formData.alamatSekolah + `, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}`, 105, currentY + 13, { align: 'center' });
+      doc.setFontSize(12);
+      doc.setTextColor(...colorPrimary);
+      doc.text(formData.alamatSekolah + `, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}`, 105, currentY + 11, { align: 'center' });
       
       doc.setDrawColor(...colorPrimary);
       doc.setLineWidth(0.8);
-      doc.line(marginKiri, currentY + 16, 210 - marginKanan, currentY + 16);
+      doc.line(marginKiri, currentY + 15, 210 - marginKanan, currentY + 15);
       doc.setLineWidth(0.2);
-      doc.line(marginKiri, currentY + 17.5, 210 - marginKanan, currentY + 17.5);
+      doc.line(marginKiri, currentY + 16.5, 210 - marginKanan, currentY + 16.5);
 
       currentY += 24;
 
@@ -2172,8 +2194,8 @@
 
       // TABEL IDENTITAS MODUL
       doc.setFontSize(12);
-      doc.setDrawColor(203, 213, 225);
-      doc.setFillColor(248, 250, 252);
+      doc.setDrawColor(0, 0, 0);
+      doc.setFillColor(255, 255, 255);
       doc.rect(marginKiri, currentY, contentWidth, 38, 'FD');
 
       doc.setFont('times', 'bold');
@@ -2259,7 +2281,7 @@
         doc.setFontSize(12);
         doc.setTextColor(...colorSecondary); 
         doc.text(title, marginKiri, currentY);
-        doc.setDrawColor(...colorSecondary);
+        doc.setDrawColor(0, 0, 0);
         doc.setLineWidth(0.3);
         doc.line(marginKiri, currentY + 1.5, pageWidth - marginKanan, currentY + 1.5);
         currentY += 6.5;
@@ -2408,7 +2430,7 @@
           doc.setFillColor(255, 255, 255);
         }
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'F');
-        doc.setDrawColor(203, 213, 225);
+        doc.setDrawColor(0, 0, 0);
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'D');
 
         let currentX = marginKiri;
@@ -2418,7 +2440,7 @@
           } else {
             doc.setFont('times', 'normal');
           }
-          doc.setFontSize(8);
+          doc.setFontSize(12);
           doc.setTextColor(...colorPrimary); 
           
           doc.text(lines, currentX + 1.5, currentY + 4, { align: 'justify', maxWidth: colWidths[idx] - 3 });
@@ -2450,7 +2472,6 @@
       addToast("Dokumen PDF Premium berhasil diunduh!", "success");
     }
 
-    // === STREAMING_CHUNK:Bootstrapping application and event listeners on DOM load... ===
     window.addEventListener('DOMContentLoaded', () => {
       // Inisialisasi Database Pengguna dari localStorage
       const savedDb = localStorage.getItem('modulajar_db_users');
