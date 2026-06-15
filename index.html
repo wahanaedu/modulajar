@@ -46,7 +46,7 @@
     .dark ::-webkit-scrollbar-thumb {
       background: #475569;
     }
-    /* A4 Simulation Scroll Container */
+    /* A4 Preview Scrollbar */
     #a4-preview-scroll::-webkit-scrollbar {
       width: 4px;
     }
@@ -55,7 +55,6 @@
       border-radius: 2px;
     }
     
-    /* REVISI: Mengatur agar batas halaman di screen preview tampil tanpa batasan halaman kaku */
     @media screen {
       .page-break {
         margin-top: 2rem;
@@ -93,7 +92,8 @@
   <!-- === TOAST FLOATING NOTIFICATION === -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm"></div>
 
-  <!-- === GLOBAL HEADER / NAVIGATION === -->
+  <!-- === STREAMING_CHUNK:Structuring navigation bar and branding logo... === -->
+  <!-- GLOBAL HEADER / NAVIGATION -->
   <nav class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       
@@ -121,7 +121,8 @@
     </div>
   </nav>
 
-  <!-- === VIEW 1: LANDING PAGE === -->
+  <!-- === STREAMING_CHUNK:Structuring landing page hero and pricing plans... === -->
+  <!-- VIEW 1: LANDING PAGE -->
   <div id="view-landing" class="view-panel animate-fade-in">
     <!-- Hero Section -->
     <section class="relative overflow-hidden py-16 lg:py-24">
@@ -184,6 +185,7 @@
       </div>
     </section>
 
+    <!-- Pricing Section -->
     <section class="py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto mb-16">
@@ -221,7 +223,8 @@
     </section>
   </div>
 
-  <!-- === VIEW 2: AUTHENTICATION PANEL === -->
+  <!-- === STREAMING_CHUNK:Structuring auth login and registration forms with QRIS... === -->
+  <!-- VIEW 2: AUTHENTICATION PANEL -->
   <div id="view-auth" class="view-panel hidden animate-fade-in max-w-md mx-auto py-16 px-4">
     <button onclick="navigateTo('landing')" class="flex items-center gap-1.5 text-xs text-slate-400 hover:text-blue-500 mb-6 font-semibold">
       <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Kembali ke Beranda
@@ -293,7 +296,7 @@
           <div onclick="openQrisModal()" class="bg-white p-3 rounded-2xl inline-block shadow-md border border-slate-100 cursor-pointer hover:scale-105 transition-all duration-200" title="Klik untuk memperbesar QRIS">
             <div class="flex flex-col items-center gap-1.5">
               <div class="bg-[#003566] text-white font-black text-[9px] px-3 py-0.5 rounded tracking-widest uppercase">QRIS</div>
-              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true"QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=qris-modul-ajar-79000" alt="QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
               <div class="text-[6.5px] font-bold text-slate-700 uppercase tracking-wider">MODUL AJAR INDONESIA</div>
             </div>
           </div>
@@ -336,7 +339,8 @@
     </div>
   </div>
 
-  <!-- === VIEW 3: PENDING ACTIVATION === -->
+  <!-- === STREAMING_CHUNK:Structuring pending activation state panel... === -->
+  <!-- VIEW 3: PENDING ACTIVATION -->
   <div id="view-pending" class="view-panel hidden animate-fade-in max-w-xl mx-auto py-16 px-4 text-center">
     <div class="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto text-amber-500 mb-6">
       <i data-lucide="alert-circle" class="w-8 h-8"></i>
@@ -361,7 +365,8 @@
     </div>
   </div>
 
-  <!-- === VIEW 4: USER WORKSPACE (3 COLUMN) === -->
+  <!-- === STREAMING_CHUNK:Structuring workspace layout with 3 column panel... === -->
+  <!-- VIEW 4: USER WORKSPACE (3 COLUMN) -->
   <div id="view-workspace" class="view-panel hidden animate-fade-in max-w-full mx-auto px-4 py-6">
     <!-- Workspace Header -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-6 border-b border-slate-200 dark:border-slate-800 mb-6">
@@ -390,6 +395,7 @@
         </div>
       </aside>
 
+      <!-- === STREAMING_CHUNK:Structuring workspace form inputs... === -->
       <!-- Kolom 2: Formulir Pengisian (5 Cols) -->
       <main class="lg:col-span-5 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/50 dark:border-slate-800 shadow-sm space-y-6">
         <div class="space-y-4">
@@ -531,7 +537,7 @@
           </div>
           <div>
             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Tanggal Pembuatan</label>
-            <input type="date" id="form-tanggal" value="2026-05-26" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white focus:outline-none">
+            <input type="date" id="form-tanggal" value="2026-06-15" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white focus:outline-none">
           </div>
         </div>
 
@@ -560,6 +566,14 @@
           </div>
         </div>
 
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
+          <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1 flex items-center gap-1">
+            <i data-lucide="key" class="w-3.5 h-3.5 text-blue-500"></i> Gemini API Key (Opsional - Server Proxy Aktif)
+          </label>
+          <input type="password" id="form-api-key" placeholder="Kosongkan untuk menggunakan Server API Key bawaan..." class="w-full px-3 py-2.5 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs dark:text-white focus:outline-none focus:border-blue-500 font-mono">
+          <p class="text-[9px] text-slate-400 mt-1">Jika dikosongkan, sistem akan menggunakan koneksi aman via Google Apps Script Proxy Anda.</p>
+        </div>
+
         <!-- Sesi Aksi Utama -->
         <div class="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
           <button onclick="handleGenerateOtomatis()" id="btn-generate-module" class="w-full py-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white rounded-2xl font-black flex items-center justify-center gap-2 shadow-xl shadow-indigo-500/10 transition-transform">
@@ -579,6 +593,7 @@
         </div>
       </main>
 
+      <!-- === STREAMING_CHUNK:Structuring Live Preview A4 document viewer... === -->
       <!-- Kolom 3: Live Preview Kertas A4 (4 Cols) -->
       <section class="lg:col-span-4 bg-slate-100 dark:bg-slate-950 p-4 rounded-3xl border border-slate-200/50 dark:border-slate-800 shadow-inner flex flex-col items-center">
         <!-- Placeholder belum digenerate -->
@@ -601,10 +616,9 @@
             <span class="text-[9px] font-bold bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded">Skala Cetak</span>
           </div>
 
-          <!-- Kertas A4 -->
-          <!-- REVISI: Seluruh elemen di dalam A4 Preview memakai Times New Roman 12pt Justify Hitam Pekat -->
+          <!-- Kertas A4 Print Element -->
           <div id="a4-print-element" class="w-full aspect-[1/1.41] bg-white text-black border border-black shadow-2xl p-8 overflow-y-auto leading-normal relative select-none font-serif text-[12pt] text-justify" style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; color: #000000; border-color: #000000;">
-            <!-- Header Kop Surat Dinamis (Hapus DINAS PENDIDIKAN...) -->
+            <!-- Header Kop Surat Dinamis -->
             <div class="text-center border-b-2 border-black pb-2 mb-3">
               <p class="font-bold text-[11pt] uppercase tracking-wide leading-tight text-black" id="preview-kop-prov">PEMERINTAH PROVINSI NUSA TENGGARA BARAT</p>
               <p class="font-bold text-[13pt] uppercase leading-tight text-black" id="preview-kop-sekolah">SD NEGERI 2 AMPENAN</p>
@@ -640,7 +654,7 @@
             <div class="space-y-4 text-black" style="color: #000000;">
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">A. Asesmen Diagnostik Awal</p>
-                <p class="text-black leading-relaxed pl-1.5 border-l border-black whitespace-pre-line" id="preview-content-asesmen-awal">-</p>
+                <p class="text-black leading-relaxed pl-1.5 border-l border-black whitespace-pre-line text-justify" id="preview-content-asesmen-awal">-</p>
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">B. Dimensi Profil Lulusan Pancasila</p>
@@ -648,23 +662,23 @@
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">C. Tujuan Pembelajaran (TP)</p>
-                <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed font-bold animate-fade-in" id="preview-content-tujuan">-</p>
+                <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed font-bold text-justify animate-fade-in" id="preview-content-tujuan">-</p>
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">D. Kerangka Pedagogis Deep Learning</p>
-                <p class="text-black pl-1.5 leading-relaxed font-normal">
+                <p class="text-black pl-1.5 leading-relaxed font-normal text-justify">
                   <b>Praktik Pedagogis:</b> <span id="preview-content-pedagogis">-</span><br>
                   <b>Lingkungan Belajar:</b> <span id="preview-content-lingkungan">-</span><br>
                   <b>Pemanfaatan Digital:</b> <span id="preview-content-digital">-</span>
                 </p>
               </div>
               <div>
-                <p class="font-extrabold text-[12pt] text-black uppercase">E. Skenario Skenario Pembelajaran Detail</p>
+                <p class="font-extrabold text-[12pt] text-black uppercase">E. Skenario Pembelajaran Detail</p>
                 <div id="preview-content-langkah" class="space-y-2 font-normal text-black text-justify" style="white-space: pre-line;"></div>
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">F. Asesmen Pembelajaran</p>
-                <p class="text-black pl-1.5 leading-relaxed font-normal" id="preview-content-formatif-sumatif">-</p>
+                <p class="text-black pl-1.5 leading-relaxed font-normal text-justify" id="preview-content-formatif-sumatif">-</p>
               </div>
 
               <!-- Pengesahan -->
@@ -691,12 +705,12 @@
                 <div class="page-break"></div>
                 <div>
                   <p class="font-bold text-[12pt] text-black">Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black" id="preview-lampiran-lkpd">-</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black text-justify" id="preview-lampiran-lkpd">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div id="preview-lampiran-kuis-container">
                   <p class="font-bold text-[12pt] text-black">Lampiran 2: Instrumen Soal Kuis Sumatif</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black" id="preview-lampiran-kuis">-</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black text-justify" id="preview-lampiran-kuis">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div>
@@ -756,7 +770,8 @@
     </div>
   </div>
 
-  <!-- === VIEW 5: ADMIN CRM PORTAL === -->
+  <!-- === STREAMING_CHUNK:Structuring Admin CRM portal dashboard... === -->
+  <!-- VIEW 5: ADMIN CRM PORTAL -->
   <div id="view-admin" class="view-panel hidden animate-fade-in max-w-7xl mx-auto px-4 py-8">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
       <div>
@@ -830,6 +845,8 @@
     </div>
   </div>
 
+  <!-- === STREAMING_CHUNK:Structuring QRIS and Bukti transfer zoom modals... === -->
+  <!-- QRIS Zoom Modal -->
   <div id="qris-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden">
     <div class="absolute top-4 right-4">
       <button onclick="closeQrisModal()" class="px-4 py-2 bg-rose-600 hover:bg-rose-750 text-white font-bold rounded-xl text-xs transition-colors">
@@ -842,7 +859,7 @@
     </div>
     <div class="bg-white p-6 rounded-3xl shadow-2xl border border-slate-100 flex flex-col items-center justify-center max-w-sm w-full gap-3">
       <div class="bg-[#003566] text-white font-black text-xs px-6 py-1 rounded-md tracking-widest uppercase text-center w-full">QRIS</div>
-      <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true" alt="QRIS Code Besar" class="w-56 h-56 rounded-xl border-2 p-2 shadow-inner" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=qris-modul-ajar-79000" alt="QRIS Code Besar" class="w-56 h-56 rounded-xl border-2 p-2 shadow-inner" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
       <div class="text-[9px] font-bold text-slate-800 uppercase tracking-wider text-center">GPN • MODUL AJAR INDONESIA</div>
     </div>
     <p class="text-[11px] text-slate-300 mt-4 text-center max-w-xs leading-relaxed">
@@ -850,6 +867,7 @@
     </p>
   </div>
 
+  <!-- Resi Zoom Modal -->
   <div id="resi-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden">
     <div class="absolute top-4 right-4 flex gap-2">
       <button onclick="adjustZoom(0.25)" class="p-2.5 rounded-xl bg-slate-800 text-white hover:bg-slate-700" title="Perbesar"><i data-lucide="zoom-in" class="w-4 h-4"></i></button>
@@ -864,6 +882,7 @@
     </div>
   </div>
 
+  <!-- === STREAMING_CHUNK:Initializing JavaScript state and constants... === -->
   <!-- === LOGIC JAVASCRIPT === -->
   <script>
     const MOCK_USERS_INITIAL = [
@@ -874,7 +893,7 @@
         password: "demo123",
         role: "user",
         status: "AKTIF",
-        regDate: "2026-05-31",
+        regDate: "2026-06-15",
         proofUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=500&auto=format&fit=crop&q=60",
         school: "SD Nusantara",
         modulsCount: 0 
@@ -902,36 +921,6 @@
     const PILIHAN_PROFIL_LULUSAN = [
       "Keimanan dan Ketakwaan", "Kewargaan", "Penalaran Kritis", 
       "Kreativitas", "Kolaborasi", "Kemandirian", "Kesehatan", "Komunikasi"
-    ];
-
-    const PILIHAN_MODEL_PEMBELAJARAN = [
-      "Problem Based Learning (PBL)", 
-      "Project Based Learning (PjBL)", 
-      "Discovery Learning", 
-      "Inquiry Learning", 
-      "Cooperative Learning",
-      "Problem Solving",
-      "STEM Learning",
-      "Blended Learning",
-      "Demonstration Method",
-      "Contextual Teaching and Learning (CTL)"
-    ];
-
-    const PILIHAN_MAPEL = [
-      "Bahasa Indonesia",
-      "Bahasa Inggris",
-      "Ilmu Pengetahuan Alam (IPA)",
-      "Ilmu Pengetahuan Sosial (IPS)",
-      "IPAS",
-      "Informatika",
-      "Kimia",
-      "Matematika",
-      "Pendidikan Pancasila",
-      "Seni Rupa",
-      "PJOK (Pendidikan Jasmani, Olahraga, dan Kesehatan)",
-      "Seni Musik",
-      "Seni Tari",
-      "Seni Teater/Drama"
     ];
 
     const PROFIL_MATERI_DEFAULT = {
@@ -971,7 +960,7 @@
       materiPokok: "Pengaruh Gaya Magnet Terhadap Benda",
       alokasiWaktu: "2 JP (2 x 35 Menit)",
       jumlahPertemuan: 2,
-      tanggalPembuatan: "2026-05-26",
+      tanggalPembuatan: "2026-06-15",
       profilLulusan: ["Penalaran Kritis", "Kreativitas", "Kolaborasi"],
       modelPembelajaran: "Problem Based Learning (PBL)",
       asesmenAwal: "Belum digenerate. Isi data dasar lalu klik tombol di bawah.",
@@ -994,21 +983,39 @@
 
     let generatedModulData = null;
 
+    // === STREAMING_CHUNK:Defining global system utility and Toast feedback functions... ===
     function openQrisModal() {
       const qrisModal = document.getElementById('qris-zoom-modal');
-      if (qrisModal) {
-        qrisModal.classList.remove('hidden');
-      }
+      if (qrisModal) qrisModal.classList.remove('hidden');
     }
 
     function closeQrisModal() {
       const qrisModal = document.getElementById('qris-zoom-modal');
-      if (qrisModal) {
-        qrisModal.classList.add('hidden');
+      if (qrisModal) qrisModal.classList.add('hidden');
+    }
+
+    function adjustZoom(amount) {
+      appState.zoomLevel = Math.max(0.5, Math.min(2.5, appState.zoomLevel + amount));
+      const img = document.getElementById('resi-zoom-image');
+      if (img) img.style.transform = `scale(${appState.zoomLevel})`;
+    }
+
+    function openResiModal(url) {
+      const modal = document.getElementById('resi-zoom-modal');
+      const img = document.getElementById('resi-zoom-image');
+      if (modal && img) {
+        img.src = url;
+        appState.zoomLevel = 1.0;
+        img.style.transform = 'scale(1)';
+        modal.classList.remove('hidden');
       }
     }
 
-    // --- UTILITY SINKRONISASI PENGULANGAN DENGAN METODE BACKOFF ---
+    function closeResiModal() {
+      const modal = document.getElementById('resi-zoom-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
     async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
       for (let i = 0; i < retries; i++) {
         try {
@@ -1076,6 +1083,7 @@
       }, 4000);
     }
 
+    // === STREAMING_CHUNK:Defining routing and view navigation handlers... ===
     function navigateTo(pageId) {
       appState.currentPage = pageId;
       document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
@@ -1148,6 +1156,7 @@
       lucide.createIcons();
     }
 
+    // === STREAMING_CHUNK:Defining authentication login and register handlers... ===
     function handleLogin(event) {
       event.preventDefault();
       const email = document.getElementById('login-email').value.trim().toLowerCase();
@@ -1354,7 +1363,131 @@
       }
     }
 
-    // === GENERATOR PINTAR DAN SINKRONISASI INSTRUMEN PEMBELAJARAN ===
+    // === STREAMING_CHUNK:Defining CRM admin dashboard control logic... ===
+    function renderAdminCRMStats() {
+      const total = appState.dbUsers.length;
+      const pending = appState.dbUsers.filter(u => u.status === 'PENDING AKTIVASI').length;
+      const active = appState.dbUsers.filter(u => u.status === 'AKTIF').length;
+      const moduls = appState.dbUsers.reduce((sum, u) => sum + (u.modulsCount || 0), 0);
+
+      document.getElementById('stat-total').innerText = total;
+      document.getElementById('stat-pending').innerText = pending;
+      document.getElementById('stat-active').innerText = active;
+      document.getElementById('stat-moduls').innerText = moduls;
+    }
+
+    function setFilter(filterVal) {
+      appState.adminFilter = filterVal;
+      document.querySelectorAll('#view-admin button').forEach(b => {
+        if (b.id && b.id.startsWith('filter-')) {
+          b.classList.remove('bg-white', 'dark:bg-slate-900', 'shadow-sm', 'text-blue-600');
+          b.classList.add('text-slate-400');
+        }
+      });
+      const activeBtn = document.getElementById(`filter-${filterVal === 'Semua' ? 'all' : filterVal === 'Pending' ? 'pending' : 'active'}`);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-white', 'dark:bg-slate-900', 'shadow-sm', 'text-blue-600');
+        activeBtn.classList.remove('text-slate-400');
+      }
+      renderAdminCRMTable();
+    }
+
+    function handleAdminSearch() {
+      appState.adminSearch = document.getElementById('admin-search-input').value.toLowerCase();
+      renderAdminCRMTable();
+    }
+
+    function renderAdminCRMTable() {
+      const tbody = document.getElementById('admin-table-body');
+      tbody.innerHTML = '';
+
+      const filtered = appState.dbUsers.filter(u => {
+        if (appState.adminFilter === 'Pending' && u.status !== 'PENDING AKTIVASI') return false;
+        if (appState.adminFilter === 'Aktif' && u.status !== 'AKTIF') return false;
+        
+        const q = appState.adminSearch;
+        if (q) {
+          return u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q) || u.school.toLowerCase().includes(q);
+        }
+        return true;
+      });
+
+      filtered.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50/50 dark:hover:bg-slate-950/20 transition-colors";
+        tr.innerHTML = `
+          <td class="py-4 pl-2 font-bold">
+            <div>${u.name}</div>
+            <div class="text-[10px] text-slate-400 font-normal">${u.email}</div>
+          </td>
+          <td class="py-4 text-slate-500">${u.school || '-'}</td>
+          <td class="py-4 text-slate-400">${u.regDate}</td>
+          <td class="py-4">
+            <span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-extrabold ${u.status === 'AKTIF' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}">
+              ${u.status}
+            </span>
+          </td>
+          <td class="py-4 text-center">
+            ${u.proofUrl ? `<button onclick="openResiModal('${u.proofUrl}')" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 text-[10px] font-extrabold"><i data-lucide="eye" class="w-3.5 h-3.5"></i> Lihat Resi</button>` : `<span class="text-slate-400">Tidak ada</span>`}
+          </td>
+          <td class="py-4 text-right pr-2">
+            <div class="inline-flex gap-1.5">
+              ${u.status === 'PENDING AKTIVASI' ? `<button onclick="activateUser('${u.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-[10px]">Aktifkan Akun</button>` : `<button onclick="deactivateUser('${u.id}')" class="px-3 py-1.5 border border-slate-300 dark:border-slate-800 text-slate-500 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-950 text-[10px]">Nonaktifkan</button>`}
+              <button onclick="deleteUser('${u.id}')" class="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-lg"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    function activateUser(id) {
+      appState.dbUsers = appState.dbUsers.map(u => u.id === id ? {...u, status: 'AKTIF'} : u);
+      localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+      addToast("Akun Pengguna Berhasil Diaktifkan!", "success");
+      renderAdminCRMTable();
+      renderAdminCRMStats();
+    }
+
+    function deactivateUser(id) {
+      appState.dbUsers = appState.dbUsers.map(u => u.id === id ? {...u, status: 'PENDING AKTIVASI'} : u);
+      localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+      addToast("Akun Pengguna Dinonaktifkan!", "info");
+      renderAdminCRMTable();
+      renderAdminCRMStats();
+    }
+
+    function deleteUser(id) {
+      if (confirm("Apakah Anda yakin ingin menghapus pengguna ini?")) {
+        appState.dbUsers = appState.dbUsers.filter(u => u.id !== id);
+        localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+        addToast("Akun berhasil dihapus permanent.", "success");
+        renderAdminCRMTable();
+        renderAdminCRMStats();
+      }
+    }
+
+    async function handleBackupSync() {
+      addToast("Menghubungkan ke Google Sheets dengan ID: " + BACKUP_SHEET_ID, "info");
+      try {
+        const payload = {
+          action: "FULL_BACKUP",
+          users: appState.dbUsers
+        };
+        await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain" },
+          body: JSON.stringify(payload)
+        });
+        addToast("Sinkronisasi Backup Google Sheets Berhasil!", "success");
+      } catch (err) {
+        addToast("Gagal melakukan sinkronisasi backup.", "error");
+      }
+    }
+
+    // === STREAMING_CHUNK:Defining automatic deep learning module generator... ===
     async function handleGenerateOtomatis() {
       const btn = document.getElementById('btn-generate-module');
       btn.disabled = true;
@@ -1362,7 +1495,6 @@
       lucide.createIcons();
       
       setIsGenerating(true);
-      addToast("Menghubungi sistem pintar otomatisasi administrasi...", "info");
 
       const mapel = document.getElementById('form-mapel').value;
       const materi = document.getElementById('form-materi').value;
@@ -1391,74 +1523,102 @@
       3. LKPD harus dibuat terpisah-pisah per pertemuan secara terperinci menyesuaikan materi untuk tiap-tiap pertemuan (jumlah LKPD dibuat sebanyak ${jlhPertemuan} bagian pertemuan).
       4. Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban analisis, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum). Semua teks harus berwarna hitam.`;
 
-      const apiKey = ""; // Runtime menyediakan kunci otomatis
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-      const payload = {
-        contents: [{ parts: [{ text: userQuery }] }],
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        generationConfig: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: "OBJECT",
-            properties: {
-              asesmenAwal: { "type": "STRING", "description": "Langkah-langkah asesmen diagnostik awal berbentuk penomoran urut ke bawah secara rinci dan spesifik untuk materi ini" },
-              tujuanPembelajaran: { "type": "STRING", "description": "3 butir Tujuan Pembelajaran (TP) yang jelas, selaras tingkat kognitif dan capaian pembelajaran fase yang dipilih" },
-              praktikPedagogis: { "type": "STRING", "description": "Praktik pedagogis deep learning (Memahami, Mengaplikasikan, Merefleksikan) yang spesifik untuk materi ini" },
-              lingkunganPembelajaran: { "type": "STRING", "description": "Deskripsi tata ruang kelas dan lingkungan belajar fisik" },
-              pemanfaatanDigital: { "type": "STRING", "description": "Pemanfaatan media/alat digital yang spesifik untuk materi ini" },
-              pertemuanData: {
-                "type": "ARRAY",
-                "items": {
-                  "type": "OBJECT",
-                  "properties": {
-                    "pertemuan": { "type": "INTEGER" },
-                    "pendahuluan": { "type": "STRING", "description": "Kegiatan pendahuluan terperinci, harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
-                    "inti": { "type": "STRING", "description": "Kegiatan inti yang secara eksplisit meleburkan sintaksis model pembelajaran terpilih dengan 3 tahap Deep Learning (Deconstruct, Apply, Reflect), harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
-                    "penutup": { "type": "STRING", "description": "Kegiatan penutup terperinci, harus terstruktur menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" }
-                  },
-                  "required": ["pertemuan", "pendahuluan", "inti", "penutup"]
-                }
+      // Skema Validasi Output JSON dari Gemini API
+      const responseSchema = {
+        type: "OBJECT",
+        properties: {
+          asesmenAwal: { "type": "STRING", "description": "Langkah-langkah asesmen diagnostik awal berbentuk penomoran urut ke bawah secara rinci dan spesifik untuk materi ini" },
+          tujuanPembelajaran: { "type": "STRING", "description": "3 butir Tujuan Pembelajaran (TP) yang jelas, selaras tingkat kognitif dan capaian pembelajaran fase yang dipilih" },
+          praktikPedagogis: { "type": "STRING", "description": "Praktik pedagogis deep learning (Memahami, Mengaplikasikan, Merefleksikan) yang spesifik untuk materi ini" },
+          lingkunganPembelajaran: { "type": "STRING", "description": "Deskripsi tata ruang kelas dan lingkungan belajar fisik" },
+          pemanfaatanDigital: { "type": "STRING", "description": "Pemanfaatan media/alat digital yang spesifik untuk materi ini" },
+          pertemuanData: {
+            "type": "ARRAY",
+            "items": {
+              "type": "OBJECT",
+              "properties": {
+                "pertemuan": { "type": "INTEGER" },
+                "pendahuluan": { "type": "STRING", "description": "Kegiatan pendahuluan terperinci, menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
+                "inti": { "type": "STRING", "description": "Kegiatan inti yang meleburkan sintaksis model pembelajaran terpilih dengan 3 tahap Deep Learning, menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" },
+                "penutup": { "type": "STRING", "description": "Kegiatan penutup terperinci, menggunakan penomoran urut ke bawah serta menandai unsur [BERKESADARAN], [BERMAKNA] atau [MENYENANGKAN]" }
               },
-              lkpd: { "type": "STRING", "description": "Lembar Kerja Peserta Didik (LKPD) lengkap, terstruktur rapi per pertemuan dengan penomoran urut ke bawah" },
-              kuisSumatif: { "type": "STRING", "description": "Kuis evaluasi sumatif berupa 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, kolom alasan, kunci jawaban, dan panduan penskoran yang sangat selaras dengan materi pokok" },
-              rubrikPenilaian: {
-                "type": "ARRAY",
-                "items": {
-                  "type": "OBJECT",
-                  "properties": {
-                    "kriteria": { "type": "STRING" },
-                    "sangatBaik": { "type": "STRING" },
-                    "baik": { "type": "STRING" },
-                    "cukup": { "type": "STRING" },
-                    "perluBimbingan": { "type": "STRING" }
-                  },
-                  "required": ["kriteria", "sangatBaik", "baik", "cukup", "perluBimbingan"]
-                }
+              "required": ["pertemuan", "pendahuluan", "inti", "penutup"]
+            }
+          },
+          lkpd: { "type": "STRING", "description": "Lembar Kerja Peserta Didik (LKPD) lengkap, terstruktur rapi per pertemuan dengan penomoran urut ke bawah" },
+          kuisSumatif: { "type": "STRING", "description": "Kuis evaluasi sumatif berupa 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, kolom alasan, kunci jawaban, dan panduan penskoran yang sangat selaras dengan materi pokok" },
+          rubrikPenilaian: {
+            "type": "ARRAY",
+            "items": {
+              "type": "OBJECT",
+              "properties": {
+                "kriteria": { "type": "STRING" },
+                "sangatBaik": { "type": "STRING" },
+                "baik": { "type": "STRING" },
+                "cukup": { "type": "STRING" },
+                "perluBimbingan": { "type": "STRING" }
               },
-              asesmenFormatif: { "type": "STRING", "description": "Deskripsi singkat asesmen formatif selama proses pembelajaran" },
-              asesmenSumatif: { "type": "STRING", "description": "Deskripsi singkat asesmen sumatif akhir" }
-            },
-            required: ["asesmenAwal", "tujuanPembelajaran", "praktikPedagogis", "lingkunganPembelajaran", "pemanfaatanDigital", "pertemuanData", "lkpd", "kuisSumatif", "rubrikPenilaian", "asesmenFormatif", "asesmenSumatif"]
-          }
-        }
+              "required": ["kriteria", "sangatBaik", "baik", "cukup", "perluBimbingan"]
+            }
+          },
+          asesmenFormatif: { "type": "STRING", "description": "Deskripsi singkat asesmen formatif selama proses pembelajaran" },
+          asesmenSumatif: { "type": "STRING", "description": "Deskripsi singkat asesmen sumatif akhir" }
+        },
+        required: ["asesmenAwal", "tujuanPembelajaran", "praktikPedagogis", "lingkunganPembelajaran", "pemanfaatanDigital", "pertemuanData", "lkpd", "kuisSumatif", "rubrikPenilaian", "asesmenFormatif", "asesmenSumatif"]
       };
 
+      let apiKey = document.getElementById('form-api-key').value.trim();
+
       try {
-        addToast("Sistem pintar sedang memetakan kurikulum dan merekayasa modul ajar...", "info");
-        const response = await fetchWithRetry(apiUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
+        let data;
 
-        const result = await response.json();
-        let jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-        if (jsonText.startsWith("```json")) jsonText = jsonText.substring(7);
-        if (jsonText.endsWith("```")) jsonText = jsonText.substring(0, jsonText.length - 3);
+        if (!apiKey) {
+          addToast("Menghubungkan via Safe Server Proxy Apps Script...", "info");
+          
+          const proxyPayload = {
+            action: "GENERATE_MODUL",
+            prompt: userQuery,
+            schema: responseSchema
+          };
 
-        const data = JSON.parse(jsonText.trim());
+          const response = await fetchWithRetry(APPS_SCRIPT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: JSON.stringify(proxyPayload)
+          });
+
+          const result = await response.json();
+          if (result.status === "ERROR") {
+            throw new Error(result.message);
+          }
+          data = result.data;
+        } else {
+          addToast("Menghubungkan langsung ke Google AI Studio...", "info");
+          const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+          
+          const payloadDirect = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+            generationConfig: {
+              responseMimeType: "application/json",
+              responseSchema: responseSchema
+            }
+          };
+
+          const response = await fetchWithRetry(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payloadDirect)
+          });
+
+          const result = await response.json();
+          let jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
+          
+          if (jsonText.startsWith("```json")) jsonText = jsonText.substring(7);
+          if (jsonText.endsWith("```")) jsonText = jsonText.substring(0, jsonText.length - 3);
+
+          data = JSON.parse(jsonText.trim());
+        }
 
         generatedModulData = {
           asesmenAwal: data.asesmenAwal,
@@ -1473,6 +1633,30 @@
           asesmenFormatif: data.asesmenFormatif,
           asesmenSumatif: data.asesmenSumatif
         };
+
+        // Update formData based on input values
+        formData.provinsi = document.getElementById('form-provinsi').value;
+        formData.namaSekolah = document.getElementById('form-sekolah').value;
+        formData.alamatSekolah = document.getElementById('form-alamat').value;
+        formData.kecamatan = document.getElementById('form-kecamatan').value;
+        formData.kabupaten = document.getElementById('form-kabupaten').value;
+        formData.namaGuru = document.getElementById('form-guru').value;
+        formData.nip = document.getElementById('form-nip').value;
+        formData.namaKepsek = document.getElementById('form-kepsek').value;
+        formData.nipKepsek = document.getElementById('form-nip-kepsek').value;
+        formData.tingkatSekolah = document.getElementById('form-tingkat').value;
+        formData.jenisGuru = document.getElementById('form-jenis-guru').value;
+        formData.kelas = document.getElementById('form-kelas').value;
+        formData.semester = document.getElementById('form-semester').value;
+        formData.mapel = document.getElementById('form-mapel').value;
+        formData.fase = document.getElementById('form-fase').value;
+        formData.materiPokok = document.getElementById('form-materi').value;
+        formData.alokasiWaktu = document.getElementById('form-alokasi').value;
+        formData.jumlahPertemuan = jlhPertemuan;
+        formData.tanggalPembuatan = document.getElementById('form-tanggal').value;
+
+        // Map generative results to formData
+        Object.assign(formData, generatedModulData);
 
         renderA4LivePreview();
 
@@ -1494,680 +1678,98 @@
         btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate Modul Ajar (Otomatis)</span>`;
         lucide.createIcons();
         setIsGenerating(false);
-        addToast("Terjadi gangguan koneksi pada sistem generatif otomatis. Silakan coba kembali.", "error");
+        addToast("Gagal memproses. Periksa kembali konfigurasi API Key atau jaringan Anda.", "error");
       }
     }
 
+    // === STREAMING_CHUNK:Defining Live Preview A4 document renderer... ===
     function renderA4LivePreview() {
-      if (!generatedModulData) return;
+      if (!formData) return;
 
-      const provinsi = document.getElementById('form-provinsi').value;
-      const sekolah = document.getElementById('form-sekolah').value;
-      const alamat = document.getElementById('form-alamat').value;
-      const guru = document.getElementById('form-guru').value;
-      const nip = document.getElementById('form-nip').value;
-      const kepsek = document.getElementById('form-kepsek').value;
-      const nipKepsek = document.getElementById('form-nip-kepsek').value;
-      const tingkat = document.getElementById('form-tingkat').value;
-      const jenisGuru = document.getElementById('form-jenis-guru').value;
-      const mapel = document.getElementById('form-mapel').value;
-      const fase = document.getElementById('form-fase').value;
-      const kelas = document.getElementById('form-kelas').value;
-      const semester = document.getElementById('form-semester').value;
-      const alokasi = document.getElementById('form-alokasi').value;
-      const tanggal = document.getElementById('form-tanggal').value;
-      const model = document.getElementById('form-model').value;
+      document.getElementById('preview-kop-prov').innerText = `PEMERINTAH PROVINSI ${formData.provinsi.toUpperCase()}`;
+      document.getElementById('preview-kop-sekolah').innerText = formData.namaSekolah.toUpperCase();
+      document.getElementById('preview-kop-alamat').innerText = `${formData.alamatSekolah}, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}`;
+      document.getElementById('preview-tingkat').innerText = formData.tingkatSekolah;
+      document.getElementById('preview-materi-title').innerText = `${formData.mapel.toUpperCase()} — ${formData.materiPokok.toUpperCase()}`;
 
-      document.getElementById('preview-kop-prov').innerText = `PEMERINTAH PROVINSI ${provinsi.toUpperCase()}`;
-      document.getElementById('preview-kop-sekolah').innerText = sekolah.toUpperCase();
-      document.getElementById('preview-kop-alamat').innerText = alamat;
-      document.getElementById('preview-tingkat').innerText = tingkat;
-      document.getElementById('preview-materi-title').innerText = `${mapel} — ${document.getElementById('form-materi').value}`;
+      document.getElementById('preview-identitas-guru').innerText = `${formData.namaGuru} ${formData.nip ? `(NIP: ${formData.nip})` : ''}`;
+      document.getElementById('preview-identitas-fase').innerText = `Fase ${formData.fase} / ${formData.kelas} / Semester ${formData.semester}`;
+      document.getElementById('preview-identitas-alokasi').innerText = `${formData.alokasiWaktu} (${formData.jumlahPertemuan} Pertemuan)`;
+      document.getElementById('preview-identitas-model').innerText = formData.modelPembelajaran;
 
-      document.getElementById('preview-identitas-guru').innerText = `${guru} ${nip ? `(NIP: ${nip})` : ""}`;
-      document.getElementById('preview-identitas-fase').innerText = `Fase ${fase} / ${kelas} / Semester ${semester}`;
-      document.getElementById('preview-identitas-alokasi').innerText = alokasi;
-      document.getElementById('preview-identitas-model').innerText = model;
-
-      document.getElementById('preview-content-asesmen-awal').innerText = generatedModulData.asesmenAwal;
-      document.getElementById('preview-content-profil').innerText = formData.profilLulusan.join(", ");
-      document.getElementById('preview-content-tujuan').innerText = generatedModulData.tujuanPembelajaran;
-      document.getElementById('preview-content-pedagogis').innerText = generatedModulData.praktikPedagogis;
-      document.getElementById('preview-content-lingkungan').innerText = generatedModulData.lingkunganPembelajaran;
-      document.getElementById('preview-content-digital').innerText = generatedModulData.pemanfaatanDigital;
+      document.getElementById('preview-content-asesmen-awal').innerText = formData.asesmenAwal;
+      document.getElementById('preview-content-profil').innerText = `- ${formData.profilLulusan.join(', ')}`;
+      document.getElementById('preview-content-tujuan').innerText = formData.tujuanPembelajaran;
+      document.getElementById('preview-content-pedagogis').innerText = formData.praktikPedagogis;
+      document.getElementById('preview-content-lingkungan').innerText = formData.lingkunganPembelajaran;
+      document.getElementById('preview-content-digital').innerText = formData.pemanfaatanDigital;
 
       const langkahContainer = document.getElementById('preview-content-langkah');
       langkahContainer.innerHTML = '';
-      generatedModulData.pertemuanData.forEach(pt => {
-        langkahContainer.innerHTML += `
-          <div class="border-l-2 border-black pl-2 py-1 space-y-1 text-black font-normal" style="color: #000000; white-space: pre-line;">
-            <p class="font-extrabold text-[12pt] text-black">Pertemuan ${pt.pertemuan}</p>
-            <p class="whitespace-pre-line leading-relaxed text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Pendahuluan:</b>\n${pt.pendahuluan}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Inti (Sintaks & Deep Learning):</b>\n${pt.inti}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
-          </div>
+      formData.pertemuanData.forEach(pt => {
+        const div = document.createElement('div');
+        div.className = "mb-3 pl-1.5 border-l-2 border-black";
+        div.innerHTML = `
+          <p class="font-bold">Pertemuan Ke-${pt.pertemuan}</p>
+          <p class="mt-1"><b>Pendahuluan (Mindful):</b>\n${pt.pendahuluan}</p>
+          <p class="mt-1"><b>Kegiatan Inti (Memahami/Deconstruct):</b>\n${pt.inti}</p>
+          <p class="mt-1"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
         `;
+        langkahContainer.appendChild(div);
       });
 
-      const targetAsesmenPreview = document.getElementById('preview-content-formatif-sumatif');
-      if (targetAsesmenPreview) {
-        targetAsesmenPreview.innerText = `Asesmen Formatif: ${generatedModulData.asesmenFormatif}\n\nAsesmen Sumatif: ${generatedModulData.asesmenSumatif}`;
-      }
-
-      document.getElementById('preview-kepsek').innerText = kepsek;
-      document.getElementById('preview-nip-kepsek').innerText = `NIP. ${nipKepsek || "................"}`;
-      document.getElementById('preview-jenis-guru').innerText = jenisGuru;
-      document.getElementById('preview-guru').innerText = guru;
-      document.getElementById('preview-nip-guru').innerText = `NIP. ${nip || "................"}`;
-
-      const tglFormatted = new Date(tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-      document.getElementById('preview-tanggal-tempat').innerText = `${document.getElementById('form-kecamatan').value}, ${tglFormatted}`;
-
-      document.getElementById('preview-lampiran-lkpd').innerText = generatedModulData.lkpd;
+      document.getElementById('preview-content-formatif-sumatif').innerText = `Asesmen Formatif: ${formData.asesmenFormatif}\nAsesmen Sumatif: ${formData.asesmenSumatif}`;
       
-      if (generatedModulData.kuisSumatif) {
-        document.getElementById('preview-lampiran-kuis-container').classList.remove('hidden');
-        document.getElementById('preview-lampiran-kuis').innerText = generatedModulData.kuisSumatif;
+      document.getElementById('preview-kepsek').innerText = formData.namaKepsek;
+      document.getElementById('preview-nip-kepsek').innerText = formData.nipKepsek ? `NIP. ${formData.nipKepsek}` : 'NIP. -';
+      
+      const tanggalFormat = new Date(formData.tanggalPembuatan).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('preview-tanggal-tempat').innerText = `${formData.kecamatan}, ${tanggalFormat}`;
+      document.getElementById('preview-jenis-guru').innerText = formData.jenisGuru;
+      document.getElementById('preview-guru').innerText = formData.namaGuru;
+      document.getElementById('preview-nip-guru').innerText = formData.nip ? `NIP. ${formData.nip}` : 'NIP. -';
+
+      document.getElementById('preview-lampiran-lkpd').innerText = formData.lkpd;
+      
+      const kuisContainer = document.getElementById('preview-lampiran-kuis-container');
+      if (formData.kuisSumatif) {
+        kuisContainer.classList.remove('hidden');
+        document.getElementById('preview-lampiran-kuis').innerText = formData.kuisSumatif;
       } else {
-        document.getElementById('preview-lampiran-kuis-container').classList.add('hidden');
+        kuisContainer.classList.add('hidden');
       }
 
       const rubrikBody = document.getElementById('preview-table-rubrik-body');
       rubrikBody.innerHTML = '';
-      generatedModulData.rubrikPenilaian.forEach(r => {
-        rubrikBody.innerHTML += `
-          <tr class="text-black font-normal" style="color: #000000;">
-            <td class="border border-black p-2 font-bold">${r.kriteria}</td>
-            <td class="border border-black p-2">${r.sangatBaik}</td>
-            <td class="border border-black p-2">${r.baik}</td>
-            <td class="border border-black p-2">${r.cukup}</td>
-            <td class="border border-black p-2">${r.perluBimbingan}</td>
-          </tr>
+      formData.rubrikPenilaian.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = "text-black";
+        tr.innerHTML = `
+          <td class="border border-black p-1.5 font-bold">${r.kriteria}</td>
+          <td class="border border-black p-1.5">${r.sangatBaik}</td>
+          <td class="border border-black p-1.5">${r.baik || '-'}</td>
+          <td class="border border-black p-1.5">${r.cukup}</td>
+          <td class="border border-black p-1.5">${r.perluBimbingan}</td>
         `;
+        rubrikBody.appendChild(tr);
       });
     }
 
-    async function handleBackupSync() {
-      addToast("Menghubungkan ke Google Sheet Database...", "info");
-      try {
-        const payload = {
-          action: "FULL_BACKUP",
-          users: appState.dbUsers
-        };
-
-        await fetch(APPS_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain" },
-          body: JSON.stringify(payload)
-        });
-
-        addToast("Backup basis data CRM berhasil disinkronkan ke Google Sheets!", "success");
-      } catch (err) {
-        console.error(err);
-        addToast("Sinkronisasi gagal, silakan periksa koneksi Anda.", "error");
-      }
-    }
-
-    function renderAdminCRMStats() {
-      document.getElementById('stat-total').innerText = appState.dbUsers.length;
-      document.getElementById('stat-pending').innerText = appState.dbUsers.filter(u => u.status === 'PENDING AKTIVASI').length;
-      document.getElementById('stat-active').innerText = appState.dbUsers.filter(u => u.status === 'AKTIF').length;
-      
-      const totalModuls = appState.dbUsers.reduce((acc, curr) => acc + (curr.modulsCount || 0), 0);
-      document.getElementById('stat-moduls').innerText = totalModuls;
-    }
-
-    function renderAdminCRMTable() {
-      const body = document.getElementById('admin-table-body');
-      body.innerHTML = '';
-
-      const searchLower = appState.adminSearch.toLowerCase();
-      const filtered = appState.dbUsers.filter(u => {
-        if (appState.adminFilter === 'Pending' && u.status !== 'PENDING AKTIVASI') return false;
-        if (appState.adminFilter === 'Aktif' && u.status !== 'AKTIF') return false;
-        
-        return u.name.toLowerCase().includes(searchLower) || 
-               u.email.toLowerCase().includes(searchLower) || 
-               u.school.toLowerCase().includes(searchLower);
-      });
-
-      filtered.forEach(u => {
-        let statusBadge = u.status === 'AKTIF' 
-          ? `<span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-400">AKTIF</span>`
-          : `<span class="inline-flex px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500/10 text-amber-400">PENDING AKTIVASI</span>`;
-
-        let actionBtn = u.status === 'PENDING AKTIVASI'
-          ? `<button onclick="activateUser('${u.id}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-[10px]">Aktifkan</button>`
-          : `<button onclick="deactivateUser('${u.id}')" class="px-3 py-1.5 border border-slate-300 dark:border-slate-800 text-slate-500 hover:bg-slate-100 rounded-lg text-[10px]">Nonaktifkan</button>`;
-
-        let proofBtn = u.proofUrl 
-          ? `<button onclick="openResiModal('${u.proofUrl}')" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 text-[10px] font-extrabold"><i data-lucide="eye" class="w-3 h-3"></i> Lihat Resi</button>`
-          : `<span class="text-slate-400 text-[10px]">Tidak ada resi</span>`;
-
-        body.innerHTML += `
-          <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-900/20">
-            <td class="py-4 pl-2 font-bold">
-              <div>${u.name}</div>
-              <div class="text-[10px] text-slate-400 font-normal">${u.email}</div>
-            </td>
-            <td class="py-4 text-slate-500">${u.school}</td>
-            <td class="py-4 text-slate-400">${u.regDate}</td>
-            <td class="py-4">${statusBadge}</td>
-            <td class="py-4 text-center">${proofBtn}</td>
-            <td class="py-4 text-right pr-2">
-              <div class="inline-flex gap-1.5">
-                ${actionBtn}
-                <button onclick="deleteUser('${u.id}')" class="p-1.5 text-rose-500 hover:bg-rose-500/10 rounded-lg" title="Hapus Pengguna">
-                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      });
-      lucide.createIcons();
-    }
-
-    function setFilter(tab) {
-      appState.adminFilter = tab;
-      
-      document.querySelectorAll('#view-admin button[id^="filter-"]').forEach(btn => {
-        btn.className = "flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-400";
-      });
-
-      const activeBtn = document.getElementById(`filter-${tab === 'Semua' ? 'all' : tab.toLowerCase()}`);
-      if (activeBtn) activeBtn.className = "flex-1 md:flex-none px-4 py-2 rounded-lg text-xs font-bold transition-all bg-white dark:bg-slate-900 shadow-sm text-blue-600";
-      
-      renderAdminCRMTable();
-    }
-
-    function handleAdminSearch() {
-      appState.adminSearch = document.getElementById('admin-search-input').value;
-      renderAdminCRMTable();
-    }
-
-    function activateUser(id) {
-      appState.dbUsers = appState.dbUsers.map(u => u.id === id ? { ...u, status: 'AKTIF' } : u);
-      localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
-      addToast("Akun Pengguna berhasil diaktifkan!", "success");
-      renderAdminCRMTable();
-      renderAdminCRMStats();
-    }
-
-    function deactivateUser(id) {
-      appState.dbUsers = appState.dbUsers.map(u => u.id === id ? { ...u, status: 'PENDING AKTIVASI' } : u);
-      localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
-      addToast("Akun dinonaktifkan sementara.", "info");
-      renderAdminCRMTable();
-      renderAdminCRMStats();
-    }
-
-    function deleteUser(id) {
-      if (confirm("Apakah Anda yakin ingin menghapus pengguna ini secara permanen dari CRM?")) {
-        appState.dbUsers = appState.dbUsers.filter(u => u.id !== id);
-        localStorage.setItem('moduljar_db_users', JSON.stringify(appState.dbUsers));
-        addToast("Akun Pengguna berhasil dihapus!", "success");
-        renderAdminCRMTable();
-        renderAdminCRMStats();
-      }
-    }
-
-    function closeResiModal() {
-      document.getElementById('resi-zoom-modal').classList.add('hidden');
-    }
-
-    async function exportPDF() {
-      if (!generatedModulData) return;
-      await exportPDF_logic();
-    }
-
-    async function exportPDF_logic() {
-      addToast("Menyiapkan dokumen PDF akademik berkualitas premium...", "info");
-      const { jsPDF } = window.jspdf;
-      
-      const doc = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-      });
-
-      const colorPrimary = [0, 0, 0]; 
-      const colorSecondary = [0, 0, 0]; 
-
-      const marginKiri = 30;
-      const marginKanan = 30;
-      const marginAtas = 25;
-      const marginBawah = 25;
-      
-      let currentY = marginAtas;
-      const pageHeight = 297;
-      const pageWidth = 210;
-      const contentWidth = pageWidth - marginKiri - marginKanan; // 150 mm
-
-      const dateFormatted = `${document.getElementById('form-kecamatan').value}, ${new Date(document.getElementById('form-tanggal').value).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
-
-      const checkPageBreak = (neededHeight) => {
-        if (currentY + neededHeight > pageHeight - marginBawah) {
-          doc.addPage();
-          drawPageBorder(doc);
-          currentY = marginAtas;
-          return true;
-        }
-        return false;
-      };
-
-      const drawPageBorder = (pdfDoc) => {
-        pdfDoc.setDrawColor(0, 0, 0); 
-        pdfDoc.setLineWidth(0.3);
-        pdfDoc.rect(15, 15, 180, 267);
-        
-        pdfDoc.setFont('times', 'normal');
-        pdfDoc.setFontSize(12); 
-        pdfDoc.setTextColor(0, 0, 0); 
-        pdfDoc.text("Halaman " + pdfDoc.internal.getNumberOfPages(), 190, 277, { align: 'right' });
-      };
-
-      drawPageBorder(doc);
-
-      // KOP SURAT
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorPrimary);
-      doc.text(`PEMERINTAH PROVINSI ${document.getElementById('form-provinsi').value.toUpperCase()}`, 105, currentY, { align: 'center' });
-      
-      doc.setFontSize(12);
-      doc.text(document.getElementById('form-sekolah').value.toUpperCase(), 105, currentY + 6, { align: 'center' });
-      
-      doc.setFont('times', 'normal');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorPrimary);
-      doc.text(document.getElementById('form-alamat').value + `, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}`, 105, currentY + 11, { align: 'center' });
-      
-      doc.setDrawColor(...colorPrimary);
-      doc.setLineWidth(0.8);
-      doc.line(marginKiri, currentY + 15, 210 - marginKanan, currentY + 15);
-      doc.setLineWidth(0.2);
-      doc.line(marginKiri, currentY + 16.5, 210 - marginKanan, currentY + 16.5);
-
-      currentY += 24;
-
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorSecondary); 
-      doc.text(`MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}`, 105, currentY, { align: 'center' });
-      
-      currentY += 6;
-      doc.text(`${document.getElementById('form-mapel').value} - ${document.getElementById('form-materi').value}`, 105, currentY, { align: 'center' });
-
-      currentY += 10;
-
-      // TABLE IDENTITAS
-      doc.setFontSize(12); 
-      doc.setDrawColor(0, 0, 0); 
-      doc.setFillColor(255, 255, 255);
-      doc.rect(marginKiri, currentY, contentWidth, 38, 'FD');
-
-      doc.setFont('times', 'bold');
-      doc.setTextColor(...colorPrimary);
-      doc.text("IDENTITAS MODUL AJAR", marginKiri + 5, currentY + 6);
-      doc.line(marginKiri, currentY + 9, 210 - marginKanan, currentY + 9);
-
-      doc.setFont('times', 'normal');
-      const labelX = marginKiri + 5;
-      const valueX = marginKiri + 50;
-      const rowHeight = 5.5;
-      let rowY = currentY + 15;
-
-      const printRow = (label, value) => {
-        doc.setFont('times', 'bold');
-        doc.setTextColor(...colorPrimary);
-        doc.text(label, labelX, rowY);
-        doc.setFont('times', 'normal');
-        doc.text(": " + value, valueX, rowY);
-        rowY += rowHeight;
-      };
-
-      printRow("Nama Pendidik", document.getElementById('form-guru').value + (document.getElementById('form-nip').value ? ` (NIP: ${document.getElementById('form-nip').value})` : ""));
-      printRow("Fase / Kelas / Sem.", `Fase ${document.getElementById('form-fase').value} / ${document.getElementById('form-kelas').value} / Semester ${document.getElementById('form-semester').value}`);
-      printRow("Alokasi Waktu", document.getElementById('form-alokasi').value);
-      printRow("Model Pembelajaran", document.getElementById('form-model').value);
-
-      currentY += 45;
-
-      // Fungsi Render Teks Multiline / Berpoin Secara Rata Kanan-Kiri & Vertikal Rapi
-      const printMultilineJustified = (text) => {
-        doc.setFont('times', 'normal');
-        doc.setFontSize(12); 
-        doc.setTextColor(...colorPrimary);
-
-        const paragraphs = text.split('\n');
-        paragraphs.forEach(para => {
-          const trimmed = para.trim();
-          if (!trimmed) {
-            currentY += 4; 
-            return;
-          }
-
-          const isNumbered = /^\d+[\.\)\-]\s*/.test(trimmed);
-          const isBullet = trimmed.startsWith('-') || trimmed.startsWith('•');
-
-          if (isNumbered || isBullet) {
-            const labelMatch = trimmed.match(/^(\d+[\.\)\-]|[-•])\s*/);
-            const label = labelMatch ? labelMatch[0].trim() + " " : "• ";
-            const bodyText = trimmed.substring(labelMatch ? labelMatch[0].length : 1).trim();
-
-            const labelWidth = doc.getTextWidth(label);
-            const bodyWidth = contentWidth - 8;
-
-            const wrappedLines = doc.splitTextToSize(bodyText, bodyWidth);
-            wrappedLines.forEach((line, index) => {
-              checkPageBreak(6); 
-              if (index === 0) {
-                doc.setFont('times', 'bold');
-                doc.text(label, marginKiri, currentY);
-                doc.setFont('times', 'normal');
-                doc.text(line, marginKiri + 8, currentY, { align: 'justify', maxWidth: bodyWidth });
-              } else {
-                doc.text(line, marginKiri + 8, currentY, { align: 'justify', maxWidth: bodyWidth });
-              }
-              currentY += 6; 
-            });
-            currentY += 2; 
-          } else {
-            const wrappedLines = doc.splitTextToSize(trimmed, contentWidth);
-            wrappedLines.forEach(line => {
-              checkPageBreak(6);
-              doc.text(line, marginKiri, currentY, { align: 'justify', maxWidth: contentWidth });
-              currentY += 6;
-            });
-            currentY += 3;
-          }
-        });
-      };
-
-      const printSectionHeader = (title) => {
-        checkPageBreak(15);
-        doc.setFont('times', 'bold');
-        doc.setFontSize(12); 
-        doc.setTextColor(...colorSecondary); 
-        doc.text(title, marginKiri, currentY);
-        doc.setDrawColor(0, 0, 0);
-        doc.setLineWidth(0.3);
-        doc.line(marginKiri, currentY + 1.5, pageWidth - marginKanan, currentY + 1.5);
-        currentY += 7.5;
-      };
-
-      // A. ASESMEN DIAGNOSTIK AWAL
-      printSectionHeader("A. ASESMEN DIAGNOSTIK AWAL");
-      printMultilineJustified(generatedModulData.asesmenAwal);
-
-      // B. DIMENSI PROFIL LULUSAN
-      printSectionHeader("B. DIMENSI PROFIL LULUSAN");
-      printMultilineJustified(formData.profilLulusan.map(p => `- ${p}`).join('\n'));
-
-      // C. TUJUAN PEMBELAJARAN (TP)
-      printSectionHeader("C. TUJUAN PEMBELAJARAN (TP)");
-      printMultilineJustified(generatedModulData.tujuanPembelajaran);
-
-      // D. KERANGKA PEDAGOGIS DEEP LEARNING
-      printSectionHeader("D. KERANGKA PEDAGOGIS DEEP LEARNING");
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorPrimary);
-      doc.text("Praktik Pedagogis:", marginKiri, currentY);
-      currentY += 6;
-      printMultilineJustified(generatedModulData.praktikPedagogis);
-
-      checkPageBreak(18);
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.text("Lingkungan & Pemanfaatan Digital:", marginKiri, currentY);
-      currentY += 6;
-      printMultilineJustified(`- ${generatedModulData.lingkunganPembelajaran}\n- ${generatedModulData.pemanfaatanDigital}`);
-
-      // E. LANGKAH PEMBELAJARAN DETAIL
-      printSectionHeader("E. SKENARIO PEMBELAJARAN DETAIL (DEEP LEARNING)");
-      generatedModulData.pertemuanData.forEach((pt) => {
-        checkPageBreak(12);
-        doc.setFont('times', 'bold');
-        doc.setFontSize(12); 
-        doc.setTextColor(...colorPrimary);
-        doc.text(`Pertemuan Ke-${pt.pertemuan}`, marginKiri, currentY);
-        currentY += 6;
-
-        doc.setFont('times', 'bold');
-        doc.text("1. Kegiatan Pendahuluan (Mindful, Meaningful, Joyful)", marginKiri + 2, currentY);
-        currentY += 6;
-        printMultilineJustified(pt.pendahuluan);
-
-        checkPageBreak(12);
-        doc.setFont('times', 'bold');
-        doc.text("2. Kegiatan Inti (Proses Integrasi Model & Deep Learning)", marginKiri + 2, currentY);
-        currentY += 6;
-        printMultilineJustified(pt.inti);
-
-        checkPageBreak(12);
-        doc.setFont('times', 'bold');
-        doc.text("3. Kegiatan Penutup & Tindak Lanjut", marginKiri + 2, currentY);
-        currentY += 6;
-        printMultilineJustified(pt.penutup);
-      });
-
-      // F. ASESMEN PEMBELAJARAN
-      printSectionHeader("F. ASESMEN PEMBELAJARAN");
-      printMultilineJustified(`- Asesmen Diagnostik Awal (Lisan Terstruktur)\n- Asesmen Formatif: ${generatedModulData.asesmenFormatif}\n- Asesmen Sumatif: ${generatedModulData.asesmenSumatif}`);
-
-      // G. TANDA TANGAN
-      checkPageBreak(40);
-      doc.setFont('times', 'normal');
-      doc.setFontSize(12); 
-      doc.text(dateFormatted, 210 - marginKanan - 50, currentY);
-      currentY += 6;
-
-      doc.setFont('times', 'bold');
-      doc.text("Mengetahui,", marginKiri, currentY);
-      doc.text("Kepala Sekolah,", marginKiri, currentY + 5);
-      doc.text(`${document.getElementById('form-jenis-guru').value},`, 210 - marginKanan - 50, currentY + 5);
-
-      currentY += 22;
-      doc.text(document.getElementById('form-kepsek').value, marginKiri, currentY);
-      doc.setFont('times', 'normal');
-      doc.text("NIP. " + (document.getElementById('form-nip-kepsek').value || "......................."), marginKiri, currentY + 5);
-
-      doc.setFont('times', 'bold');
-      doc.text(document.getElementById('form-guru').value, 210 - marginKanan - 50, currentY);
-      doc.setFont('times', 'normal');
-      doc.text("NIP. " + (document.getElementById('form-nip').value || "......................."), 210 - marginKanan - 50, currentY + 5);
-
-      // LAMPIRAN 1: LKPD
-      doc.addPage();
-      drawPageBorder(doc);
-      currentY = marginAtas;
-
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorSecondary);
-      doc.text("G. LAMPIRAN DOKUMEN AJAR", 105, currentY, { align: 'center' });
-      currentY += 8;
-
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.setTextColor(...colorPrimary);
-      doc.text("Lampiran 1: Lembar Kerja Peserta Didik (LKPD)", marginKiri, currentY);
-      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
-      currentY += 7.5;
-
-      printMultilineJustified(generatedModulData.lkpd);
-
-      // LAMPIRAN 2: KUIS EVALUASI SUMATIF
-      if (generatedModulData.kuisSumatif) {
-        doc.addPage();
-        drawPageBorder(doc);
-        currentY = marginAtas;
-
-        doc.setFont('times', 'bold');
-        doc.setFontSize(12); 
-        doc.text("Lampiran 2: Instrumen Soal Kuis Sumatif", marginKiri, currentY);
-        doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
-        currentY += 7.5;
-
-        printMultilineJustified(generatedModulData.kuisSumatif);
-      }
-
-      // LAMPIRAN 3: RUBRIK KETERCAPAIAN
-      doc.addPage();
-      drawPageBorder(doc);
-      currentY = marginAtas;
-
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.text("Lampiran 3: Rubrik Penilaian Kinerja Ketercapaian (4 Tingkat)", marginKiri, currentY);
-      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
-      currentY += 7.5;
-
-      const colWidths = [26, 31, 31, 31, 31]; 
-      const colHeaders = ["Kriteria", "Sangat Baik", "Baik", "Cukup", "Perlu Bimb."];
-
-      const drawTableRowWithWrap = (cells, isHeader = false) => {
-        let maxLines = 1;
-        const textLines = cells.map((cellText, idx) => {
-          const splitText = doc.splitTextToSize(cellText, colWidths[idx] - 3);
-          if (splitText.length > maxLines) {
-            maxLines = splitText.length;
-          }
-          return splitText;
-        });
-
-        const cellHeight = (maxLines * 5) + 3; 
-        checkPageBreak(cellHeight);
-
-        if (isHeader) {
-          doc.setFillColor(241, 245, 249);
-        } else {
-          doc.setFillColor(255, 255, 255);
-        }
-        doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'F');
-        doc.setDrawColor(0, 0, 0); 
-        doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'D');
-
-        let currentX = marginKiri;
-        textLines.forEach((lines, idx) => {
-          if (isHeader) {
-            doc.setFont('times', 'bold');
-          } else {
-            doc.setFont('times', 'normal');
-          }
-          doc.setFontSize(12); 
-          doc.setTextColor(...colorPrimary); 
-          
-          doc.text(lines, currentX + 1.5, currentY + 4.5, { align: 'justify', maxWidth: colWidths[idx] - 3 });
-          
-          if (idx > 0) {
-            doc.line(currentX, currentY, currentX, currentY + cellHeight);
-          }
-          currentX += colWidths[idx];
-        });
-
-        currentY += cellHeight;
-      };
-
-      drawTableRowWithWrap(colHeaders, true);
-
-      generatedModulData.rubrikPenilaian.forEach((rubrik) => {
-        const rowData = [
-          rubrik.kriteria,
-          rubrik.sangatBaik || "-",
-          rubrik.baik || "-",
-          rubrik.cukup || "-",
-          rubrik.perluBimbingan || "-"
-        ];
-        drawTableRowWithWrap(rowData, false);
-      });
-
-      // LAMPIRAN 4: FORMAT REKAP NILAI SISWA
-      doc.addPage();
-      drawPageBorder(doc);
-      currentY = marginAtas;
-
-      doc.setFont('times', 'bold');
-      doc.setFontSize(12); 
-      doc.text("Lampiran 4: Format Rekapitulasi Penilaian Nilai Akhir", marginKiri, currentY);
-      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
-      currentY += 7.5;
-
-      const nilaiColWidths = [10, 60, 25, 25, 30];
-      const nilaiHeaders = ["No", "Nama Peserta Didik", "Nilai Memahami", "Nilai Mengaplikasi", "Nilai Merefleksi"];
-      
-      doc.setFillColor(241, 245, 249);
-      doc.rect(marginKiri, currentY, contentWidth, 7.5, 'F');
-      doc.rect(marginKiri, currentY, contentWidth, 7.5, 'D');
-      
-      let currentX = marginKiri;
-      nilaiHeaders.forEach((header, idx) => {
-        doc.setFont('times', 'bold');
-        doc.setFontSize(12); 
-        doc.setTextColor(...colorPrimary); 
-        doc.text(header, currentX + 1.5, currentY + 5);
-        if (idx > 0) {
-          doc.line(currentX, currentY, currentX, currentY + 7.5);
-        }
-        currentX += nilaiColWidths[idx];
-      });
-      currentY += 7.5;
-
-      for (let j = 1; j <= 5; j++) {
-        checkPageBreak(8);
-        doc.setFillColor(255, 255, 255);
-        doc.rect(marginKiri, currentY, contentWidth, 8, 'F');
-        doc.rect(marginKiri, currentY, contentWidth, 8, 'D');
-
-        let rowX = marginKiri;
-        doc.setFont('times', 'normal');
-        doc.setFontSize(12); 
-        doc.text(j.toString(), rowX + 2, currentY + 5);
-        rowX += nilaiColWidths[0];
-        doc.line(rowX, currentY, rowX, currentY + 8);
-
-        doc.text("....................................................", rowX + 2, currentY + 5);
-        rowX += nilaiColWidths[1];
-        doc.line(rowX, currentY, rowX, currentY + 8);
-
-        doc.text("/ 100", rowX + 4, currentY + 5);
-        rowX += nilaiColWidths[2];
-        doc.line(rowX, currentY, rowX, currentY + 8);
-
-        doc.text("/ 100", rowX + 4, currentY + 5);
-        rowX += nilaiColWidths[3];
-        doc.line(rowX, currentY, rowX, currentY + 8);
-
-        doc.text("/ 100", rowX + 5, currentY + 5);
-
-        currentY += 8;
-      }
-
-      const fileName = `Modul_Ajar_${document.getElementById('form-mapel').value}_A4.pdf`;
-      doc.save(fileName);
-      addToast("Dokumen PDF Premium berhasil diunduh!", "success");
-    }
-
+    // === STREAMING_CHUNK:Defining Word (DOCX) export processor... ===
     function exportWord() {
-      if (!generatedModulData) return;
-      
       addToast("Mengekspor berkas Microsoft Word (.docx)...", "info");
-      const dateFormatted = new Date(document.getElementById('form-tanggal').value).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-      const datePlace = `${document.getElementById('form-kecamatan').value}, ${dateFormatted}`;
-
+      const dateFormatted = `${formData.kecamatan}, ${new Date(formData.tanggalPembuatan).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+      
       const formatNumberedText = (text) => {
         if (!text) return "";
-        const lines = text.split('\n');
-        return lines.map(line => {
-          const trimmed = line.trim();
-          if (!trimmed) return "<p style='margin-bottom:6px;'></p>";
-          const isListItem = /^\d+[\.\)\-]\s*/.test(trimmed) || /^[A-Ea-e][\.\)\-]\s*/.test(trimmed) || trimmed.startsWith('-') || trimmed.startsWith('•');
-          const indentStyle = isListItem ? "margin-left: 20px; text-indent: -20px;" : "";
-          return `<p style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-top: 0px; margin-bottom: 6px; color: #000000; ${indentStyle}'>${line}</p>`;
-        }).join("");
+        const lines = text.split('\n').filter(line => line.trim() !== "");
+        let resultHtml = "<ol style='margin-top:0px; margin-bottom:10px;'>";
+        lines.forEach(line => {
+          const cleanLine = line.replace(/^\d+[\.\)\-]\s*/, '').trim();
+          resultHtml += `<li style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-bottom: 6px;'>${cleanLine}</li>`;
+        });
+        resultHtml += "</ol>";
+        return resultHtml;
       };
 
       const docHtml = `
@@ -2192,7 +1794,6 @@
               text-align: justify; 
               margin-top: 0px; 
               margin-bottom: 12px; 
-              color: #000000;
             }
             .kop-prov { 
               text-align: center; 
@@ -2200,20 +1801,18 @@
               font-weight: bold; 
               text-transform: uppercase; 
               margin-bottom: 0px; 
-              color: #000000;
-          }
+            }
             .kop-title { 
               text-align: center; 
               font-size: 14pt; 
               font-weight: bold; 
               text-transform: uppercase; 
               margin-bottom: 2px; 
-              color: #000000;
             }
             .kop-sub { 
               text-align: center; 
               font-size: 10pt; 
-              color: #000000; 
+              color: #555555; 
               margin-bottom: 5px; 
             }
             hr.kop-line { 
@@ -2223,11 +1822,11 @@
               margin: 10px 0; 
             }
             h1 { 
-              color: #000000; 
+              color: #1d4ed8; 
               font-family: "Times New Roman", Times, serif;
               font-size: 13pt; 
               font-weight: bold;
-              border-bottom: 2px solid #000000; 
+              border-bottom: 2px solid #1d4ed8; 
               padding-bottom: 3px; 
               margin-top: 24px; 
               margin-bottom: 12px;
@@ -2242,21 +1841,21 @@
             }
             .identitas-table { 
               width: 100%; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               border-collapse: collapse; 
-              background-color: #ffffff; 
+              background-color: #f8fafc; 
               margin: 15px 0; 
             }
             .identitas-table td { 
               padding: 8px; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
               color: #000000;
             }
             .rubrik-table { 
               width: 100%; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
@@ -2264,7 +1863,7 @@
               background-color: #f1f5f9; 
               font-weight: bold; 
               padding: 8px; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               text-align: left; 
@@ -2272,7 +1871,7 @@
             }
             .rubrik-table td { 
               padding: 8px; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               font-family: "Times New Roman", Times, serif;
               font-size: 11pt; 
               vertical-align: top; 
@@ -2281,14 +1880,14 @@
             }
             .nilai-table { 
               width: 100%; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               border-collapse: collapse; 
               margin: 15px 0; 
             }
             .nilai-table th { 
               background-color: #f1f5f9; 
               padding: 6px; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               text-align: left; 
@@ -2296,7 +1895,7 @@
             }
             .nilai-table td { 
               padding: 6px; 
-              border: 1px solid #000000; 
+              border: 1px solid #cbd5e1; 
               font-family: "Times New Roman", Times, serif;
               font-size: 10pt; 
               color: #000000;
@@ -2306,7 +1905,6 @@
               margin-top: 40px; 
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
-              color: #000000;
             }
             .signature-table td { 
               width: 50%; 
@@ -2317,92 +1915,94 @@
               font-family: "Times New Roman", Times, serif;
               font-size: 12pt; 
               text-align: justify;
-              color: #000000;
             }
             .page-break { 
               page-break-before: always; 
-          }
+            }
           </style>
         </head>
         <body>
-          <!-- BAGIAN KOP SURAT (DINAS PENDIDIKAN DAN KEBUDAYAAN dihapus) -->
-          <div class="kop-prov">PEMERINTAH PROVINSI ${document.getElementById('form-provinsi').value.toUpperCase()}</div>
-          <div class="kop-title">${document.getElementById('form-sekolah').value}</div>
-          <div class="kop-sub">${document.getElementById('form-alamat').value}, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}</div>
+          <!-- BAGIAN KOP SURAT -->
+          <div class="kop-prov">PEMERINTAH PROVINSI ${formData.provinsi.toUpperCase()}</div>
+          <div class="kop-prov" style="font-size: 10.5pt; margin-bottom: 5px;">DINAS PENDIDIKAN DAN KEBUDAYAAN</div>
+          <div class="kop-title">${formData.namaSekolah}</div>
+          <div class="kop-sub">${formData.alamatSekolah}, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}</div>
           <hr class="kop-line">
 
-          <h2 style="text-align: center; font-size: 13pt; color: #000000; font-weight: bold; margin-top: 20px;">MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}</h2>
-          <h3 style="text-align: center; font-size: 11pt; margin-top: 0; font-weight: bold; color: #000000;">MATA PELAJARAN: ${document.getElementById('form-mapel').value} - ${document.getElementById('form-materi').value}</h3>
+          <h2 style="text-align: center; font-size: 13pt; color: #1d4ed8; font-weight: bold; margin-top: 20px;">MODUL AJAR DEEP LEARNING ${formData.tingkatSekolah}</h2>
+          <h3 style="text-align: center; font-size: 11pt; margin-top: 0; font-weight: bold;">MATA PELAJARAN: ${formData.mapel} - ${formData.materiPokok}</h3>
 
+          <!-- TABEL DATA IDENTITAS -->
           <table class="identitas-table">
             <tr>
               <td style="font-weight: bold; width: 30%;">Nama Guru Kelas / Mapel</td>
-              <td>${document.getElementById('form-guru').value} ${document.getElementById('form-nip').value ? `(NIP: ${document.getElementById('form-nip').value})` : ""}</td>
+              <td>${formData.namaGuru} ${formData.nip ? `(NIP: ${formData.nip})` : ""}</td>
             </tr>
             <tr>
               <td style="font-weight: bold;">Fase / Kelas / Semester</td>
-              <td>Fase ${document.getElementById('form-fase').value} / ${document.getElementById('form-kelas').value} / Semester ${document.getElementById('form-semester').value}</td>
+              <td>Fase ${formData.fase} / ${formData.kelas} / Semester ${formData.semester}</td>
             </tr>
             <tr>
               <td style="font-weight: bold;">Alokasi Waktu / Pertemuan</td>
-              <td>${document.getElementById('form-alokasi').value} (${document.getElementById('form-pertemuan').value} Pertemuan)</td>
+              <td>${formData.alokasiWaktu} (${formData.jumlahPertemuan} Pertemuan)</td>
             </tr>
             <tr>
               <td style="font-weight: bold;">Model Pembelajaran</td>
-              <td>${document.getElementById('form-model').value}</td>
+              <td>${formData.modelPembelajaran}</td>
             </tr>
           </table>
 
           <h1>A. ASESMEN DIAGNOSTIK AWAL</h1>
-          <div>${formatNumberedText(generatedModulData.asesmenAwal)}</div>
+          <div>${formatNumberedText(formData.asesmenAwal)}</div>
 
           <h1>B. DIMENSI PROFIL LULUSAN</h1>
-          <p style="text-align: justify; color: #000000;">Profil Lulusan yang diselaraskan dalam modul pembelajaran ini meliputi: ${formData.profilLulusan.join(", ")}.</p>
+          <p style="text-align: justify;">Profil Lulusan yang diselaraskan dalam modul pembelajaran ini meliputi: ${formData.profilLulusan.join(", ")}.</p>
 
           <h1>C. TUJUAN PEMBELAJARAN (TP)</h1>
-          <div>${formatNumberedText(generatedModulData.tujuanPembelajaran)}</div>
+          <div>${formatNumberedText(formData.tujuanPembelajaran)}</div>
 
           <h1>D. KERANGKA PEDAGOGIS DEEP LEARNING</h1>
           <h2>1. Praktik Pedagogis</h2>
-          <div>${formatNumberedText(generatedModulData.praktikPedagogis)}</div>
+          <div>${formatNumberedText(formData.praktikPedagogis)}</div>
           <h2>2. Lingkungan Belajar & Pemanfaatan Media Digital</h2>
-          <p style="text-align: justify; color: #000000;">Siswa melakukan kolaborasi aktif di ${generatedModulData.lingkunganPembelajaran.replace(/^\d+[\.\)\-]\s*/, '')}. Di samping itu, pembelajaran didukung dengan optimalisasi perangkat digital berupa ${generatedModulData.pemanfaatanDigital.replace(/^\d+[\.\)\-]\s*/, '')}.</p>
+          <p style="text-align: justify;">Siswa melakukan kolaborasi aktif di ${formData.lingkunganPembelajaran.replace(/^\d+[\.\)\-]\s*/, '')}. Di samping itu, pembelajaran didukung dengan optimalisasi perangkat digital berupa ${formData.pemanfaatanDigital.replace(/^\d+[\.\)\-]\s*/, '')}.</p>
 
           <h1>E. LANGKAH-LANGKAH PEMBELAJARAN DETAIL (DEEP LEARNING)</h1>
-          ${generatedModulData.pertemuanData.map(pt => `
-            <h2 style="color: #000000; border-left: 4px solid #000000; padding-left: 8px; margin-top: 20px;">PERTEMUAN KE-${pt.pertemuan}</h2>
-            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">A. KEGIATAN PENDAHULUAN (Mindful, Meaningful, Joyful)</h3>
+          ${formData.pertemuanData.map(pt => `
+            <h2 style="color: #1f2937; border-left: 4px solid #1d4ed8; padding-left: 8px; margin-top: 20px;">PERTEMUAN KE-${pt.pertemuan}</h2>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">A. KEGIATAN PENDAHULUAN (Mindful, Meaningful, Joyful)</h3>
             <div>${formatNumberedText(pt.pendahuluan)}</div>
             
-            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">B. KEGIATAN INTI (Proses Deep Learning - Memahami, Mengaplikasi, Merefleksi)</h3>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">B. KEGIATAN INTI (Proses Deep Learning - Memahami, Mengaplikasi, Merefleksi)</h3>
             <div>${formatNumberedText(pt.inti)}</div>
             
-            <h3 style="font-size: 11pt; font-weight: bold; color: #000000; margin-top: 10px; margin-bottom: 5px;">C. KEGIATAN PENUTUP & REFLEKSI</h3>
+            <h3 style="font-size: 11pt; font-weight: bold; color: #475569; margin-top: 10px; margin-bottom: 5px;">C. KEGIATAN PENUTUP & REFLEKSI</h3>
             <div>${formatNumberedText(pt.penutup)}</div>
           `).join('')}
 
           <h1>F. ASESMEN PEMBELAJARAN</h1>
           <h2>1. Diagnostik Awal</h2>
-          <div>${formatNumberedText(generatedModulData.asesmenAwal)}</div>
+          <div>${formatNumberedText(formData.asesmenAwal)}</div>
           <h2>2. Asesmen Formatif</h2>
-          <p style="text-align: justify; color: #000000;">${generatedModulData.asesmenFormatif}</p>
+          <p style="text-align: justify;">${formData.asesmenFormatif}</p>
           <h2>3. Asesmen Sumatif</h2>
-          <p style="text-align: justify; color: #000000;">${generatedModulData.asesmenSumatif}</p>
+          <p style="text-align: justify;">${formData.asesmenSumatif}</p>
 
+          <!-- SIGNATURE AREA -->
           <table class="signature-table">
             <tr>
               <td></td>
-              <td style="text-align: right; color: #000000;">${datePlace}</td>
+              <td style="text-align: right;">${dateFormatted}</td>
             </tr>
             <tr style="height: 20px;"><td></td><td></td></tr>
             <tr>
               <td>Mengetahui,<br><b>Kepala Sekolah</b></td>
-              <td><b>${document.getElementById('form-jenis-guru').value}</b></td>
+              <td><b>${formData.jenisGuru}</b></td>
             </tr>
             <tr style="height: 50px;"><td></td><td></td></tr>
             <tr>
-              <td><b>${document.getElementById('form-kepsek').value}</b><br>NIP. ${document.getElementById('form-nip-kepsek').value || "...................................."}</td>
-              <td><b>${document.getElementById('form-guru').value}</b><br>NIP. ${document.getElementById('form-nip').value || "...................................."}</td>
+              <td><b>${formData.namaKepsek}</b><br>NIP. ${formData.nipKepsek || "...................................."}</td>
+              <td><b>${formData.namaGuru}</b><br>NIP. ${formData.nip || "...................................."}</td>
             </tr>
           </table>
 
@@ -2410,34 +2010,34 @@
 
           <h1>G. LAMPIRAN - LAMPIRAN</h1>
           <h2>Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</h2>
-          <div style="border: 1px solid #000000; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${generatedModulData.lkpd}</div>
+          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${formData.lkpd}</div>
 
-          ${generatedModulData.kuisSumatif ? `
+          ${formData.kuisSumatif ? `
           <div class="page-break"></div>
           <h2>Lampiran 2: Instrumen Soal Kuis Sumatif</h2>
-          <div style="border: 1px solid #000000; padding: 15px; background-color: #ffffff; font-family: 'Times New Roman', serif; text-align: justify; color: #000000;" class="pre-wrap">${generatedModulData.kuisSumatif}</div>
+          <div style="border: 1px solid #cbd5e1; padding: 15px; background-color: #fafafa; font-family: 'Times New Roman', serif; text-align: justify;" class="pre-wrap">${formData.kuisSumatif}</div>
           ` : ''}
 
           <div class="page-break"></div>
           <h2>Lampiran 3: Pedoman & Rubrik Penilaian Kinerja (4 Tingkat)</h2>
           <table class="rubrik-table">
             <thead>
-              <tr style="color: #000000;">
-                <th style="width: 20%; border: 1px solid #000000;">Aspek Kriteria</th>
-                <th style="width: 20%; border: 1px solid #000000;">Sangat Baik</th>
-                <th style="width: 20%; border: 1px solid #000000;">Baik</th>
-                <th style="width: 20%; border: 1px solid #000000;">Cukup Memadai</th>
-                <th style="width: 20%; border: 1px solid #000000;">Perlu Bimbingan</th>
+              <tr>
+                <th style="width: 20%;">Aspek Kriteria</th>
+                <th style="width: 20%;">Sangat Baik</th>
+                <th style="width: 20%;">Baik</th>
+                <th style="width: 20%;">Cukup Memadai</th>
+                <th style="width: 20%;">Perlu Bimbingan</th>
               </tr>
             </thead>
             <tbody>
-              ${generatedModulData.rubrikPenilaian.map(rubrik => `
-                <tr style="color: #000000;">
-                  <td style="font-weight: bold; border: 1px solid #000000;">${rubrik.kriteria}</td>
-                  <td style="border: 1px solid #000000;">${rubrik.sangatBaik}</td>
-                  <td style="border: 1px solid #000000;">${rubrik.baik || "-"}</td>
-                  <td style="border: 1px solid #000000;">${rubrik.cukup}</td>
-                  <td style="border: 1px solid #000000;">${rubrik.perluBimbingan}</td>
+              ${formData.rubrikPenilaian.map(rubrik => `
+                <tr>
+                  <td style="font-weight: bold;">${rubrik.kriteria}</td>
+                  <td>${rubrik.sangatBaik}</td>
+                  <td>${rubrik.baik || "-"}</td>
+                  <td>${rubrik.cukup}</td>
+                  <td>${rubrik.perluBimbingan}</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -2447,24 +2047,24 @@
           <h2>Lampiran 4: Format Rekapitulasi Pengisian Nilai</h2>
           <table class="nilai-table">
             <thead>
-              <tr style="color: #000000;">
-                <th style="width: 5%; border: 1px solid #000000;">No</th>
-                <th style="width: 35%; border: 1px solid #000000;">Nama Peserta Didik</th>
-                <th style="width: 15%; border: 1px solid #000000;">Nilai Memahami</th>
-                <th style="width: 15%; border: 1px solid #000000;">Nilai Mengaplikasi</th>
-                <th style="width: 15%; border: 1px solid #000000;">Nilai Merefleksi</th>
-                <th style="width: 15%; border: 1px solid #000000;">Nilai Akhir</th>
+              <tr>
+                <th style="width: 5%;">No</th>
+                <th style="width: 35%;">Nama Peserta Didik</th>
+                <th style="width: 15%;">Nilai Memahami</th>
+                <th style="width: 15%;">Nilai Mengaplikasi</th>
+                <th style="width: 15%;">Nilai Merefleksi</th>
+                <th style="width: 15%;">Nilai Akhir</th>
               </tr>
             </thead>
             <tbody>
               ${[1, 2, 3, 4, 5].map(n => `
-                <tr style="color: #000000;">
-                  <td style="border: 1px solid #000000;">${n}</td>
-                  <td style="border: 1px solid #000000;">................................................</td>
-                  <td style="border: 1px solid #000000;">/ 100</td>
-                  <td style="border: 1px solid #000000;">/ 100</td>
-                  <td style="border: 1px solid #000000;">/ 100</td>
-                  <td style="border: 1px solid #000000;">...........</td>
+                <tr>
+                  <td>${n}</td>
+                  <td>................................................</td>
+                  <td>/ 100</td>
+                  <td>/ 100</td>
+                  <td>/ 100</td>
+                  <td>...........</td>
                 </tr>
               `).join('')}
             </tbody>
@@ -2480,7 +2080,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `Modul_Ajar_${document.getElementById('form-mapel').value}_Fase_${document.getElementById('form-fase').value}.doc`;
+      link.download = `Modul_Ajar_${formData.mapel}_Fase_${formData.fase}.doc`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -2488,27 +2088,385 @@
       addToast("Modul Ajar berhasil diekspor ke Microsoft Word!", "success");
     }
 
-    // --- INISIALISASI OTOMATIS SAAT HALAMAN SELESAI DIMUAT ---
-    document.addEventListener("DOMContentLoaded", () => {
-      // 1. Muat Database Pengguna dari LocalStorage atau Mock Data
-      const savedUsers = localStorage.getItem('modulajar_db_users');
-      if (savedUsers) {
-        appState.dbUsers = JSON.parse(savedUsers);
+    // === STREAMING_CHUNK:Defining jsPDF print and download handler... ===
+    async function exportPDF() {
+      addToast("Menyiapkan berkas cetak PDF (A4)...", "info");
+      
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const colorPrimary = [0, 0, 0]; 
+      const colorSecondary = [59, 130, 246];
+
+      const marginKiri = 30;
+      const marginKanan = 30;
+      const marginAtas = 25;
+      const marginBawah = 25;
+      
+      let currentY = marginAtas;
+      const pageHeight = 297;
+      const pageWidth = 210;
+      const contentWidth = pageWidth - marginKiri - marginKanan; // 150 mm
+
+      const dateFormatted = `${formData.kecamatan}, ${new Date(formData.tanggalPembuatan).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}`;
+
+      const checkPageBreak = (neededHeight) => {
+        if (currentY + neededHeight > pageHeight - marginBawah) {
+          doc.addPage();
+          drawPageBorder(doc);
+          currentY = marginAtas;
+          return true;
+        }
+        return false;
+      };
+
+      const drawPageBorder = (pdfDoc) => {
+        pdfDoc.setDrawColor(226, 232, 240);
+        pdfDoc.setLineWidth(0.3);
+        pdfDoc.rect(15, 15, 180, 267);
+        
+        pdfDoc.setFont('times', 'normal');
+        pdfDoc.setFontSize(8);
+        pdfDoc.setTextColor(148, 163, 184);
+        pdfDoc.text("Halaman " + pdfDoc.internal.getNumberOfPages(), 190, 277, { align: 'right' });
+      };
+
+      drawPageBorder(doc);
+
+      // KOP SURAT
+      doc.setFont('times', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(...colorPrimary);
+      doc.text(`PEMERINTAH PROVINSI ${formData.provinsi.toUpperCase()}`, 105, currentY, { align: 'center' });
+      doc.text("DINAS PENDIDIKAN DAN KEBUDAYAAN", 105, currentY + 4, { align: 'center' });
+      
+      doc.setFontSize(12);
+      doc.text(formData.namaSekolah.toUpperCase(), 105, currentY + 9, { align: 'center' });
+      
+      doc.setFont('times', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(100, 116, 139);
+      doc.text(formData.alamatSekolah + `, Kec. ${formData.kecamatan}, Kab. ${formData.kabupaten}`, 105, currentY + 13, { align: 'center' });
+      
+      doc.setDrawColor(...colorPrimary);
+      doc.setLineWidth(0.8);
+      doc.line(marginKiri, currentY + 16, 210 - marginKanan, currentY + 16);
+      doc.setLineWidth(0.2);
+      doc.line(marginKiri, currentY + 17.5, 210 - marginKanan, currentY + 17.5);
+
+      currentY += 24;
+
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(...colorSecondary);
+      doc.text(`MODUL AJAR DEEP LEARNING ${formData.tingkatSekolah}`, 105, currentY, { align: 'center' });
+      
+      currentY += 5;
+      doc.text(`${formData.mapel} - ${formData.materiPokok}`, 105, currentY, { align: 'center' });
+
+      currentY += 8;
+
+      // TABEL IDENTITAS MODUL
+      doc.setFontSize(12);
+      doc.setDrawColor(203, 213, 225);
+      doc.setFillColor(248, 250, 252);
+      doc.rect(marginKiri, currentY, contentWidth, 38, 'FD');
+
+      doc.setFont('times', 'bold');
+      doc.setTextColor(...colorPrimary);
+      doc.text("IDENTITAS MODUL AJAR", marginKiri + 5, currentY + 5.5);
+      doc.line(marginKiri, currentY + 8, 210 - marginKanan, currentY + 8);
+
+      doc.setFont('times', 'normal');
+      const labelX = marginKiri + 5;
+      const valueX = marginKiri + 50;
+      const rowHeight = 5;
+      let rowY = currentY + 13;
+
+      const printRow = (label, value) => {
+        doc.setFont('times', 'bold');
+        doc.setTextColor(...colorPrimary);
+        doc.text(label, labelX, rowY);
+        doc.setFont('times', 'normal');
+        doc.text(": " + value, valueX, rowY);
+        rowY += rowHeight;
+      };
+
+      printRow("Nama Pendidik", formData.namaGuru + (formData.nip ? ` (NIP. ${formData.nip})` : ""));
+      printRow("Fase / Kelas / Sem.", `Fase ${formData.fase} / ${formData.kelas} / Semester ${formData.semester}`);
+      printRow("Alokasi Waktu", formData.alokasiWaktu);
+      printRow("Model Pembelajaran", formData.modelPembelajaran);
+
+      currentY += 43;
+
+      const printMultilineJustified = (text) => {
+        doc.setFont('times', 'normal');
+        doc.setFontSize(12);
+        doc.setTextColor(...colorPrimary);
+
+        const paragraphs = text.split('\n');
+        paragraphs.forEach(para => {
+          const trimmed = para.trim();
+          if (!trimmed) {
+            currentY += 3; 
+            return;
+          }
+
+          const isNumbered = /^\d+[\.\)\-]\s*/.test(trimmed);
+          const isBullet = trimmed.startsWith('-') || trimmed.startsWith('•');
+
+          if (isNumbered || isBullet) {
+            const labelMatch = trimmed.match(/^(\d+[\.\)\-]|[-•])\s*/);
+            const label = labelMatch ? labelMatch[0].trim() + " " : "• ";
+            const bodyText = trimmed.substring(labelMatch ? labelMatch[0].length : 1).trim();
+
+            const labelWidth = doc.getTextWidth(label);
+            const bodyWidth = contentWidth - 6;
+
+            const wrappedLines = doc.splitTextToSize(bodyText, bodyWidth);
+            wrappedLines.forEach((line, index) => {
+              checkPageBreak(5);
+              if (index === 0) {
+                doc.setFont('times', 'bold');
+                doc.text(label, marginKiri, currentY);
+                doc.setFont('times', 'normal');
+                doc.text(line, marginKiri + 6, currentY, { align: 'justify', maxWidth: bodyWidth });
+              } else {
+                doc.text(line, marginKiri + 6, currentY, { align: 'justify', maxWidth: bodyWidth });
+              }
+              currentY += 5; 
+            });
+            currentY += 1.5; 
+          } else {
+            const wrappedLines = doc.splitTextToSize(trimmed, contentWidth);
+            wrappedLines.forEach(line => {
+              checkPageBreak(5);
+              doc.text(line, marginKiri, currentY, { align: 'justify', maxWidth: contentWidth });
+              currentY += 5;
+            });
+            currentY += 2.5;
+          }
+        });
+      };
+
+      const printSectionHeader = (title) => {
+        checkPageBreak(12);
+        doc.setFont('times', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(...colorSecondary); 
+        doc.text(title, marginKiri, currentY);
+        doc.setDrawColor(...colorSecondary);
+        doc.setLineWidth(0.3);
+        doc.line(marginKiri, currentY + 1.5, pageWidth - marginKanan, currentY + 1.5);
+        currentY += 6.5;
+      };
+
+      printSectionHeader("A. ASESMEN DIAGNOSTIK AWAL");
+      printMultilineJustified(formData.asesmenAwal);
+
+      printSectionHeader("B. DIMENSI PROFIL LULUSAN");
+      printMultilineJustified(formData.profilLulusan.map(p => `- ${p}`).join('\n'));
+
+      printSectionHeader("C. TUJUAN PEMBELAJARAN (TP)");
+      printMultilineJustified(formData.tujuanPembelajaran);
+
+      printSectionHeader("D. KERANGKA PEDAGOGIS DEEP LEARNING");
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(...colorPrimary);
+      doc.text("Praktik Pedagogis:", marginKiri, currentY);
+      currentY += 5;
+      printMultilineJustified(formData.praktikPedagogis);
+
+      checkPageBreak(15);
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.text("Lingkungan & Pemanfaatan Digital:", marginKiri, currentY);
+      currentY += 5;
+      printMultilineJustified(`- ${formData.lingkunganPembelajaran}\n- ${formData.pemanfaatanDigital}`);
+
+      printSectionHeader("E. SKENARIO PEMBELAJARAN DETAIL (DEEP LEARNING)");
+      formData.pertemuanData.forEach((pt) => {
+        checkPageBreak(10);
+        doc.setFont('times', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(...colorPrimary);
+        doc.text(`Pertemuan Ke-${pt.pertemuan}`, marginKiri, currentY);
+        currentY += 5;
+
+        doc.setFont('times', 'bold');
+        doc.text("1. Kegiatan Pendahuluan (Mindful, Meaningful, Joyful)", marginKiri + 2, currentY);
+        currentY += 5;
+        printMultilineJustified(pt.pendahuluan);
+
+        checkPageBreak(10);
+        doc.setFont('times', 'bold');
+        doc.text("2. Kegiatan Inti (Proses Integrasi Model & Deep Learning)", marginKiri + 2, currentY);
+        currentY += 5;
+        printMultilineJustified(pt.inti);
+
+        checkPageBreak(10);
+        doc.setFont('times', 'bold');
+        doc.text("3. Kegiatan Penutup & Tindak Lanjut", marginKiri + 2, currentY);
+        currentY += 5;
+        printMultilineJustified(pt.penutup);
+      });
+
+      printSectionHeader("F. ASESMEN PEMBELAJARAN");
+      printMultilineJustified(`- Asesmen Diagnostik Awal (Lisan Terstruktur)\n- Asesmen Formatif: ${formData.asesmenFormatif}\n- Asesmen Sumatif: ${formData.asesmenSumatif}`);
+
+      // Tanda Tangan
+      checkPageBreak(35);
+      doc.setFont('times', 'normal');
+      doc.setFontSize(12);
+      doc.setTextColor(...colorPrimary);
+      doc.text(dateFormatted, 210 - marginKanan - 50, currentY);
+      currentY += 5;
+
+      doc.setFont('times', 'bold');
+      doc.text("Mengetahui,", marginKiri, currentY);
+      doc.text("Kepala Sekolah,", marginKiri, currentY + 4);
+      doc.text(`${formData.jenisGuru},`, 210 - marginKanan - 50, currentY + 4);
+
+      currentY += 18;
+      doc.text(formData.namaKepsek, marginKiri, currentY);
+      doc.setFont('times', 'normal');
+      doc.text("NIP. " + (formData.nipKepsek || "......................."), marginKiri, currentY + 4);
+
+      doc.setFont('times', 'bold');
+      doc.text(formData.namaGuru, 210 - marginKanan - 50, currentY);
+      doc.setFont('times', 'normal');
+      doc.text("NIP. " + (formData.nip || "......................."), 210 - marginKanan - 50, currentY + 4);
+
+      // Lampiran
+      doc.addPage();
+      drawPageBorder(doc);
+      currentY = marginAtas;
+
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.text("G. LAMPIRAN DOKUMEN AJAR", 105, currentY, { align: 'center' });
+      currentY += 8;
+
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.setTextColor(...colorPrimary);
+      doc.text("Lampiran 1: Lembar Kerja Peserta Didik (LKPD)", marginKiri, currentY);
+      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
+      currentY += 6.5;
+
+      printMultilineJustified(formData.lkpd);
+
+      if (formData.kuisSumatif) {
+        doc.addPage();
+        drawPageBorder(doc);
+        currentY = marginAtas;
+
+        doc.setFont('times', 'bold');
+        doc.setFontSize(12);
+        doc.text("Lampiran 2: Instrumen Soal Kuis Sumatif", marginKiri, currentY);
+        doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
+        currentY += 6.5;
+
+        printMultilineJustified(formData.kuisSumatif);
+      }
+
+      // Rubrik
+      doc.addPage();
+      drawPageBorder(doc);
+      currentY = marginAtas;
+
+      doc.setFont('times', 'bold');
+      doc.setFontSize(12);
+      doc.text("Lampiran 3: Rubrik Penilaian Ketercapaian (4 Tingkat)", marginKiri, currentY);
+      doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
+      currentY += 6.5;
+
+      const colWidths = [26, 31, 31, 31, 31]; 
+      const colHeaders = ["Kriteria", "Sangat Baik", "Baik", "Cukup", "Perlu Bimb."];
+
+      const drawTableRowWithWrap = (cells, isHeader = false) => {
+        let maxLines = 1;
+        const textLines = cells.map((cellText, idx) => {
+          const splitText = doc.splitTextToSize(cellText, colWidths[idx] - 3);
+          if (splitText.length > maxLines) {
+            maxLines = splitText.length;
+          }
+          return splitText;
+        });
+
+        const cellHeight = (maxLines * 4.5) + 3; 
+        checkPageBreak(cellHeight);
+
+        if (isHeader) {
+          doc.setFillColor(241, 245, 249);
+        } else {
+          doc.setFillColor(255, 255, 255);
+        }
+        doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'F');
+        doc.setDrawColor(203, 213, 225);
+        doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'D');
+
+        let currentX = marginKiri;
+        textLines.forEach((lines, idx) => {
+          if (isHeader) {
+            doc.setFont('times', 'bold');
+          } else {
+            doc.setFont('times', 'normal');
+          }
+          doc.setFontSize(8);
+          doc.setTextColor(...colorPrimary); 
+          
+          doc.text(lines, currentX + 1.5, currentY + 4, { align: 'justify', maxWidth: colWidths[idx] - 3 });
+          
+          if (idx > 0) {
+            doc.line(currentX, currentY, currentX, currentY + cellHeight);
+          }
+          currentX += colWidths[idx];
+        });
+
+        currentY += cellHeight;
+      };
+
+      drawTableRowWithWrap(colHeaders, true);
+
+      formData.rubrikPenilaian.forEach((rubrik) => {
+        const rowData = [
+          rubrik.kriteria,
+          rubrik.sangatBaik || "-",
+          rubrik.baik || "-",
+          rubrik.cukup || "-",
+          rubrik.perluBimbingan || "-"
+        ];
+        drawTableRowWithWrap(rowData, false);
+      });
+
+      const fileName = `Modul_Ajar_${formData.mapel}_Fase_${formData.fase}_A4.pdf`;
+      doc.save(fileName);
+      addToast("Dokumen PDF Premium berhasil diunduh!", "success");
+    }
+
+    // === STREAMING_CHUNK:Bootstrapping application and event listeners on DOM load... ===
+    window.addEventListener('DOMContentLoaded', () => {
+      // Inisialisasi Database Pengguna dari localStorage
+      const savedDb = localStorage.getItem('modulajar_db_users');
+      if (savedDb) {
+        appState.dbUsers = JSON.parse(savedDb);
       } else {
-        appState.dbUsers = [...MOCK_USERS_INITIAL];
+        appState.dbUsers = MOCK_USERS_INITIAL;
         localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
       }
 
-      // 2. Render Opsi Profil Lulusan Pancasila (Multi-Select)
+      // Render Multi-select options on load
       renderProfilLulusanOptions();
-
-      // 3. Render Status Autentikasi Navigasi Utama
       renderAuthNav();
-
-      // 4. Inisialisasi Ikon Lucide untuk Elemen Statis
-      if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
-      }
+      
+      // Default view is Landing Page
+      navigateTo('landing');
     });
   </script>
 </body>
