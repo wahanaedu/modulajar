@@ -21,7 +21,7 @@
   </script>
 
   <!-- Google Fonts & Lucide Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <!-- jsPDF CDN -->
@@ -54,6 +54,38 @@
       background: #94a3b8;
       border-radius: 2px;
     }
+    
+    /* REVISI: Mengatur agar batas halaman di screen preview tampil tanpa batasan halaman kaku */
+    @media screen {
+      .page-break {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        border-top: 1px dashed #000000;
+        position: relative;
+        display: block;
+        height: 1px;
+      }
+      .page-break::after {
+        content: "Batas Halaman Cetak";
+        font-family: 'Times New Roman', serif;
+        font-size: 8pt;
+        position: absolute;
+        right: 10px;
+        top: -12px;
+        background: #ffffff;
+        padding: 0 5px;
+        color: #000000;
+        font-weight: bold;
+      }
+    }
+    @media print {
+      .page-break {
+        page-break-before: always;
+        display: block;
+        height: 0;
+        border: none;
+      }
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
@@ -78,18 +110,13 @@
         </div>
       </div>
 
-      <!-- Controls -->
       <div class="flex items-center gap-4">
-        <!-- Dark Mode Toggle -->
         <button onclick="toggleDarkMode()" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
           <i data-lucide="moon" id="theme-icon-dark" class="w-4 h-4 text-slate-600 dark:hidden"></i>
           <i data-lucide="sun" id="theme-icon-light" class="w-4 h-4 text-yellow-400 hidden dark:block"></i>
         </button>
 
-        <!-- Dynamic Auth Buttons -->
-        <div id="nav-auth-container" class="flex items-center gap-2">
-          <!-- Auth buttons will be rendered here dynamically -->
-        </div>
+        <div id="nav-auth-container" class="flex items-center gap-2"></div>
       </div>
     </div>
   </nav>
@@ -148,7 +175,7 @@
             <h3 class="text-lg font-bold mb-2">Kerangka Deep Learning SD & SMP</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Konten berorientasi penuh pada pendalaman konsep esensial, memicu nalar kritis siswa secara kolaboratif.</p>
           </div>
-          <div class="p-6 rounded-2xl bg-white bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
+          <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 shadow-sm">
             <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400"><i data-lucide="download"></i></div>
             <h3 class="text-lg font-bold mb-2">Ekspor PDF & Word Instan</h3>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Unduh file siap cetak berukuran A4 presisi menggunakan jsPDF dengan pembagian halaman otomatis, serta format dokumen Word.</p>
@@ -157,7 +184,6 @@
       </div>
     </section>
 
-    <!-- Pricing Section -->
     <section class="py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto mb-16">
@@ -267,14 +293,13 @@
           <div onclick="openQrisModal()" class="bg-white p-3 rounded-2xl inline-block shadow-md border border-slate-100 cursor-pointer hover:scale-105 transition-all duration-200" title="Klik untuk memperbesar QRIS">
             <div class="flex flex-col items-center gap-1.5">
               <div class="bg-[#003566] text-white font-black text-[9px] px-3 py-0.5 rounded tracking-widest uppercase">QRIS</div>
-              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true" alt="QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
+              <img src="https://github.com/wahanaedukasi/GeneratorSoal/blob/main/QRIS%20Wahana%20Edukasi.jpg?raw=true"QRIS Code" class="w-24 h-24 rounded border p-1" onerror="this.src='https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=300&auto=format&fit=crop'">
               <div class="text-[6.5px] font-bold text-slate-700 uppercase tracking-wider">MODUL AJAR INDONESIA</div>
             </div>
           </div>
           <p class="mt-2.5 font-bold text-[11px] text-blue-600 dark:text-blue-300">Lampirkan foto resi bukti transfer di bawah ini.</p>
         </div>
 
-        <!-- Bukti Pembayaran -->
         <div>
           <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">Bukti Pembayaran (JPG/JPEG/PNG)</label>
           <div class="flex items-center justify-center w-full">
@@ -291,7 +316,6 @@
           </p>
         </div>
 
-        <!-- Progress Bar -->
         <div id="register-progress-container" class="p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200/40 dark:border-slate-800 rounded-xl hidden">
           <div class="flex justify-between items-center text-[10px] font-bold mb-1.5 uppercase">
             <span>Status Sinkronisasi Google Sheets</span>
@@ -469,7 +493,6 @@
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Kelas</label>
-              <!-- REVISI: Dropdown Kelas menampilkan pilihan Kelas 1 s.d. Kelas 9 terpadu -->
               <select id="form-kelas" class="w-full px-2 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white">
                 <option value="Kelas 1">Kelas 1</option>
                 <option value="Kelas 2">Kelas 2</option>
@@ -486,7 +509,7 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Materi Pokok</label>
-              <input type="text" id="form-materi" value="Pengaruh Gaya Magnet Terhadap Benda" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none dark:text-white font-semibold">
+              <input type="text" id="form-materi" value="Pengaruh Gaya Magnet Terhadap Benda" class="w-full px-3 py-2 rounded-lg border border-slate-200/50 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-xs focus:outline-none focus:border-blue-500 dark:text-white font-semibold">
             </div>
             <div>
               <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Semester</label>
@@ -532,11 +555,8 @@
             </select>
           </div>
           <div>
-            <!-- REVISI: Mengubah label SD menjadi SD & SMP -->
             <label class="block text-[10px] font-bold text-slate-400 uppercase mb-1.5">Profil Lulusan SD & SMP (Multi-Select)</label>
-            <div id="profil-lulusan-container" class="flex flex-wrap gap-1.5">
-              <!-- Rendered via JS -->
-            </div>
+            <div id="profil-lulusan-container" class="flex flex-wrap gap-1.5"></div>
           </div>
         </div>
 
@@ -617,7 +637,7 @@
             </table>
 
             <!-- Konten Dinamis Akademik -->
-            <div class="space-y-4">
+            <div class="space-y-4 text-black" style="color: #000000;">
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">A. Asesmen Diagnostik Awal</p>
                 <p class="text-black leading-relaxed pl-1.5 border-l border-black whitespace-pre-line" id="preview-content-asesmen-awal">-</p>
@@ -640,9 +660,7 @@
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">E. Skenario Skenario Pembelajaran Detail</p>
-                <div id="preview-content-langkah" class="space-y-2 font-normal text-black text-justify">
-                  <!-- Skenario pertemuan -->
-                </div>
+                <div id="preview-content-langkah" class="space-y-2 font-normal text-black text-justify" style="white-space: pre-line;"></div>
               </div>
               <div>
                 <p class="font-extrabold text-[12pt] text-black uppercase">F. Asesmen Pembelajaran</p>
@@ -673,19 +691,19 @@
                 <div class="page-break"></div>
                 <div>
                   <p class="font-bold text-[12pt] text-black">Lampiran 1: Lembar Kerja Peserta Didik (LKPD)</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-stone-50 p-2 rounded border border-black" id="preview-lampiran-lkpd">-</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black" id="preview-lampiran-lkpd">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div id="preview-lampiran-kuis-container">
                   <p class="font-bold text-[12pt] text-black">Lampiran 2: Instrumen Soal Kuis Sumatif</p>
-                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-stone-50 p-2 rounded border border-black" id="preview-lampiran-kuis">-</p>
+                  <p class="text-black whitespace-pre-line pl-1.5 leading-relaxed bg-white p-2 rounded border border-black" id="preview-lampiran-kuis">-</p>
                 </div>
                 <div class="page-break"></div>
                 <div>
                   <p class="font-bold text-[12pt] text-black">Lampiran 3: Rubrik Penilaian Ketercapaian (4 Tingkat Kriteria)</p>
                   <table class="w-full border-collapse border border-black text-[11pt] bg-white mt-1 text-black">
                     <thead>
-                      <tr class="bg-stone-100 font-bold text-black">
+                      <tr class="bg-white font-bold text-black">
                         <th class="border border-black p-2">Kriteria</th>
                         <th class="border border-black p-2">Sangat Baik</th>
                         <th class="border border-black p-2">Baik</th>
@@ -693,9 +711,7 @@
                         <th class="border border-black p-2">Perlu Bimbingan</th>
                       </tr>
                     </thead>
-                    <tbody id="preview-table-rubrik-body">
-                      <!-- Row rubrik -->
-                    </tbody>
+                    <tbody id="preview-table-rubrik-body"></tbody>
                   </table>
                 </div>
                 <div class="page-break"></div>
@@ -703,7 +719,7 @@
                   <p class="font-bold text-[12pt] text-black">Lampiran 4: Format Rekapitulasi Pengisian Nilai</p>
                   <table class="w-full border-collapse border border-black text-[11pt] bg-white mt-1 text-center text-black">
                     <thead>
-                      <tr class="bg-stone-100 font-bold text-black">
+                      <tr class="bg-white font-bold text-black">
                         <th class="border border-black p-1 w-8">No</th>
                         <th class="border border-black p-1 text-left pl-2">Nama Siswa</th>
                         <th class="border border-black p-1 font-semibold">Nilai Memahami</th>
@@ -713,7 +729,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr class="text-black" style="color: #000000;">
                         <td class="border border-black p-1">1</td>
                         <td class="border border-black p-1 text-left pl-2">........................................</td>
                         <td class="border border-black p-1">/ 100</td>
@@ -721,7 +737,7 @@
                         <td class="border border-black p-1">/ 100</td>
                         <td class="border border-black p-1">............</td>
                       </tr>
-                      <tr>
+                      <tr class="text-black" style="color: #000000;">
                         <td class="border border-black p-1">2</td>
                         <td class="border border-black p-1 text-left pl-2">........................................</td>
                         <td class="border border-black p-1">/ 100</td>
@@ -783,7 +799,6 @@
       </div>
     </div>
 
-    <!-- CRM Kontrol Tabel -->
     <div class="p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm">
       <div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
         <div class="flex bg-slate-100 dark:bg-slate-950 p-1 rounded-xl w-full md:w-auto">
@@ -797,28 +812,24 @@
         </div>
       </div>
 
-      <!-- Tabel Pengguna -->
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="border-b border-slate-200 dark:border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
               <th class="pb-3 pl-2">Nama Pengguna</th>
               <th class="pb-3">Sekolah</th>
-              <th className="pb-3">Tanggal Registrasi</th>
+              <th class="pb-3">Tanggal Registrasi</th>
               <th class="pb-3">Status</th>
               <th class="pb-3 text-center">Bukti Transfer</th>
               <th class="pb-3 text-right pr-2">Aksi</th>
             </tr>
           </thead>
-          <tbody id="admin-table-body" class="divide-y divide-slate-100 dark:divide-slate-800/50 text-xs">
-            <!-- Renders via JS -->
-          </tbody>
+          <tbody id="admin-table-body" class="divide-y divide-slate-100 dark:divide-slate-800/50 text-xs"></tbody>
         </table>
       </div>
     </div>
   </div>
 
-  <!-- === VIEW 6: QRIS INTERAKTIF FULLSCREEN MODAL === -->
   <div id="qris-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden">
     <div class="absolute top-4 right-4">
       <button onclick="closeQrisModal()" class="px-4 py-2 bg-rose-600 hover:bg-rose-750 text-white font-bold rounded-xl text-xs transition-colors">
@@ -839,7 +850,6 @@
     </p>
   </div>
 
-  <!-- === VIEW 7: FULLSCREEN BUKTI RESI UNTUK ADMIN === -->
   <div id="resi-zoom-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden">
     <div class="absolute top-4 right-4 flex gap-2">
       <button onclick="adjustZoom(0.25)" class="p-2.5 rounded-xl bg-slate-800 text-white hover:bg-slate-700" title="Perbesar"><i data-lucide="zoom-in" class="w-4 h-4"></i></button>
@@ -856,27 +866,6 @@
 
   <!-- === LOGIC JAVASCRIPT === -->
   <script>
-    // --- STATE MANAGEMENT ---
-    let appState = {
-      currentPage: 'landing',
-      darkMode: false,
-      authMode: 'login',
-      currentUser: null,
-      adminFilter: 'Semua',
-      adminSearch: '',
-      zoomLevel: 1.0,
-      hasGenerated: false,
-      isGenerating: false,
-      regFileBase64: null,
-      dbUsers: []
-    };
-
-    // Constant Configs
-    const STORAGE_DRIVE_FOLDER_ID = "1-8vj0lrrht1JTWOQRqCGWSmPcJUbaVh-";
-    const BACKUP_SHEET_ID = "1VGFmpxRiP1NlEL1E66G95LNU6PEZgrvVGqHUCXbmPhg";
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0ZWOel49CT1TeXlviW8kjp-Cppob25VNk7ob6va7YwAye9oZfF8K5EzOq6IpHG27G/exec";
-
-    // Mock initial user database
     const MOCK_USERS_INITIAL = [
       {
         id: "user_demo",
@@ -891,6 +880,24 @@
         modulsCount: 0 
       }
     ];
+
+    let appState = {
+      currentPage: 'landing',
+      darkMode: false,
+      authMode: 'login',
+      currentUser: null,
+      adminFilter: 'Semua',
+      adminSearch: '',
+      zoomLevel: 1.0,
+      hasGenerated: false,
+      isGenerating: false,
+      regFileBase64: null,
+      dbUsers: []
+    };
+
+    const STORAGE_DRIVE_FOLDER_ID = "1-8vj0lrrht1JTWOQRqCGWSmPcJUbaVh-";
+    const BACKUP_SHEET_ID = "1VGFmpxRiP1NlEL1E66G95LNU6PEZgrvVGqHUCXbmPhg";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0ZWOel49CT1TeXlviW8kjp-Cppob25VNk7ob6va7YwAye9oZfF8K5EzOq6IpHG27G/exec";
 
     const PILIHAN_PROFIL_LULUSAN = [
       "Keimanan dan Ketakwaan", "Kewargaan", "Penalaran Kritis", 
@@ -985,33 +992,45 @@
       refleksiSiswa: "Belum digenerate."
     };
 
-    // Modul Ajar Generated AI State
     let generatedModulData = null;
 
-    // --- INITIALIZATION ---
-    window.addEventListener('DOMContentLoaded', () => {
-      // Load luring database dari localStorage atau default mock
-      const savedDb = localStorage.getItem('modulajar_db_users');
-      if (savedDb) {
-        appState.dbUsers = JSON.parse(savedDb);
-      } else {
-        appState.dbUsers = MOCK_USERS_INITIAL;
-        localStorage.setItem('modulajar_db_users', JSON.stringify(MOCK_USERS_INITIAL));
+    function openQrisModal() {
+      const qrisModal = document.getElementById('qris-zoom-modal');
+      if (qrisModal) {
+        qrisModal.classList.remove('hidden');
       }
+    }
 
-      // Initialize Lucide Icons
-      lucide.createIcons();
-      
-      // Render Dynamic UI
-      renderAuthNav();
-      renderProfilLulusanOptions();
-      navigateTo('landing');
-    });
+    function closeQrisModal() {
+      const qrisModal = document.getElementById('qris-zoom-modal');
+      if (qrisModal) {
+        qrisModal.classList.add('hidden');
+      }
+    }
 
-    // Theme Switcher
+    // --- UTILITY SINKRONISASI PENGULANGAN DENGAN METODE BACKOFF ---
+    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
+      for (let i = 0; i < retries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) return response;
+          if (response.status === 429 || response.status >= 500) {
+            await new Promise(res => setTimeout(res, delay));
+            delay *= 2;
+            continue;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        } catch (err) {
+          if (i === retries - 1) throw err;
+          await new Promise(res => setTimeout(res, delay));
+          delay *= 2;
+        }
+      }
+    }
+
     function toggleDarkMode() {
-      appState.darkMode = !appState.darkMode;
       const htmlClass = document.documentElement.classList;
+      appState.darkMode = !appState.darkMode;
       if (appState.darkMode) {
         htmlClass.add('dark');
       } else {
@@ -1019,7 +1038,6 @@
       }
     }
 
-    // --- NOTIFICATION UTILITY ---
     function addToast(message, type = 'success') {
       const container = document.getElementById('toast-container');
       const id = Date.now();
@@ -1045,12 +1063,10 @@
       container.appendChild(toast);
       lucide.createIcons();
 
-      // Slide in animation
       setTimeout(() => {
         toast.classList.remove('translate-x-12');
       }, 50);
 
-      // Slide out & remove
       setTimeout(() => {
         toast.classList.add('translate-x-12');
         toast.style.opacity = '0';
@@ -1060,17 +1076,11 @@
       }, 4000);
     }
 
-    // --- NAVIGATION SYSTEM ---
     function navigateTo(pageId) {
       appState.currentPage = pageId;
-      
-      // Sembunyikan semua panel views
       document.querySelectorAll('.view-panel').forEach(p => p.classList.add('hidden'));
-      
-      // Ambil view panel target
       const targetPanel = document.getElementById(`view-${pageId}`);
       if (targetPanel) targetPanel.classList.remove('hidden');
-
       renderAuthNav();
 
       if (pageId === 'admin') {
@@ -1079,14 +1089,12 @@
       }
     }
 
-    // --- AUTH NAVIGATION ---
     function navigateToAuth(mode) {
       appState.authMode = mode;
       navigateTo('auth');
       toggleAuthMode(mode);
     }
 
-    // --- TOGGLE AUTH PANEL MODE ---
     function toggleAuthMode(mode) {
       appState.authMode = mode;
       const fLogin = document.getElementById('form-login');
@@ -1107,7 +1115,6 @@
       }
     }
 
-    // --- AUTENTIKASI ---
     function renderAuthNav() {
       const container = document.getElementById('nav-auth-container');
       if (appState.currentUser && appState.currentUser.name) {
@@ -1146,7 +1153,6 @@
       const email = document.getElementById('login-email').value.trim().toLowerCase();
       const pass = document.getElementById('login-password').value;
 
-      // Admin Login
       if (email === 'admin@modulajar.com' && pass === 'admin') {
         appState.currentUser = { name: "Super Admin", email: "admin@modulajar.com", role: "admin", status: "AKTIF" };
         addToast("Berhasil masuk sebagai Super Admin!", "success");
@@ -1154,7 +1160,6 @@
         return;
       }
 
-      // Demo User
       if (email === 'demo@modulajar.com' && pass === 'demo123') {
         const demoUser = appState.dbUsers.find(u => u.email === 'demo@modulajar.com');
         appState.currentUser = demoUser;
@@ -1163,7 +1168,6 @@
         return;
       }
 
-      // Pencarian User Terdaftar
       const found = appState.dbUsers.find(u => u.email === email && u.password === pass);
       if (found) {
         appState.currentUser = found;
@@ -1218,7 +1222,6 @@
         pFill.style.width = "50%";
         pText.innerText = "Mendaftarkan data ke database Google Sheets (50%)";
 
-        // POST ke Google Apps Script secara asinkronus (no-cors)
         await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
@@ -1288,7 +1291,6 @@
       }
     }
 
-    // --- REVISI LOGIK LOGOUT ---
     function signOutUser() {
       appState.currentUser = null;
       appState.hasGenerated = false;
@@ -1299,7 +1301,6 @@
       navigateTo('landing');
     }
 
-    // --- FORM LOGIC & GENERATOR OTOMATIS ---
     function handleTingkatChange() {
       const tingkat = document.getElementById('form-tingkat').value;
       const mapelSelect = document.getElementById('form-mapel');
@@ -1316,7 +1317,7 @@
       container.innerHTML = '';
       PILIHAN_PROFIL_LULUSAN.forEach(p => {
         container.innerHTML += `
-          <button type="button" onclick="toggleProfilLulusanState('${p}')" id="btn-profil-${p.replace(/\s+/g, '-')}" class="px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-slate-400 dark:text-slate-500 hover:bg-blue-500/10">
+          <button type="button" onclick="toggleProfilLulusanState('${p}')" id="btn-profil-${p.replace(/\s+/g, '-')}" class="px-3 py-1.5 rounded-xl text-[10px] font-bold transition-all border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-stone-500 dark:text-stone-400 hover:bg-blue-500/10">
             ${p}
           </button>
         `;
@@ -1341,27 +1342,6 @@
       renderProfilLulusanOptions();
     }
 
-    // --- RETRY MECHANISM WITH EXPONENTIAL BACKOFF FOR CLOUD API CALLS ---
-    async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
-      for (let i = 0; i < retries; i++) {
-        try {
-          const response = await fetch(url, options);
-          if (response.ok) return response;
-          if (response.status === 429 || response.status >= 500) {
-            await new Promise(res => setTimeout(res, delay));
-            delay *= 2;
-            continue;
-          }
-          throw new Error(`HTTP error! status: ${response.status}`);
-        } catch (err) {
-          if (i === retries - 1) throw err;
-          await new Promise(res => setTimeout(res, delay));
-          delay *= 2;
-        }
-      }
-    }
-
-    // === DEFINISI FUNGSI SETISGENERATING ===
     function setIsGenerating(val) {
       appState.isGenerating = val;
       const statusText = document.getElementById('workspace-save-status');
@@ -1374,7 +1354,7 @@
       }
     }
 
-    // === SINKRONISASI TOTAL GENERATOR REAL-TIME MENGGUNAKAN SISTEM GENERATIF PINTAR ===
+    // === GENERATOR PINTAR DAN SINKRONISASI INSTRUMEN PEMBELAJARAN ===
     async function handleGenerateOtomatis() {
       const btn = document.getElementById('btn-generate-module');
       btn.disabled = true;
@@ -1394,9 +1374,8 @@
       const jlhPertemuan = parseInt(document.getElementById('form-pertemuan').value) || 2;
       const profil = formData.profilLulusan.join(", ");
 
-      const systemPrompt = "Anda adalah sistem pakar otomatisasi administrasi guru Kurikulum Merdeka berstandar nasional di Indonesia. Tugas Anda adalah menghasilkan Modul Ajar Deep Learning yang komprehensif, logis, rapi, dan sepenuhnya disesuaikan dengan parameter masukan pengguna. Jangan gunakan kata 'AI' dalam seluruh teks Anda. Gunakan istilah 'Sistem Pintar' atau 'Sistem Otomatis'. Pastikan seluruh isi teks, langkah, evaluasi, dan lampiran relevan secara mendalam dengan materi pokok dan mata pelajaran yang ditentukan (tidak boleh menggunakan template statis/berulang). Semua daftar poin harus menggunakan penomoran urut ke bawah secara vertikal, bukan paragraf panjang.";
+      const systemPrompt = "Anda adalah sistem pakar otomatisasi administrasi guru Kurikulum Merdeka berstandar nasional di Indonesia. Tugas Anda adalah menghasilkan Modul Ajar Deep Learning yang komprehensif, logis, rapi, dan sepenuhnya disesuaikan dengan parameter masukan pengguna. Jangan gunakan kata 'AI' dalam seluruh teks Anda. Gunakan istilah 'Sistem Pintar' atau 'Sistem Otomatis'. Pastikan seluruh isi teks, langkah, evaluasi, dan lampiran relevan secara mendalam dengan materi pokok dan mata pelajaran yang ditentukan (tidak boleh menggunakan draf template kaku/statis). Semua daftar poin harus menggunakan penomoran urut ke bawah secara vertikal, bukan paragraf panjang atau diteruskan ke samping. Warna teks hasil generate harus hitam pekat murni.";
 
-      // REVISI: Memodifikasi prompt instruksi agar menghasilkan langkah [BERKESADARAN], [BERMAKNA], [MENYENANGKAN] dan LKPD per pertemuan, serta 5 soal sumatif secara konsisten
       const userQuery = `Hasilkan modul ajar terpadu dengan kriteria berikut:
       - Tingkat Sekolah: ${tingkat} (Fase ${fase})
       - Kelas: ${kelas} (Semester ${semester})
@@ -1404,13 +1383,13 @@
       - Materi Pokok: ${materi}
       - Alokasi Waktu: ${jlhPertemuan} Pertemuan
       - Model Pembelajaran Utama: ${model}
-      - Profil Lulusan Pancasila: ${fase}
+      - Profil Lulusan Pancasila: ${profil}
 
       Pastikan:
       1. Tujuan Pembelajaran (TP) dirancang sangat jelas dan terperinci mengikuti taksonomi kognitif Kurikulum Merdeka yang relevan untuk materi "${materi}" pada Fase ini. Jangan gunakan kata '- HASIL OTOMATIS' di judul.
-      2. Skenario pembelajaran per pertemuan (pendahuluan, inti, penutup) terstruktur urut ke bawah secara vertikal dengan nomor. Di dalam skenario di setiap pertemuan, tunjukkan dan tandai secara eksplisit mana langkah yang merupakan unsur [BERKESADARAN] (Mindful), [BERMAKNA] (Meaningful), dan [MENYENANGKAN] (Joyful).
+      2. Skenario pembelajaran per pertemuan (pendahuluan, inti, penutup) terstruktur urut ke bawah secara vertikal dengan nomor. Di dalam skenario di setiap pertemuan, tunjukkan dan tandai secara eksplisit mana langkah yang merupakan unsur [BERKESADARAN] (Mindful), [BERMAKNA] (Meaningful), dan [MENYENANGKAN] (Joyful) secara detail dan terintegrasi dengan sintaksis model "${model}".
       3. LKPD harus dibuat terpisah-pisah per pertemuan secara terperinci menyesuaikan materi untuk tiap-tiap pertemuan (jumlah LKPD dibuat sebanyak ${jlhPertemuan} bagian pertemuan).
-      4. Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum).`;
+      4. Asesmen Formatif, Asesmen Sumatif (Kuis Sumatif 5 soal pilihan ganda beralasan lengkap dengan opsi A, B, C, D, alasan, kunci jawaban analisis, dan panduan penskoran) harus 100% selaras dan spesifik membahas materi "${materi}" (tidak boleh menggunakan bahasan template umum). Semua teks harus berwarna hitam.`;
 
       const apiKey = ""; // Runtime menyediakan kunci otomatis
       const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
@@ -1476,7 +1455,6 @@
         const result = await response.json();
         let jsonText = result.candidates?.[0]?.content?.parts?.[0]?.text;
         
-        // Pembersihan jika hasil dibungkus markdown
         if (jsonText.startsWith("```json")) jsonText = jsonText.substring(7);
         if (jsonText.endsWith("```")) jsonText = jsonText.substring(0, jsonText.length - 3);
 
@@ -1496,7 +1474,6 @@
           asesmenSumatif: data.asesmenSumatif
         };
 
-        // Render hasil ke Live Preview Kertas A4 di kanan
         renderA4LivePreview();
 
         btn.disabled = false;
@@ -1521,7 +1498,6 @@
       }
     }
 
-    // === REVISI: PERBAIKAN ERROR "Cannot set properties of null (setting 'innerText')" ===
     function renderA4LivePreview() {
       if (!generatedModulData) return;
 
@@ -1542,7 +1518,6 @@
       const tanggal = document.getElementById('form-tanggal').value;
       const model = document.getElementById('form-model').value;
 
-      // Update KOP & Identitas (REVISI: Menghapus DINAS PENDIDIKAN... dan mengubah seluruh visual teks A4 preview menjadi hitam pekat)
       document.getElementById('preview-kop-prov').innerText = `PEMERINTAH PROVINSI ${provinsi.toUpperCase()}`;
       document.getElementById('preview-kop-sekolah').innerText = sekolah.toUpperCase();
       document.getElementById('preview-kop-alamat').innerText = alamat;
@@ -1554,7 +1529,6 @@
       document.getElementById('preview-identitas-alokasi').innerText = alokasi;
       document.getElementById('preview-identitas-model').innerText = model;
 
-      // Konten Utama
       document.getElementById('preview-content-asesmen-awal').innerText = generatedModulData.asesmenAwal;
       document.getElementById('preview-content-profil').innerText = formData.profilLulusan.join(", ");
       document.getElementById('preview-content-tujuan').innerText = generatedModulData.tujuanPembelajaran;
@@ -1562,21 +1536,19 @@
       document.getElementById('preview-content-lingkungan').innerText = generatedModulData.lingkunganPembelajaran;
       document.getElementById('preview-content-digital').innerText = generatedModulData.pemanfaatanDigital;
 
-      // Skenario per pertemuan
       const langkahContainer = document.getElementById('preview-content-langkah');
       langkahContainer.innerHTML = '';
       generatedModulData.pertemuanData.forEach(pt => {
         langkahContainer.innerHTML += `
-          <div class="border-l-2 border-black pl-2 py-1 space-y-1 text-black font-normal" style="color: #000000;">
+          <div class="border-l-2 border-black pl-2 py-1 space-y-1 text-black font-normal" style="color: #000000; white-space: pre-line;">
             <p class="font-extrabold text-[12pt] text-black">Pertemuan ${pt.pertemuan}</p>
-            <p class="whitespace-pre-line leading-relaxed text-black" style="color: #000000;"><b>Kegiatan Pendahuluan:</b>\n${pt.pendahuluan}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000;"><b>Kegiatan Inti (Sintaks & Deep Learning):</b>\n${pt.inti}</p>
-            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000;"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
+            <p class="whitespace-pre-line leading-relaxed text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Pendahuluan:</b>\n${pt.pendahuluan}</p>
+            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Inti (Sintaks & Deep Learning):</b>\n${pt.inti}</p>
+            <p class="whitespace-pre-line leading-relaxed mt-1 text-black" style="color: #000000; white-space: pre-line;"><b>Kegiatan Penutup:</b>\n${pt.penutup}</p>
           </div>
         `;
       });
 
-      // Asesmen & TTD (REVISI: Penyelarasan pemanggilan ID yang tepat dari 'preview-content-formatif-sumatif')
       const targetAsesmenPreview = document.getElementById('preview-content-formatif-sumatif');
       if (targetAsesmenPreview) {
         targetAsesmenPreview.innerText = `Asesmen Formatif: ${generatedModulData.asesmenFormatif}\n\nAsesmen Sumatif: ${generatedModulData.asesmenSumatif}`;
@@ -1591,7 +1563,6 @@
       const tglFormatted = new Date(tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       document.getElementById('preview-tanggal-tempat').innerText = `${document.getElementById('form-kecamatan').value}, ${tglFormatted}`;
 
-      // Lampiran-Lampiran
       document.getElementById('preview-lampiran-lkpd').innerText = generatedModulData.lkpd;
       
       if (generatedModulData.kuisSumatif) {
@@ -1601,7 +1572,6 @@
         document.getElementById('preview-lampiran-kuis-container').classList.add('hidden');
       }
 
-      // Rubrik Tabel 4 tingkat
       const rubrikBody = document.getElementById('preview-table-rubrik-body');
       rubrikBody.innerHTML = '';
       generatedModulData.rubrikPenilaian.forEach(r => {
@@ -1617,7 +1587,6 @@
       });
     }
 
-    // --- INTEGRASI BACKUP CLOUD & CRM ADMIN ---
     async function handleBackupSync() {
       addToast("Menghubungkan ke Google Sheet Database...", "info");
       try {
@@ -1744,34 +1713,10 @@
       }
     }
 
-    // --- MODALS (QRIS & RESI ZOOM) ---
-    function openQrisModal() {
-      document.getElementById('qris-zoom-modal').classList.remove('hidden');
-    }
-
-    function closeQrisModal() {
-      document.getElementById('qris-zoom-modal').classList.add('hidden');
-    }
-
-    function openResiModal(url) {
-      const modal = document.getElementById('resi-zoom-modal');
-      const img = document.getElementById('resi-zoom-image');
-      img.src = url;
-      appState.zoomLevel = 1.0;
-      img.style.transform = `scale(${appState.zoomLevel})`;
-      modal.classList.remove('hidden');
-    }
-
-    function adjustZoom(amount) {
-      appState.zoomLevel = Math.max(0.5, Math.min(2.5, appState.zoomLevel + amount));
-      document.getElementById('resi-zoom-image').style.transform = `scale(${appState.zoomLevel})`;
-    }
-
     function closeResiModal() {
       document.getElementById('resi-zoom-modal').classList.add('hidden');
     }
 
-    // --- EKSPOR DOKUMEN (PDF & WORD) ---
     async function exportPDF() {
       if (!generatedModulData) return;
       await exportPDF_logic();
@@ -1788,7 +1733,7 @@
       });
 
       const colorPrimary = [0, 0, 0]; 
-      const colorSecondary = [0, 0, 0]; // REVISI: Mengubah judul sub bab PDF agar berwarna hitam pekat murni
+      const colorSecondary = [0, 0, 0]; 
 
       const marginKiri = 30;
       const marginKanan = 30;
@@ -1813,21 +1758,21 @@
       };
 
       const drawPageBorder = (pdfDoc) => {
-        pdfDoc.setDrawColor(0, 0, 0); // REVISI: Mengubah warna bingkai halaman menjadi hitam pekat
+        pdfDoc.setDrawColor(0, 0, 0); 
         pdfDoc.setLineWidth(0.3);
         pdfDoc.rect(15, 15, 180, 267);
         
         pdfDoc.setFont('times', 'normal');
-        pdfDoc.setFontSize(12); // REVISI: Mengubah teks catatan kaki/bingkai agar konsisten berukuran 12pt
-        pdfDoc.setTextColor(0, 0, 0); // REVISI: Menjadi hitam pekat
+        pdfDoc.setFontSize(12); 
+        pdfDoc.setTextColor(0, 0, 0); 
         pdfDoc.text("Halaman " + pdfDoc.internal.getNumberOfPages(), 190, 277, { align: 'right' });
       };
 
       drawPageBorder(doc);
 
-      // KOP SURAT (Hapus DINAS PENDIDIKAN DAN KEBUDAYAAN)
+      // KOP SURAT
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Mengubah ukuran huruf KOP agar seragam di 12pt
+      doc.setFontSize(12); 
       doc.setTextColor(...colorPrimary);
       doc.text(`PEMERINTAH PROVINSI ${document.getElementById('form-provinsi').value.toUpperCase()}`, 105, currentY, { align: 'center' });
       
@@ -1835,7 +1780,7 @@
       doc.text(document.getElementById('form-sekolah').value.toUpperCase(), 105, currentY + 6, { align: 'center' });
       
       doc.setFont('times', 'normal');
-      doc.setFontSize(12); // REVISI: Mengubah ukuran huruf KOP agar seragam di 12pt
+      doc.setFontSize(12); 
       doc.setTextColor(...colorPrimary);
       doc.text(document.getElementById('form-alamat').value + `, Kec. ${document.getElementById('form-kecamatan').value}, Kab. ${document.getElementById('form-kabupaten').value}`, 105, currentY + 11, { align: 'center' });
       
@@ -1848,7 +1793,7 @@
       currentY += 24;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Mempertahankan ukuran 12pt dengan warna hitam pekat murni
+      doc.setFontSize(12); 
       doc.setTextColor(...colorSecondary); 
       doc.text(`MODUL AJAR DEEP LEARNING ${document.getElementById('form-tingkat').value}`, 105, currentY, { align: 'center' });
       
@@ -1858,8 +1803,8 @@
       currentY += 10;
 
       // TABLE IDENTITAS
-      doc.setFontSize(12); // REVISI: Selaras 12pt
-      doc.setDrawColor(0, 0, 0); // REVISI: Border hitam pekat
+      doc.setFontSize(12); 
+      doc.setDrawColor(0, 0, 0); 
       doc.setFillColor(255, 255, 255);
       doc.rect(marginKiri, currentY, contentWidth, 38, 'FD');
 
@@ -1883,7 +1828,7 @@
         rowY += rowHeight;
       };
 
-      printRow("Nama Pendidik", document.getElementById('form-guru').value + (document.getElementById('form-nip').value ? ` (NIP. ${document.getElementById('form-nip').value})` : ""));
+      printRow("Nama Pendidik", document.getElementById('form-guru').value + (document.getElementById('form-nip').value ? ` (NIP: ${document.getElementById('form-nip').value})` : ""));
       printRow("Fase / Kelas / Sem.", `Fase ${document.getElementById('form-fase').value} / ${document.getElementById('form-kelas').value} / Semester ${document.getElementById('form-semester').value}`);
       printRow("Alokasi Waktu", document.getElementById('form-alokasi').value);
       printRow("Model Pembelajaran", document.getElementById('form-model').value);
@@ -1893,7 +1838,7 @@
       // Fungsi Render Teks Multiline / Berpoin Secara Rata Kanan-Kiri & Vertikal Rapi
       const printMultilineJustified = (text) => {
         doc.setFont('times', 'normal');
-        doc.setFontSize(12); // REVISI: Memaksa ukuran huruf isi konsisten di 12pt
+        doc.setFontSize(12); 
         doc.setTextColor(...colorPrimary);
 
         const paragraphs = text.split('\n');
@@ -1917,7 +1862,7 @@
 
             const wrappedLines = doc.splitTextToSize(bodyText, bodyWidth);
             wrappedLines.forEach((line, index) => {
-              checkPageBreak(6); // REVISI: Mengubah batas tinggi baris agar spasi proporsional dengan font 12pt
+              checkPageBreak(6); 
               if (index === 0) {
                 doc.setFont('times', 'bold');
                 doc.text(label, marginKiri, currentY);
@@ -1926,7 +1871,7 @@
               } else {
                 doc.text(line, marginKiri + 8, currentY, { align: 'justify', maxWidth: bodyWidth });
               }
-              currentY += 6; // REVISI: Spasi rapat proporsional font 12pt
+              currentY += 6; 
             });
             currentY += 2; 
           } else {
@@ -1944,7 +1889,7 @@
       const printSectionHeader = (title) => {
         checkPageBreak(15);
         doc.setFont('times', 'bold');
-        doc.setFontSize(12); // REVISI: Mengubah judul sub bab agar konsisten di 12pt berwarna hitam pekat murni
+        doc.setFontSize(12); 
         doc.setTextColor(...colorSecondary); 
         doc.text(title, marginKiri, currentY);
         doc.setDrawColor(0, 0, 0);
@@ -1968,7 +1913,7 @@
       // D. KERANGKA PEDAGOGIS DEEP LEARNING
       printSectionHeader("D. KERANGKA PEDAGOGIS DEEP LEARNING");
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.setTextColor(...colorPrimary);
       doc.text("Praktik Pedagogis:", marginKiri, currentY);
       currentY += 6;
@@ -1976,7 +1921,7 @@
 
       checkPageBreak(18);
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.text("Lingkungan & Pemanfaatan Digital:", marginKiri, currentY);
       currentY += 6;
       printMultilineJustified(`- ${generatedModulData.lingkunganPembelajaran}\n- ${generatedModulData.pemanfaatanDigital}`);
@@ -1986,7 +1931,7 @@
       generatedModulData.pertemuanData.forEach((pt) => {
         checkPageBreak(12);
         doc.setFont('times', 'bold');
-        doc.setFontSize(12); // REVISI: Konsisten 12pt
+        doc.setFontSize(12); 
         doc.setTextColor(...colorPrimary);
         doc.text(`Pertemuan Ke-${pt.pertemuan}`, marginKiri, currentY);
         currentY += 6;
@@ -2016,8 +1961,7 @@
       // G. TANDA TANGAN
       checkPageBreak(40);
       doc.setFont('times', 'normal');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
-      doc.setTextColor(...colorPrimary);
+      doc.setFontSize(12); 
       doc.text(dateFormatted, 210 - marginKanan - 50, currentY);
       currentY += 6;
 
@@ -2036,23 +1980,19 @@
       doc.setFont('times', 'normal');
       doc.text("NIP. " + (document.getElementById('form-nip').value || "......................."), 210 - marginKanan - 50, currentY + 5);
 
-      // ==========================================
-      // REVISI: SEMUA LAMPIRAN DIPAKSA MULAI DI HALAMAN BARU (PAGE BREAK)
-      // ==========================================
-      
       // LAMPIRAN 1: LKPD
       doc.addPage();
       drawPageBorder(doc);
       currentY = marginAtas;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.setTextColor(...colorSecondary);
       doc.text("G. LAMPIRAN DOKUMEN AJAR", 105, currentY, { align: 'center' });
       currentY += 8;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.setTextColor(...colorPrimary);
       doc.text("Lampiran 1: Lembar Kerja Peserta Didik (LKPD)", marginKiri, currentY);
       doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
@@ -2067,7 +2007,7 @@
         currentY = marginAtas;
 
         doc.setFont('times', 'bold');
-        doc.setFontSize(12); // REVISI: Konsisten 12pt
+        doc.setFontSize(12); 
         doc.text("Lampiran 2: Instrumen Soal Kuis Sumatif", marginKiri, currentY);
         doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
         currentY += 7.5;
@@ -2081,7 +2021,7 @@
       currentY = marginAtas;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.text("Lampiran 3: Rubrik Penilaian Kinerja Ketercapaian (4 Tingkat)", marginKiri, currentY);
       doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
       currentY += 7.5;
@@ -2099,7 +2039,7 @@
           return splitText;
         });
 
-        const cellHeight = (maxLines * 5) + 3; // Jarak tinggi sel disesuaikan font 12pt
+        const cellHeight = (maxLines * 5) + 3; 
         checkPageBreak(cellHeight);
 
         if (isHeader) {
@@ -2108,7 +2048,7 @@
           doc.setFillColor(255, 255, 255);
         }
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'F');
-        doc.setDrawColor(0, 0, 0); // REVISI: Tabel border hitam pekat
+        doc.setDrawColor(0, 0, 0); 
         doc.rect(marginKiri, currentY, contentWidth, cellHeight, 'D');
 
         let currentX = marginKiri;
@@ -2118,7 +2058,7 @@
           } else {
             doc.setFont('times', 'normal');
           }
-          doc.setFontSize(12); // REVISI: Mengubah ukuran huruf sel tabel agar konsisten 12pt
+          doc.setFontSize(12); 
           doc.setTextColor(...colorPrimary); 
           
           doc.text(lines, currentX + 1.5, currentY + 4.5, { align: 'justify', maxWidth: colWidths[idx] - 3 });
@@ -2151,7 +2091,7 @@
       currentY = marginAtas;
 
       doc.setFont('times', 'bold');
-      doc.setFontSize(12); // REVISI: Konsisten 12pt
+      doc.setFontSize(12); 
       doc.text("Lampiran 4: Format Rekapitulasi Penilaian Nilai Akhir", marginKiri, currentY);
       doc.line(marginKiri, currentY + 1.5, 210 - marginKanan, currentY + 1.5);
       currentY += 7.5;
@@ -2166,7 +2106,7 @@
       let currentX = marginKiri;
       nilaiHeaders.forEach((header, idx) => {
         doc.setFont('times', 'bold');
-        doc.setFontSize(12); // REVISI: Konsisten 12pt
+        doc.setFontSize(12); 
         doc.setTextColor(...colorPrimary); 
         doc.text(header, currentX + 1.5, currentY + 5);
         if (idx > 0) {
@@ -2184,7 +2124,7 @@
 
         let rowX = marginKiri;
         doc.setFont('times', 'normal');
-        doc.setFontSize(12); // REVISI: Konsisten 12pt
+        doc.setFontSize(12); 
         doc.text(j.toString(), rowX + 2, currentY + 5);
         rowX += nilaiColWidths[0];
         doc.line(rowX, currentY, rowX, currentY + 8);
@@ -2218,17 +2158,16 @@
       const dateFormatted = new Date(document.getElementById('form-tanggal').value).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
       const datePlace = `${document.getElementById('form-kecamatan').value}, ${dateFormatted}`;
 
-      // Transformasi penomoran urut ke bawah menggunakan struktur HTML semantik yang didukung penuh MS Word
       const formatNumberedText = (text) => {
         if (!text) return "";
-        const lines = text.split('\n').filter(line => line.trim() !== "");
-        let resultHtml = "<ol style='margin-top:0px; margin-bottom:10px;'>";
-        lines.forEach(line => {
-          const cleanLine = line.replace(/^\d+[\.\)\-]\s*/, '').trim();
-          resultHtml += `<li style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-bottom: 6px; color: #000000;'>${cleanLine}</li>`;
-        });
-        resultHtml += "</ol>";
-        return resultHtml;
+        const lines = text.split('\n');
+        return lines.map(line => {
+          const trimmed = line.trim();
+          if (!trimmed) return "<p style='margin-bottom:6px;'></p>";
+          const isListItem = /^\d+[\.\)\-]\s*/.test(trimmed) || /^[A-Ea-e][\.\)\-]\s*/.test(trimmed) || trimmed.startsWith('-') || trimmed.startsWith('•');
+          const indentStyle = isListItem ? "margin-left: 20px; text-indent: -20px;" : "";
+          return `<p style='text-align: justify; font-family: "Times New Roman", serif; font-size: 12pt; margin-top: 0px; margin-bottom: 6px; color: #000000; ${indentStyle}'>${line}</p>`;
+        }).join("");
       };
 
       const docHtml = `
@@ -2548,6 +2487,29 @@
       
       addToast("Modul Ajar berhasil diekspor ke Microsoft Word!", "success");
     }
+
+    // --- INISIALISASI OTOMATIS SAAT HALAMAN SELESAI DIMUAT ---
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Muat Database Pengguna dari LocalStorage atau Mock Data
+      const savedUsers = localStorage.getItem('modulajar_db_users');
+      if (savedUsers) {
+        appState.dbUsers = JSON.parse(savedUsers);
+      } else {
+        appState.dbUsers = [...MOCK_USERS_INITIAL];
+        localStorage.setItem('modulajar_db_users', JSON.stringify(appState.dbUsers));
+      }
+
+      // 2. Render Opsi Profil Lulusan Pancasila (Multi-Select)
+      renderProfilLulusanOptions();
+
+      // 3. Render Status Autentikasi Navigasi Utama
+      renderAuthNav();
+
+      // 4. Inisialisasi Ikon Lucide untuk Elemen Statis
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
   </script>
 </body>
 </html>
